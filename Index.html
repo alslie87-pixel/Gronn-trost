@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grønn Trøst – Blomster som hedrer minnet</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-dark:   #3B6D11;
+    --green-mid:    #639922;
+    --green-light:  #ADBF81;
+    --green-pale:   #EAF3DE;
+    --gold:         #DEBB8B;
+    --warm-white:   #FAFAF7;
+    --stone:        #F4F2EC;
+    --text-dark:    #1E1E1A;
+    --text-mid:     #4A4A42;
+    --text-soft:    #7D7D70;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans:  'Jost', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); font-weight: 300; color: var(--text-dark); background: var(--warm-white); font-size: 16px; line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 4vw;
+    background: rgba(250,250,247,0.95); backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid rgba(173,191,129,0.3);
+  }
+  .nav-logo svg { height: 38px; width: auto; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a { text-decoration: none; font-size: 13px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--green-dark); }
+  .btn-nav { background: var(--green-dark) !important; color: #fff !important; padding: 0.5rem 1.25rem; border-radius: 2px; font-size: 12px !important; }
+  .btn-nav:hover { background: var(--green-mid) !important; }
+
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-start;
+    padding: 7rem 4vw 6rem; background: var(--warm-white); position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: url('hero.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  .hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(250,250,247,0.88) 0%, rgba(250,250,247,0.45) 45%, rgba(0,0,0,0.0) 100%);
+  }
+  .hero-inner { max-width: 520px; position: relative; margin-top: 1rem; }
+  .hero-tag { display: inline-block; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green-mid); font-weight: 400; margin-bottom: 1.5rem; border-bottom: 1px solid var(--green-light); padding-bottom: 4px; }
+  h1 { font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; line-height: 1.2; color: var(--text-dark); margin-bottom: 1.5rem; }
+  h1 em { font-style: italic; color: var(--green-dark); }
+  .hero-sub { font-size: 0.92rem; color: var(--text-mid); max-width: 440px; margin-bottom: 2rem; font-weight: 300; }
+  .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { display: inline-block; text-decoration: none; background: var(--green-dark); color: #fff; padding: 0.85rem 2rem; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 400; border-radius: 2px; transition: background 0.2s; cursor: pointer; border: none; font-family: var(--sans); }
+  .btn-primary:hover { background: var(--green-mid); }
+  .btn-secondary { display: inline-block; text-decoration: none; border: 1px solid var(--green-light); color: var(--green-dark); padding: 0.85rem 2rem; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 400; border-radius: 2px; transition: all 0.2s; }
+  .btn-secondary:hover { background: var(--green-pale); }
+  .hero-scroll { position: absolute; bottom: 2.5rem; left: 4vw; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-soft); display: flex; align-items: center; gap: 0.6rem; }
+  .hero-scroll::before { content: ''; display: block; width: 30px; height: 1px; background: var(--green-light); }
+
+  section { padding: 6rem 4vw; }
+  .section-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green-mid); font-weight: 400; margin-bottom: 1rem; }
+  h2 { font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; line-height: 1.25; margin-bottom: 1.25rem; color: var(--text-dark); }
+  h2 em { font-style: italic; color: var(--green-dark); }
+  .lead { font-size: 1.05rem; color: var(--text-mid); max-width: 560px; font-weight: 300; }
+
+  #verdier { background: var(--stone); }
+  .verdier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; margin-top: 3rem; }
+  .verdi-card { background: var(--warm-white); padding: 2rem; border-left: 2px solid var(--green-light); }
+  .verdi-icon { font-size: 1.4rem; margin-bottom: 1rem; display: block; }
+  .verdi-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; margin-bottom: 0.5rem; color: var(--text-dark); }
+  .verdi-text { font-size: 0.9rem; color: var(--text-mid); }
+
+  #tjenester { background: var(--warm-white); }
+  .sesong-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .sesong-card { border: 0.5px solid rgba(173,191,129,0.4); padding: 2rem 1.5rem; transition: box-shadow 0.2s; }
+  .sesong-card:hover { box-shadow: 0 4px 24px rgba(59,109,17,0.08); }
+  .sesong-badge { display: inline-block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-dark); background: var(--green-pale); padding: 3px 10px; margin-bottom: 1rem; }
+  .sesong-title { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; margin-bottom: 1rem; color: var(--text-dark); }
+  .sesong-items { list-style: none; margin-bottom: 1.5rem; }
+  .sesong-items li { font-size: 0.875rem; color: var(--text-mid); padding: 0.3rem 0; border-bottom: 0.5px solid rgba(173,191,129,0.25); display: flex; align-items: center; gap: 0.5rem; }
+  .sesong-items li::before { content: '—'; color: var(--green-light); font-size: 0.7rem; }
+  .sesong-price { font-family: var(--serif); font-size: 1.6rem; font-weight: 300; color: var(--green-dark); }
+  .sesong-price span { font-size: 0.8rem; font-family: var(--sans); color: var(--text-soft); }
+  .foto-note { margin-top: 2rem; padding: 1.25rem 1.5rem; background: var(--green-pale); border-left: 2px solid var(--green-light); font-size: 0.9rem; color: var(--text-mid); max-width: 500px; }
+
+  #priser { background: var(--stone); }
+  .pris-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .pris-card { background: var(--warm-white); padding: 2rem 1.5rem; border: 0.5px solid rgba(173,191,129,0.35); text-align: center; position: relative; }
+  .pris-card.featured { border: 1.5px solid var(--green-mid); }
+  .featured-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--green-dark); color: #fff; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 14px; white-space: nowrap; }
+  .pris-name { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.75rem; }
+  .pris-amount { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--text-dark); margin-bottom: 0.25rem; }
+  .pris-unit { font-size: 0.8rem; color: var(--text-soft); margin-bottom: 1rem; }
+  .pris-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.5; }
+
+  #b2b { background: var(--text-dark); color: var(--warm-white); }
+  #b2b .section-label { color: var(--green-light); }
+  #b2b h2 { color: var(--warm-white); }
+  #b2b .lead { color: rgba(250,250,247,0.7); }
+  .b2b-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .b2b-card { border: 0.5px solid rgba(173,191,129,0.25); padding: 2rem 1.5rem; position: relative; }
+  .b2b-card.featured { border-color: var(--green-light); }
+  .b2b-name { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-light); margin-bottom: 0.75rem; }
+  .b2b-price { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--warm-white); margin-bottom: 1rem; }
+  .b2b-items { list-style: none; }
+  .b2b-items li { font-size: 0.85rem; color: rgba(250,250,247,0.65); padding: 0.3rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.06); display: flex; gap: 0.5rem; }
+  .b2b-items li::before { content: '—'; color: var(--green-light); flex-shrink: 0; }
+  .b2b-note { margin-top: 2.5rem; font-size: 0.875rem; color: rgba(250,250,247,0.5); font-style: italic; font-family: var(--serif); }
+  #b2b .btn-secondary { border-color: rgba(173,191,129,0.5); color: var(--green-light); margin-top: 2rem; display: inline-block; }
+  #b2b .btn-secondary:hover { background: rgba(173,191,129,0.1); }
+
+  #om-oss { background: var(--warm-white); }
+  .om-oss-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; max-width: 960px; }
+  .om-oss-owners { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+  .owner-card { padding: 1.5rem; background: var(--stone); border-left: 2px solid var(--green-light); }
+  .owner-name { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; margin-bottom: 0.25rem; color: var(--text-dark); }
+  .owner-role { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green-mid); margin-bottom: 0.75rem; }
+  .owner-bio { font-size: 0.875rem; color: var(--text-mid); }
+  .om-oss-closing { margin-top: 2rem; font-family: var(--serif); font-size: 1.15rem; font-style: italic; color: var(--green-dark); line-height: 1.5; }
+
+  #kontakt { background: var(--stone); }
+  .kontakt-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; max-width: 900px; }
+  .kontakt-detail { margin-top: 2rem; }
+  .kontakt-detail p { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 0.5rem; }
+  .kontakt-detail a { color: var(--green-dark); text-decoration: none; }
+  .form-row { margin-bottom: 1.25rem; }
+  .form-row label { display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.4rem; }
+  .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 0.75rem 1rem; border: 0.5px solid rgba(173,191,129,0.5); background: var(--warm-white); font-family: var(--sans); font-size: 0.9rem; font-weight: 300; color: var(--text-dark); outline: none; transition: border-color 0.2s; }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--green-mid); }
+  .form-row textarea { resize: vertical; min-height: 100px; }
+  .form-check { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.85rem; color: var(--text-mid); margin: 1rem 0 1.5rem; }
+  .form-check input { width: auto; margin-top: 3px; }
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  footer { background: var(--text-dark); color: rgba(250,250,247,0.6); padding: 3rem 4vw; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-brand { font-family: var(--serif); font-size: 1rem; color: var(--warm-white); }
+  .footer-brand span { display: block; font-family: var(--sans); font-size: 0.75rem; color: rgba(250,250,247,0.4); letter-spacing: 0.08em; margin-top: 0.25rem; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .om-oss-inner, .kontakt-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" style="text-decoration:none; font-family: var(--serif); font-size: 1.4rem; font-weight: 400; color: var(--green-dark); letter-spacing: 0.02em;">Grønn Trøst</a>
+  <div class="nav-links">
+    <a href="#tjenester">Tjenester</a>
+    <a href="#priser">Priser</a>
+    <a href="#om-oss">Om oss</a>
+    <a href="#kontakt" class="btn-nav">Få et tilbud</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <span class="hero-tag">Blomster som hedrer minnet</span>
+    <h1>Med vår personlige omsorg skaper vi <em>levende, vakre gravsteder</em></h1>
+    <p class="hero-sub">Så du finner ro til heder og ettertanke, og minnet kan blomstre året rundt. Vi betjener familier og kirkegårder i Østfold – Våler, Moss og nærområder.</p>
+    <div class="btn-group">
+      <a href="#tjenester" class="btn-primary">Se våre tjenester</a>
+      <a href="#kontakt" class="btn-secondary">Kontakt oss</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll ned</div>
+</section>
+
+<section id="verdier">
+  <p class="section-label">Vår filosofi</p>
+  <h2>Omsorg du kan <em>stole på</em></h2>
+  <p class="lead">Et velstelt gravsted gir trøst og ro i sorgen. Med fagkunnskap og hjerte letter vi byrden for deg og din familie.</p>
+  <div class="verdier-grid">
+    <div class="verdi-card">
+      <span class="verdi-icon">🌿</span>
+      <div class="verdi-title">Personlig omsorg</div>
+      <p class="verdi-text">Vi behandler hvert gravsted med samme respekt og kjærlighet som om det var vårt eget. Du er aldri bare et nummer.</p>
+    </div>
+    <div class="verdi-card">
+      <span class="verdi-icon">🌱</span>
+      <div class="verdi-title">Bærekraftige planter</div>
+      <p class="verdi-text">Vi velger værhardige og bærekraftige planter som tåler norske årstider og ser vakre ut gjennom hele året.</p>
+    </div>
+    <div class="verdi-card">
+      <span class="verdi-icon">🌸</span>
+      <div class="verdi-title">Minnet blomstrer</div>
+      <p class="verdi-text">Målet vårt er at gravstedet skal speile livet og verdiene til den du husker – gjennom alle fire årstider.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tjenester">
+  <p class="section-label">For private familier</p>
+  <h2>Stell gjennom <em>alle årstider</em></h2>
+  <p class="lead">Velg den pakken som passer deg best, eller sett sammen din egen avtale. Vi tar oss av alt – du slipper å tenke på det.</p>
+  <div class="sesong-grid">
+    <div class="sesong-card">
+      <span class="sesong-badge">Vår</span>
+      <div class="sesong-title">Vårplanting</div>
+      <ul class="sesong-items">
+        <li>Planting av vårblomster</li>
+        <li>Opprydding etter vinteren</li>
+        <li>Vanning og gjødsling</li>
+        <li>Foto sendt til deg</li>
+      </ul>
+      <div class="sesong-price">+890 kr <span>/ sesong</span></div>
+    </div>
+    <div class="sesong-card">
+      <span class="sesong-badge">Sommer</span>
+      <div class="sesong-title">Sommerplanting</div>
+      <ul class="sesong-items">
+        <li>Planting av sommerblomster</li>
+        <li>Vanning og luking</li>
+        <li>Vask av gravstein</li>
+        <li>Foto sendt til deg</li>
+      </ul>
+      <div class="sesong-price">+890 kr <span>/ sesong</span></div>
+    </div>
+    <div class="sesong-card">
+      <span class="sesong-badge">Høst</span>
+      <div class="sesong-title">Høstplanting</div>
+      <ul class="sesong-items">
+        <li>Planting av høstblomster</li>
+        <li>Luking og opprydding</li>
+        <li>Nye lys og lykter</li>
+        <li>Foto sendt til deg</li>
+      </ul>
+      <div class="sesong-price">+790 kr <span>/ sesong</span></div>
+    </div>
+    <div class="sesong-card">
+      <span class="sesong-badge">Vinter</span>
+      <div class="sesong-title">Vinterdekor</div>
+      <ul class="sesong-items">
+        <li>Mosekrans med lykt</li>
+        <li>Vinterdekorasjon</li>
+        <li>Rydding av snø ved graven</li>
+        <li>Foto sendt til deg</li>
+      </ul>
+      <div class="sesong-price">+690 kr <span>/ sesong</span></div>
+    </div>
+  </div>
+  <div class="foto-note">
+    📷 Etter hvert stell sender vi deg et bilde av gravstedet – så du alltid vet at alt ser fint ut, uansett hvor du befinner deg.
+  </div>
+</section>
+
+<section id="priser">
+  <p class="section-label">Priser – privat</p>
+  <h2>Enkel og <em>fleksibel</em> prising</h2>
+  <p class="lead">Start med grunnpakken og legg til de sesongene du ønsker. Eller velg full årsavtale og spar.</p>
+  <div class="pris-grid">
+    <div class="pris-card">
+      <div class="pris-name">Grunnpakke</div>
+      <div class="pris-amount">990 kr</div>
+      <div class="pris-unit">per år</div>
+      <div class="pris-desc">Vanning og lett vedlikehold gjennom sesongen.</div>
+    </div>
+    <div class="pris-card featured">
+      <div class="featured-badge">Mest populær</div>
+      <div class="pris-name">Full årsavtale</div>
+      <div class="pris-amount">3 250 kr</div>
+      <div class="pris-unit">per år · alle 4 sesonger</div>
+      <div class="pris-desc">Grunnpakke + vår, sommer, høst og vinterdekor. Best verdi.</div>
+    </div>
+    <div class="pris-card">
+      <div class="pris-name">Enkeltbesøk</div>
+      <div class="pris-amount">990 kr</div>
+      <div class="pris-unit">per besøk</div>
+      <div class="pris-desc">Utenfor fast avtale. Inkluderer foto og rapport.</div>
+    </div>
+  </div>
+  <div style="margin-top:2.5rem;">
+    <a href="#kontakt" class="btn-primary">Bestill årsavtale</a>
+  </div>
+</section>
+
+<section id="b2b">
+  <p class="section-label">For kirkegårder og kommuner</p>
+  <h2>Profesjonelt helårs<em>vedlikehold</em></h2>
+  <p class="lead">Vi påtar oss fullt vedlikehold av kirkegårdens grøntområder og tilhørende veier og stier – hele året rundt.</p>
+  <div class="b2b-grid">
+    <div class="b2b-card">
+      <div class="b2b-name">Basis</div>
+      <div class="b2b-price">89 000 kr</div>
+      <ul class="b2b-items">
+        <li>Gressklipping og luking</li>
+        <li>Vår- og høststell av beplantning</li>
+        <li>Vedlikehold av grusveier og stier</li>
+      </ul>
+    </div>
+    <div class="b2b-card featured">
+      <div class="featured-badge">Mest populær</div>
+      <div class="b2b-name">Full vedlikehold</div>
+      <div class="b2b-price">149 000 kr</div>
+      <ul class="b2b-items">
+        <li>Alt i Basis</li>
+        <li>Høstbladopprydding</li>
+        <li>Snøbrøyting og strøing</li>
+        <li>Sesongbeplantning vår og høst</li>
+      </ul>
+    </div>
+    <div class="b2b-card">
+      <div class="b2b-name">Komplett</div>
+      <div class="b2b-price">219 000 kr</div>
+      <ul class="b2b-items">
+        <li>Alt i Full vedlikehold</li>
+        <li>Ukentlig tilsyn og rapportering</li>
+        <li>Månedlig statusrapport</li>
+        <li>Prioritert respons</li>
+      </ul>
+    </div>
+  </div>
+  <p class="b2b-note">Prisene er startpriser for 2026 og justeres etter befaring og areal.</p>
+  <a href="#kontakt" class="btn-secondary">Ta kontakt for befaring</a>
+</section>
+
+<section id="om-oss">
+  <div class="om-oss-inner">
+    <div>
+      <p class="section-label">Om oss</p>
+      <h2>Drevet av <em>hjerte</em> og fagkunnskap</h2>
+      <p class="lead">Grønn Trøst ble til av en felles lidenskap for hagearbeid, natur og respekt for de som har gått bort.</p>
+      <p class="om-oss-closing">"Sammen driver vi Grønn Trøst med hjerte, fagkunnskap og personlig engasjement."</p>
+    </div>
+    <div>
+      <div class="om-oss-owners">
+        <div class="owner-card">
+          <div class="owner-name">Lise</div>
+          <div class="owner-role">Gartner &amp; medgründer</div>
+          <p class="owner-bio">Fra en familie med sterk tradisjon innen gartneri og natur. De siste 15 årene har hun stelt gården sin i Våler med stor omhu. Nå er lidenskapen blitt til yrke.</p>
+        </div>
+        <div class="owner-card">
+          <div class="owner-name">Stian</div>
+          <div class="owner-role">Anleggsarbeider &amp; medgründer</div>
+          <p class="owner-bio">De siste to årene har han jobbet med vedlikehold av grøntarealer på kirkegårder i Moss. Kjent for høy stolthet og nøyaktighet i å holde gravplasser i best mulig stand.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="kontakt-inner">
+    <div class="kontakt-info">
+      <p class="section-label">Kontakt</p>
+      <h2>La oss ta <em>vare på</em> minnet</h2>
+      <p class="lead">Fyll ut skjemaet, så tar vi kontakt innen én virkedag.</p>
+      <div class="kontakt-detail">
+        <p>📍 Tjenesteområde: Østfold – Våler, Moss og nærområder</p>
+        <p>✉️ <a href="/cdn-cgi/l/email-protection#b3dbd6daf3d4c1dcddddc7c1dcc0c79ddddc"><span class="__cf_email__" data-cfemail="2a424f436a4d584544445e5845595e044445">[email&#160;protected]</span></a></p>
+        <p>📞 <a href="tel:+4700000000">+47 000 00 000</a></p>
+      </div>
+    </div>
+    <div>
+      <div class="form-row-2">
+        <div class="form-row"><label>Fornavn</label><input type="text" placeholder="Ola"/></div>
+        <div class="form-row"><label>Etternavn</label><input type="text" placeholder="Nordmann"/></div>
+      </div>
+      <div class="form-row"><label>E-postadresse</label><input type="email" placeholder="ola@eksempel.no"/></div>
+      <div class="form-row"><label>Telefon</label><input type="tel" placeholder="+47"/></div>
+      <div class="form-row"><label>Kirkegård / sted</label><input type="text" placeholder="f.eks. Våler kirkegård"/></div>
+      <div class="form-row">
+        <label>Tjeneste</label>
+        <select>
+          <option value="">Velg tjeneste...</option>
+          <option>Grunnpakke (990 kr/år)</option>
+          <option>Full årsavtale (3 250 kr)</option>
+          <option>Enkeltbesøk (990 kr)</option>
+          <option>B2B – Basis (89 000 kr)</option>
+          <option>B2B – Full vedlikehold (149 000 kr)</option>
+          <option>B2B – Komplett (219 000 kr)</option>
+          <option>Usikker – ønsker rådgivning</option>
+        </select>
+      </div>
+      <div class="form-row"><label>Melding (valgfritt)</label><textarea placeholder="Fortell oss gjerne litt om gravstedet og hva du ønsker hjelp med..."></textarea></div>
+      <div class="form-check">
+        <input type="checkbox" id="nyhetsbrev"/>
+        <label for="nyhetsbrev">Ja, jeg ønsker sesongtips og tilbud på e-post</label>
+      </div>
+      <button class="btn-primary" style="width:100%;">Send melding</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Grønn Trøst <span>Blomster som hedrer minnet
