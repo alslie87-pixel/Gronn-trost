@@ -124,7 +124,7 @@ h2 em{font-style:italic;color:var(--green-dark)}
 
 /* OM OSS */
 #om-oss{background:var(--warm-white)}
-.om-oss-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:960px}
+.om-oss-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:960px;margin:0 auto}
 .om-oss-owners{display:flex;flex-direction:column;gap:1.5rem;margin-top:2rem}
 .owner-card{padding:1.75rem;background:var(--stone);border-left:3px solid var(--green-light);transition:transform 0.2s}
 .owner-card:hover{transform:translateX(4px)}
@@ -135,11 +135,12 @@ h2 em{font-style:italic;color:var(--green-dark)}
 
 /* KONTAKT */
 #kontakt{background:var(--stone)}
-.kontakt-inner{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;max-width:940px}
+.kontakt-inner{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;max-width:940px;margin:0 auto}
 .kontakt-detail{margin-top:2rem}
 .kontakt-detail p{font-size:0.9rem;color:var(--text-mid);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.5rem}
 .kontakt-detail a{color:var(--green-dark);text-decoration:none;transition:color 0.2s}
-.kontakt-image{height:160px;background-image:url('kontakt.jpg');background-size:cover;background-position:center;border-radius:6px;margin-top:1rem}
+.kontakt-image{width:100%;border-radius:6px;margin-top:1rem;overflow:hidden}
+.kontakt-image img{width:100%;height:auto;display:block;border-radius:6px}
 .kontakt-detail a:hover{color:var(--green-mid)}
 .form-row{margin-bottom:1.25rem}
 .form-row label{display:block;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-soft);margin-bottom:0.4rem;font-weight:400}
@@ -162,7 +163,8 @@ footer{background:var(--footer-bg);color:rgba(250,250,247,0.6);padding:3.5rem 4v
 
 /* MOBILE */
 @media(max-width:768px){
-  .kontakt-image{height:80px;background-position:center bottom}
+  .kontakt-image{height:100px;overflow:hidden}
+.kontakt-image img{width:100%;height:200px;object-fit:cover;object-position:center bottom}
   .filosofi-grid{grid-template-columns:1fr}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--warm-white);flex-direction:column;padding:1.5rem 4vw;gap:1rem;border-bottom:1px solid rgba(173,191,129,0.2)}
   .nav-links.open{display:flex}
@@ -447,7 +449,7 @@ footer{background:var(--footer-bg);color:rgba(250,250,247,0.6);padding:3.5rem 4v
         <p>📍 Østfold – Våler, Moss og nærområder</p>
         <p>✉️ <a href="mailto:post@gronntrost.no">post@gronntrost.no</a></p>
         <p>📞 <a href="tel:+4795734512">+47 957 34 512</a></p>
-        <div class="kontakt-image"></div>
+        <div class="kontakt-image"><img src="kontakt.jpg" alt="Kirkegård med trær"></div>
       </div>
     </div>
     <div>
