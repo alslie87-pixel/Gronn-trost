@@ -70,7 +70,8 @@ h2 em{font-style:italic;color:var(--green-dark)}
 /* FILOSOFI */
 #filosofi{background:var(--stone)}
 .filosofi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;align-items:stretch}
-.filosofi-card{background:var(--warm-white);padding:2.25rem;border-left:3px solid var(--green-light);transition:transform 0.2s}
+.filosofi-card{background:var(--warm-white);padding:2.25rem;border-left:3px solid var(--green-light);transition:transform 0.2s;display:flex;flex-direction:column;height:100%}
+.filosofi-card div[style*="padding:1.75rem"]{flex:1}
 .filosofi-card:hover{transform:translateY(-2px)}
 .filosofi-icon{font-size:1.5rem;margin-bottom:1rem;display:block}
 .filosofi-title{font-family:var(--serif);font-size:1.3rem;font-weight:500;margin-bottom:0.6rem;color:var(--text-dark)}
