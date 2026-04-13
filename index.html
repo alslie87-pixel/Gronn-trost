@@ -480,7 +480,7 @@ footer{background:var(--footer-bg);color:rgba(250,250,247,0.6);padding:3.5rem 4v
         <input type="checkbox" id="gdpr">
         <label for="gdpr">Jeg samtykker til at Grønn Trøst lagrer mine opplysninger for å besvare henvendelsen. Du kan melde deg av når som helst.</label>
       </div>
-      <button class="btn-primary" style="width:100%" type="button">Send forespørsel</button>
+      <button class="btn-primary" style="width:100%" type="button" onclick="sendKontakt()">Send forespørsel</button>
     </div>
   </div>
 </section>
@@ -500,6 +500,50 @@ footer{background:var(--footer-bg);color:rgba(250,250,247,0.6);padding:3.5rem 4v
   </div>
   <div class="footer-copy">© 2026 Grønn Trøst. Alle rettigheter reservert. Org.nr: 932 762 463</div>
 </footer>
+<script>
+async function sendKontakt() {
+  const inputs = document.querySelectorAll('#kontakt input, #kontakt select, #kontakt textarea');
+  const fornavn = inputs[0].value;
+  const etternavn = inputs[1].value;
+  const epost = inputs[2].value;
+  const telefon = inputs[3].value;
+  const kirkegard = inputs[4].value;
+  const tjeneste = inputs[5].value;
+  const melding = inputs[6].value;
+  const gdpr = document.getElementById('gdpr').checked;
 
+  if (!fornavn || !etternavn || !epost || !kirkegard || !tjeneste) {
+    alert('Vennligst fyll ut alle obligatoriske felt.');
+    return;
+  }
+  if (!gdpr) {
+    alert('Du må samtykke til lagring av opplysninger.');
+    return;
+  }
+
+  const btn = document.querySelector('#kontakt .btn-primary');
+  btn.textContent = 'Sender...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/api/send-contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fornavn, etternavn, epost, telefon, kirkegard, tjeneste, melding })
+    });
+    const data = await res.json();
+    if (data.success) {
+      btn.textContent = 'Sendt!';
+      alert('Takk! Vi tar kontakt innen én virkedag.');
+    } else {
+      throw new Error(data.error);
+    }
+  } catch (err) {
+    btn.textContent = 'Send forespørsel';
+    btn.disabled = false;
+    alert('Noe gikk galt. Prøv igjen eller send e-post direkte.');
+  }
+}
+</script>
 </body>
 </html>
