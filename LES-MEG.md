@@ -14,8 +14,8 @@ Skjemaet sender til /api/send-contact (samme funksjon som før), så det virker 
 så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 
 ## Bilder av Lise og Stian
-Foreløpig vises initialene L og S. Legg portrettene i assets/ (f.eks. lise.jpg og stian.jpg)
-og si ifra, så bytter jeg dem inn.
+Portrettene ligger i assets/lise.jpg og assets/stian.jpg (4:5, 360×450 px).
+Bytt filene med samme navn og format for å oppdatere dem.
 
 ## Gamle bilder som ikke lenger brukes i repoet
 hero.jpg, host.jpg, kontakt.jpg, sommer.jpg, var.jpg, vinter.jpg, vasking.jpg, klargjoring.jpg,
