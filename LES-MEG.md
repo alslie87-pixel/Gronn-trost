@@ -17,6 +17,8 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 Portrettene ligger i assets/lise.jpg og assets/stian.jpg (4:5, 360×450 px).
 Bytt filene med samme navn og format for å oppdatere dem.
 
-## Gamle bilder som ikke lenger brukes i repoet
-hero.jpg, host.jpg, kontakt.jpg, sommer.jpg, var.jpg, vinter.jpg, vasking.jpg, klargjoring.jpg,
-utvidet.jpg og gronntrost_footer.svg i roten kan slettes – alt ligger nå i assets/.
+## Gamle bilder
+Ubrukte filer (kontakt.jpg og gronntrost_footer.svg i roten, assets/utvidet.jpg) er slettet.
+Bildene i assets/ er komprimert for nettbruk (oktober 2026). Originalene i full oppløsning
+ligger utenfor repoet i C:\Users\Alsli\Projects\Gronn-trost-bilder-original\.
+Nye bilder bør skaleres ned til maks ~1200 px bredde før de legges inn.

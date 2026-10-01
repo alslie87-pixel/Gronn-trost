@@ -5,6 +5,8 @@
 <title>Grønn Trøst – Blomster som hedrer minnet</title>
 <meta name="description" content="Personlig og profesjonelt gravstell for familier i Østfold – fra enkeltbesøk til helårsavtale.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preload" href="assets/hero.jpg" as="image" fetchpriority="high">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -59,7 +61,7 @@
 <div style="height:73px;background:#123B2E"></div>
 
 <section id="hero" data-screen-label="Hero" style="scroll-margin-top:73px;position:relative;overflow:hidden;background:#123B2E;color:#F3E9D8;min-height:min(calc(100svh - 73px),880px);display:flex;flex-direction:column">
-  <img src="assets/hero.jpg" alt="Gravsted med gule blomster i solnedgang" style="position:absolute;left:0;width:100%;top:{{ heroImgTop }};bottom:{{ heroImgBottom }};height:{{ heroImgH }};object-fit:cover;object-position:{{ heroPhotoPos }};display:block">
+  <img src="assets/hero.jpg" alt="Gravsted med gule blomster i solnedgang" fetchpriority="high" style="position:absolute;left:0;width:100%;top:{{ heroImgTop }};bottom:{{ heroImgBottom }};height:{{ heroImgH }};object-fit:cover;object-position:{{ heroPhotoPos }};display:block">
   <sc-if value="{{ heroTwoCol }}" hint-placeholder-val="{{ true }}">
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,59,46,0.96) 0%,rgba(18,59,46,0.9) 22%,rgba(18,59,46,0.72) 38%,rgba(18,59,46,0.42) 52%,rgba(18,59,46,0.1) 70%,rgba(18,59,46,0) 100%)"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,59,46,0.3) 0%,rgba(18,59,46,0) 28%,rgba(18,59,46,0) 60%,rgba(18,59,46,0.35) 100%)"></div>
@@ -102,17 +104,17 @@
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(28px,3.5vw,56px);margin-top:clamp(48px,6vw,88px)">
       <article style="display:flex;flex-direction:column;gap:18px">
-        <img src="assets/omsorg.jpg" alt="Hender som planter i et bed" style="width:100%;aspect-ratio:4/5;max-height:min(64vw,480px);object-fit:cover;object-position:center 70%;border-radius:999px 999px 20px 20px;display:block">
+        <img src="assets/omsorg.jpg" alt="Hender som planter i et bed" loading="lazy" decoding="async" style="width:100%;aspect-ratio:4/5;max-height:min(64vw,480px);object-fit:cover;object-position:center 70%;border-radius:999px 999px 20px 20px;display:block">
         <h3 style="margin:8px 0 0;font-family:'Young Serif',serif;font-weight:400;font-size:28px;line-height:1.1;color:#123B2E">Personlig omsorg</h3>
         <p style="margin:0;font-size:16px;line-height:1.65;color:#4A3F38;text-wrap:pretty">Vi behandler hvert gravsted med samme respekt og kjærlighet som om det var vårt eget. Du er aldri bare et nummer hos oss.</p>
       </article>
       <article style="display:flex;flex-direction:column;gap:18px">
-        <img src="assets/baerekraft.jpg" alt="Fargerike sommerblomster" style="width:100%;aspect-ratio:4/5;max-height:min(64vw,480px);object-fit:cover;border-radius:999px 999px 20px 20px;display:block">
+        <img src="assets/baerekraft.jpg" alt="Fargerike sommerblomster" loading="lazy" decoding="async" style="width:100%;aspect-ratio:4/5;max-height:min(64vw,480px);object-fit:cover;border-radius:999px 999px 20px 20px;display:block">
         <h3 style="margin:8px 0 0;font-family:'Young Serif',serif;font-weight:400;font-size:28px;line-height:1.1;color:#123B2E">Bærekraftige planter</h3>
         <p style="margin:0;font-size:16px;line-height:1.65;color:#4A3F38;text-wrap:pretty">Vi velger værhardige og bærekraftige planter som tåler norske årstider, med sesongriktig dekor hele året.</p>
       </article>
       <article style="display:flex;flex-direction:column;gap:18px">
-        <img src="assets/trost.jpg" alt="Engel i stein ved et vinterdekorert gravsted" style="width:100%;aspect-ratio:4/5;max-height:min(64vw,480px);object-fit:cover;border-radius:999px 999px 20px 20px;display:block">
+        <img src="assets/trost.jpg" alt="Engel i stein ved et vinterdekorert gravsted" loading="lazy" decoding="async" style="width:100%;aspect-ratio:4/5;max-height:min(64vw,480px);object-fit:cover;border-radius:999px 999px 20px 20px;display:block">
         <h3 style="margin:8px 0 0;font-family:'Young Serif',serif;font-weight:400;font-size:28px;line-height:1.1;color:#123B2E">Trøst og lettelse</h3>
         <p style="margin:0;font-size:16px;line-height:1.65;color:#4A3F38;text-wrap:pretty">Et velstelt gravsted gir trøst og ro i sorgen. Med fagkunnskap og hjerte letter vi byrden for deg og din familie.</p>
       </article>
@@ -121,7 +123,7 @@
 </section>
 
 <section id="produkter" data-screen-label="Produkter" style="scroll-margin-top:73px;position:relative;background:#8E3B2F;color:#F3E9D8;padding:clamp(56px,7vw,104px) 28px calc(max(9.72vw,120px) + 48px)">
-  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t2.svg" alt="" aria-hidden="true" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
+  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t2.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
   <div style="max-width:1280px;margin:0 auto">
     <p style="margin:0 0 18px;text-align:center;color:#F0D9CC;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Våre tilbud</p>
     <div style="border-top:1px solid rgba(243,233,216,0.3);padding-top:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
@@ -151,7 +153,7 @@
           <div style="display:flex;flex-direction:column;gap:12px">
             <sc-for list="{{ addons }}" as="a" hint-placeholder-count="3">
               <button onClick="{{ a.toggle }}" style="text-align:left;padding:12px 16px 12px 12px;border-radius:18px;border:2px solid {{ a.border }};background:{{ a.bg }};color:{{ a.fg }};cursor:pointer;display:flex;align-items:center;gap:14px;transition:background .15s ease,border-color .15s ease">
-                <img src="{{ a.img }}" alt="" style="flex:none;width:64px;height:64px;object-fit:cover;border-radius:12px">
+                <img src="{{ a.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:64px;height:64px;object-fit:cover;border-radius:12px">
                 <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0"><strong style="font-size:17px;font-weight:600">{{ a.name }}</strong><span style="font-size:13px;opacity:0.85;line-height:1.4">{{ a.desc }}</span></span>
                 <span style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px"><span style="font-weight:600;font-size:15px;white-space:nowrap">{{ a.priceText }}</span><span style="width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:14px;font-weight:700">{{ a.mark }}</span></span>
               </button>
@@ -187,8 +189,8 @@
     <div style="margin-top:clamp(48px,6vw,88px);background:#FBF4EA;color:#241D18;border-radius:28px;overflow:hidden;padding:clamp(18px,2.4vw,36px);display:flex;flex-direction:column;gap:clamp(28px,3.5vw,48px)">
      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,3vw,48px);align-items:center">
       <div style="position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;background:#123B2E;user-select:none;touch-action:pan-y">
-        <img src="assets/utvidet/01-for-oversikt.jpg" alt="Familiegravsted før: gjengrodd bed og skjeve steiner" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
-        <img src="assets/utvidet/06-etter-oversikt.jpg" alt="Samme gravsted etter: heller i mønster og nytt bed" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;clip-path:inset(0 0 0 {{ splitPct }})">
+        <img src="assets/utvidet/01-for-oversikt.jpg" alt="Familiegravsted før: gjengrodd bed og skjeve steiner" draggable="false" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        <img src="assets/utvidet/06-etter-oversikt.jpg" alt="Samme gravsted etter: heller i mønster og nytt bed" draggable="false" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;clip-path:inset(0 0 0 {{ splitPct }})">
         <div style="position:absolute;top:0;bottom:0;left:{{ splitPct }};width:2px;margin-left:-1px;background:#F3E9D8;box-shadow:0 0 0 1px rgba(0,0,0,0.15)"></div>
         <div style="position:absolute;top:50%;left:{{ splitPct }};transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:#F3E9D8;color:#123B2E;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);font-size:18px;font-weight:700;letter-spacing:-0.05em">◂▸</div>
         <span style="position:absolute;top:14px;left:14px;background:rgba(36,29,24,0.72);color:#F3E9D8;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;padding:7px 12px;border-radius:999px">Før</span>
@@ -213,7 +215,7 @@
       <div style="display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px">
         <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
           <figure style="margin:0;display:flex;flex-direction:column;gap:10px;scroll-snap-align:start">
-            <img src="{{ st.img }}" alt="{{ st.alt }}" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:{{ st.pos }};border-radius:14px;display:block">
+            <img src="{{ st.img }}" alt="{{ st.alt }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:{{ st.pos }};border-radius:14px;display:block">
             <figcaption style="display:flex;gap:10px;align-items:baseline"><span style="font-family:'Young Serif',serif;font-size:15px;color:#8E3B2F;flex:none">{{ st.n }}</span><span style="font-size:14px;line-height:1.4;color:#241D18;font-weight:500">{{ st.label }}</span></figcaption>
           </figure>
         </sc-for>
@@ -224,7 +226,7 @@
 </section>
 
 <section id="blomster" data-screen-label="Blomster" style="scroll-margin-top:73px;position:relative;background:#DCC2B0;color:#241D18;padding:clamp(56px,7vw,104px) 28px calc(max(9.72vw,120px) + 48px)">
-  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t3.svg" alt="" aria-hidden="true" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
+  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t3.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
   <div style="max-width:1280px;margin:0 auto">
     <p style="margin:0 0 18px;text-align:center;color:#6F2C22;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Blomster vi bruker</p>
     <div style="border-top:1px solid rgba(36,29,24,0.22);padding-top:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
@@ -236,7 +238,7 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:clamp(12px,2vw,28px);margin-top:clamp(48px,6vw,88px)">
       <sc-for list="{{ seasons }}" as="s" hint-placeholder-count="4">
         <article style="background:#7A3A2A;border-radius:24px;padding:14px 14px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)">
-          <img src="{{ s.img }}" alt="{{ s.title }}" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px;display:block">
+          <img src="{{ s.img }}" alt="{{ s.title }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px;display:block">
           <h3 style="margin:8px 4px 0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(19px,5.4vw,26px);line-height:1.05;color:#F3E9D8">{{ s.title }}</h3>
           <p style="margin:0 4px;font-size:clamp(13.5px,3.8vw,15px);line-height:1.55;color:#F0D9CC">{{ s.list }}</p>
         </article>
@@ -246,7 +248,7 @@
 </section>
 
 <section id="om-oss" data-screen-label="Om oss" style="scroll-margin-top:73px;position:relative;background:#E8D9BF;color:#241D18;padding:clamp(56px,7vw,104px) 28px calc(max(9.72vw,120px) + 48px)">
-  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t4.svg" alt="" aria-hidden="true" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
+  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t4.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
   <div style="max-width:1280px;margin:0 auto">
     <p style="margin:0 0 18px;text-align:center;color:#8E3B2F;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Om oss</p>
     <div style="border-top:1px solid rgba(36,29,24,0.2);padding-top:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
@@ -257,7 +259,7 @@
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,4vw,72px);margin-top:clamp(48px,6vw,88px)">
       <article style="display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start">
-        <img src="assets/lise.jpg" alt="Portrett av Lise" style="aspect-ratio:4/5;flex:0 0 160px;width:160px;max-width:100%;height:auto;object-fit:cover;border-radius:999px 999px 18px 18px;background:#C98B77;display:block">
+        <img src="assets/lise.jpg" alt="Portrett av Lise" loading="lazy" decoding="async" style="aspect-ratio:4/5;flex:0 0 160px;width:160px;max-width:100%;height:auto;object-fit:cover;border-radius:999px 999px 18px 18px;background:#C98B77;display:block">
         <div style="display:flex;flex-direction:column;gap:8px;flex:1 1 220px;min-width:0">
           <h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:32px;line-height:1;color:#123B2E">Lise</h3>
           <p style="margin:0 0 6px;color:#8E3B2F;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;overflow-wrap:anywhere">Gravstellspesialist &amp; medgründer</p>
@@ -265,7 +267,7 @@
         </div>
       </article>
       <article style="display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start">
-        <img src="assets/stian.jpg" alt="Portrett av Stian" style="aspect-ratio:4/5;flex:0 0 160px;width:160px;max-width:100%;height:auto;object-fit:cover;border-radius:999px 999px 18px 18px;background:#5C7A48;display:block">
+        <img src="assets/stian.jpg" alt="Portrett av Stian" loading="lazy" decoding="async" style="aspect-ratio:4/5;flex:0 0 160px;width:160px;max-width:100%;height:auto;object-fit:cover;border-radius:999px 999px 18px 18px;background:#5C7A48;display:block">
         <div style="display:flex;flex-direction:column;gap:8px;flex:1 1 220px;min-width:0">
           <h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:32px;line-height:1;color:#123B2E">Stian</h3>
           <p style="margin:0 0 6px;color:#8E3B2F;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;overflow-wrap:anywhere">Gravplassmedarbeider &amp; medgründer</p>
@@ -277,7 +279,7 @@
 </section>
 
 <section id="kontakt" data-screen-label="Kontakt" style="scroll-margin-top:73px;position:relative;background:#123B2E;color:#F3E9D8;padding:clamp(56px,7vw,104px) 28px calc(max(9.72vw,120px) + 32px)">
-  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t5.svg" alt="" aria-hidden="true" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
+  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t5.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
   <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(36px,5vw,80px);align-items:end">
     <div style="display:flex;flex-direction:column;gap:32px">
       <p style="margin:0 0 18px;color:#D8B4A0;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Kontakt oss</p>
@@ -290,7 +292,7 @@
         <div style="display:flex;gap:14px;align-items:baseline"><span style="flex:none;width:88px;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#D8B4A0;font-weight:600">E-post</span><a href="mailto:post@gronntrost.no" style="color:#F3E9D8;border-bottom:1px solid rgba(243,233,216,0.4)" style-hover="color:#D8B4A0">post@gronntrost.no</a></div>
         <div style="display:flex;gap:14px;align-items:baseline"><span style="flex:none;width:88px;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#D8B4A0;font-weight:600">Telefon</span><a href="tel:+4795734512" style="color:#F3E9D8;border-bottom:1px solid rgba(243,233,216,0.4);white-space:nowrap" style-hover="color:#D8B4A0">+47 957 34 512</a></div>
       </div>
-      <img src="assets/kontakt.jpg" alt="Kirkegård med trær i høstfarger" style="width:min(100%,460px);aspect-ratio:4/3;object-fit:cover;border-radius:24px;display:block">
+      <img src="assets/kontakt.jpg" alt="Kirkegård med trær i høstfarger" loading="lazy" decoding="async" style="width:min(100%,460px);aspect-ratio:4/3;object-fit:cover;border-radius:24px;display:block">
     </div>
 
     <div style="background:#FBF4EA;color:#241D18;border-radius:28px;padding:clamp(24px,3vw,40px);box-shadow:0 24px 60px rgba(0,0,0,0.25)">
@@ -337,9 +339,9 @@
 </section>
 
 <footer data-screen-label="Footer" style="position:relative;background:#0B2119;color:#D9CDB8;padding:clamp(40px,5vw,64px) 28px 40px">
-  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t6.svg" alt="" aria-hidden="true" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
+  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t6.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
   <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between">
-    <img src="assets/logo.svg" alt="Grønn Trøst – Blomster som hedrer minnet" style="height:64px;width:auto;filter:invert(0.92) sepia(0.35) saturate(0.6) brightness(1.05)">
+    <img src="assets/logo.svg" alt="Grønn Trøst – Blomster som hedrer minnet" loading="lazy" decoding="async" style="height:64px;width:auto;filter:invert(0.92) sepia(0.35) saturate(0.6) brightness(1.05)">
     <nav style="display:flex;flex-wrap:wrap;gap:24px">
       <a href="#produkter" style="color:#D9CDB8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Produkter</a>
       <a href="#blomster" style="color:#D9CDB8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Blomster</a>
@@ -378,7 +380,7 @@ class Component extends DCLogic {
     const S = this.state, P = this.props;
     const seasonDefs = [
       { key: 'var', name: 'Vår', hint: 'Stemorsblomst, primula, krokus', img: 'assets/var.jpg', title: 'Vår\u00ADblomster', list: 'Stemorsblomst (Viola), Primula, Påskelilje, Krokus, Bellis' },
-      { key: 'sommer', name: 'Sommer', hint: 'Lobelia, petunia, begonia', img: 'assets/sommer.png', title: 'Sommer\u00ADblomster', list: 'Lobelia, Petunia, Begonia, Tagetes, Ildtopp, Fuchsia' },
+      { key: 'sommer', name: 'Sommer', hint: 'Lobelia, petunia, begonia', img: 'assets/sommer.jpg', title: 'Sommer\u00ADblomster', list: 'Lobelia, Petunia, Begonia, Tagetes, Ildtopp, Fuchsia' },
       { key: 'host', name: 'Høst', hint: 'Lyng, krysantemum, eføy', img: 'assets/host.jpg', title: 'Høst\u00ADblomster', list: 'Lyng (Calluna), Krysantemum, Røsslyng, Høstasters, Eføy' },
       { key: 'vinter', name: 'Vinter', hint: 'Mosekrans, granbar, kongler', img: 'assets/vinter.jpg', title: 'Vinter\u00ADdekor', list: 'Mosekrans, Granbar, Kongler, Lykt med kubbelys, Vintergrønt' },
     ];
