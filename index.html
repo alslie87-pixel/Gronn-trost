@@ -425,7 +425,7 @@ class Component extends DCLogic {
     });
     return {
       headerBg: (S.scrolled && !S.menuOpen) ? 'rgba(18,59,46,0.62)' : '#123B2E',
-      narrow: S.narrow, wide: !S.narrow, menuOpen: S.menuOpen && S.narrow, heroTwoCol: S.heroTwoCol, heroIndent: S.heroIndent, heroStacked: !S.heroTwoCol, heroPhotoPos: S.heroTwoCol ? '70% 45%' : '72% 62%', heroImgH: S.heroTwoCol ? '100%' : '54vh', heroImgTop: '0', heroImgBottom: 'auto', heroRule: S.heroTwoCol ? 'rgba(243,233,216,0.28)' : 'transparent', heroJustify: S.heroTwoCol ? 'center' : 'flex-start', heroSubGap: S.heroTwoCol ? '8px' : '10px', heroCtaGap: S.heroTwoCol ? '32px' : '28px', heroTopPad: S.heroTwoCol ? '22px' : '24px', heroBandGap: S.heroTwoCol ? 'max(15.28vw,200px)' : '118px',
+      narrow: S.narrow, wide: !S.narrow, menuOpen: S.menuOpen && S.narrow, heroTwoCol: S.heroTwoCol, heroIndent: S.heroIndent, heroStacked: !S.heroTwoCol, heroPhotoPos: S.heroTwoCol ? '70% 58%' : '72% 62%', heroImgH: S.heroTwoCol ? '100%' : '54vh', heroImgTop: '0', heroImgBottom: 'auto', heroRule: S.heroTwoCol ? 'rgba(243,233,216,0.28)' : 'transparent', heroJustify: S.heroTwoCol ? 'center' : 'flex-start', heroSubGap: S.heroTwoCol ? '8px' : '10px', heroCtaGap: S.heroTwoCol ? '32px' : '28px', heroTopPad: S.heroTwoCol ? '22px' : '24px', heroBandGap: S.heroTwoCol ? 'calc(max(15.28vw,200px) - 64px)' : '118px',
       toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })), closeMenu: () => this.setState({ menuOpen: false }),
       showBands: P.flowerBands ?? true,
       split: S.split, splitPct: S.split + '%', setSplit: e => this.setState({ split: +e.target.value }),
