@@ -424,9 +424,9 @@ class Component extends DCLogic {
     ];
     // Prismodellen: tre årsavtaler + enkeltstell. Kontaktskjemaets «Ønsket tjeneste»-liste har de samme navnene og prisene – endre begge steder.
     const packageDefs = [
-      { key: 'vs', name: 'Vår og sommer', price: 2160, unit: '/ år', seasons: ['var', 'sommer'], hint: 'Vårblomster og sommerblomster, stell og vanning gjennom sesongen' },
-      { key: 'vsh', name: 'Vår, sommer og høst', price: 2540, unit: '/ år', seasons: ['var', 'sommer', 'host'], hint: 'Vår-, sommer- og høstplanter, opprydding og klargjøring for vinteren' },
-      { key: 'helaar', name: 'Helårsavtale', price: 3310, unit: '/ år', seasons: ['var', 'sommer', 'host', 'vinter'], hint: 'Stell hele året – med vinterdekor, gravlykt, gravlys og krans til jul', badge: 'Mest valgt' },
+      { key: 'vs', name: 'Vår og sommer', price: 2160, unit: '/ år', seasons: ['var', 'sommer'], images: ['var'], hint: 'Vårblomster og sommerblomster, stell og vanning gjennom sesongen' },
+      { key: 'vsh', name: 'Vår, sommer og høst', price: 2540, unit: '/ år', seasons: ['var', 'sommer', 'host'], images: ['host'], hint: 'Vår-, sommer- og høstplanter, opprydding og klargjøring for vinteren' },
+      { key: 'helaar', name: 'Helårsavtale', price: 3310, unit: '/ år', seasons: ['var', 'sommer', 'host', 'vinter'], images: ['vinter'], hint: 'Stell hele året – med vinterdekor, gravlykt, gravlys og krans til jul', badge: 'Mest valgt' },
       { key: 'enkeltstell', name: 'Enkeltstell', price: 990, unit: '/ besøk', seasons: [], hint: 'Ett besøk med stell, vanning og luking – uten avtale' },
     ];
     // Selvvanningskasse: engangsbeløp ved første bestilling av en årspakke, i tillegg til årsprisen.
@@ -436,14 +436,14 @@ class Component extends DCLogic {
       { key: 'vask', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, img: 'assets/vasking.jpg' },
       { key: 'blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, img: 'assets/baerekraft.jpg' },
     ];
-    // Pakkene er radiovalg. Bildet på kortet er sesongbildene for sesongene som inngår.
+    // Pakkene er radiovalg. Kortbildet er sesongbildene i `images`, ellers bildene for sesongene som inngår.
     const pkg = packageDefs.find(p => p.key === S.pkg) || packageDefs[packageDefs.length - 1];
     const isHelaar = pkg.key === 'helaar', isRecurring = pkg.seasons.length > 0;
     const kasse = isHelaar ? KASSE_HELAAR : KASSE;
     const onStyle = { bg: '#FBF4EA', fg: '#8E3B2F', border: '#FBF4EA' }, offStyle = { bg: 'rgba(243,233,216,0.08)', fg: '#F3E9D8', border: 'rgba(243,233,216,0.34)' };
     const card = p => {
       const on = p.key === pkg.key;
-      return { ...p, on, badge: p.badge || '', priceText: fmt(p.price) + ' kr ' + p.unit, imgs: p.seasons.map(k => ({ src: seasonDefs.find(d => d.key === k).img })),
+      return { ...p, on, badge: p.badge || '', priceText: fmt(p.price) + ' kr ' + p.unit, imgs: (p.images || p.seasons).map(k => ({ src: seasonDefs.find(d => d.key === k).img })),
         choose: () => this.setState({ pkg: p.key }), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
     };
     const packages = packageDefs.filter(p => p.seasons.length).map(card);
