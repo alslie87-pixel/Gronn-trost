@@ -21,6 +21,11 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
   bestillingssiden får eget domene. support.js er ellers generert kode – ta med linjen hvis
   filen byttes ut. Familiegrav («Ta kontakt») går fortsatt til kontaktskjemaet.
 
+## Fotobåndet
+Fotobåndet under kortene i trygghetsseksjonen viser bildene i lista `band` i scriptet
+(filene ligger i assets/ekstra/). Rekkefølgen i lista er rekkefølgen på siden; hvert bilde
+trenger en beskrivende alt-tekst og riktig format (`ratio`, bredde/høyde).
+
 ## Bilder av Lise og Stian
 Portrettene ligger i assets/lise.jpg og assets/stian.jpg (4:5, 360×450 px).
 Bytt filene med samme navn og format for å oppdatere dem.
@@ -28,5 +33,7 @@ Bytt filene med samme navn og format for å oppdatere dem.
 ## Gamle bilder
 Ubrukte filer (kontakt.jpg og gronntrost_footer.svg i roten, assets/utvidet.jpg) er slettet.
 Bildene i assets/ er komprimert for nettbruk (oktober 2026). Originalene i full oppløsning
-ligger utenfor repoet i C:\Users\Alsli\Projects\Gronn-trost-bilder-original\.
+ligger utenfor repoet i C:\Users\Alsli\Projects\Gronn-trost-bilder-original\. De to største
+bildene i fotobåndet er skalert ned til 640 px; originalene ligger i
+C:\Users\Alsli\Prosjekter\Gronn-trost-bilder-original\ekstra\.
 Nye bilder bør skaleres ned til maks ~1200 px bredde før de legges inn.
