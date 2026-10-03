@@ -25,6 +25,8 @@
     a:hover{color:#123B2E}
     img{max-width:100%}
     button{font-family:inherit}
+    @media (max-width:640px){:root{--fs-min:16px}}
+    @media (max-width:480px){:root{--side-dir:row;--side-align:center;--side-gap:10px}}
   </style>
 </helmet>
 
@@ -34,7 +36,7 @@
     <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
       <nav style="display:flex;align-items:center;gap:36px">
         <a href="#produkter" style="color:#F3E9D8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Produkter</a>
-        <a href="#blomster" style="color:#F3E9D8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Blomster</a>
+        <a href="#trygghet" style="color:#F3E9D8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Trygghet</a>
         <a href="#filosofi" style="color:#F3E9D8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Filosofi</a>
         <a href="#om-oss" style="color:#F3E9D8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Om oss</a>
         <a href="{{ bestillUrl }}" style="background:#8E3B2F;color:#F3E9D8;padding:12px 22px;border-radius:999px;font-weight:600;font-size:14px;letter-spacing:0.02em" style-hover="background:#6F2C22;color:#F3E9D8">Bestill gravstell</a>
@@ -51,7 +53,7 @@
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
     <nav style="background:rgba(18,59,46,0.92);border-top:1px solid rgba(243,233,216,0.14);padding:12px 28px 28px;display:flex;flex-direction:column;gap:4px">
       <a href="#produkter" onClick="{{ closeMenu }}" style="color:#F3E9D8;font-size:18px;padding:12px 0;border-bottom:1px solid rgba(243,233,216,0.1)">Produkter</a>
-      <a href="#blomster" onClick="{{ closeMenu }}" style="color:#F3E9D8;font-size:18px;padding:12px 0;border-bottom:1px solid rgba(243,233,216,0.1)">Blomster</a>
+      <a href="#trygghet" onClick="{{ closeMenu }}" style="color:#F3E9D8;font-size:18px;padding:12px 0;border-bottom:1px solid rgba(243,233,216,0.1)">Trygghet</a>
       <a href="#filosofi" onClick="{{ closeMenu }}" style="color:#F3E9D8;font-size:18px;padding:12px 0;border-bottom:1px solid rgba(243,233,216,0.1)">Filosofi</a>
       <a href="#om-oss" onClick="{{ closeMenu }}" style="color:#F3E9D8;font-size:18px;padding:12px 0;border-bottom:1px solid rgba(243,233,216,0.1)">Om oss</a>
       <a href="{{ bestillUrl }}" onClick="{{ closeMenu }}" style="margin-top:16px;background:#8E3B2F;color:#F3E9D8;padding:16px 22px;border-radius:999px;font-weight:600;font-size:16px;text-align:center">Bestill gravstell</a>
@@ -75,11 +77,11 @@
       <p style="margin:0 0 18px;max-width:560px;margin-left:{{ heroIndent }};color:#F3E9D8;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;text-shadow:0 1px 4px rgba(8,30,22,0.7),0 1px 14px rgba(8,30,22,0.6)">Blomster som hedrer minnet</p>
       <div style="border-top:1px solid {{ heroRule }};padding-top:{{ heroTopPad }};max-width:560px;margin-left:{{ heroIndent }};flex:1;display:flex;flex-direction:column;justify-content:{{ heroJustify }}">
         <div>
-        <h1 style="margin:0 0 28px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(34px,3.6vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#FBF4EA">Med vår personlige omsorg skaper vi <span style="color:#E8C9B8">levende, vakre gravsteder</span></h1>
+        <h1 style="margin:0 0 28px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(30px,3.6vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#FBF4EA">Med vår personlige omsorg skaper vi <span style="color:#E8C9B8">levende, vakre gravsteder</span></h1>
         </div>
         <div style="padding-top:{{ heroSubGap }}">
           <p style="margin:0 0 12px;font-size:clamp(17px,1.3vw,20px);line-height:1.5;max-width:34ch;color:#F3E9D8;text-wrap:pretty">Så du finner ro til heder og ettertanke<br>– og minnet kan blomstre året rundt.</p>
-          <p style="margin:0 0 {{ heroCtaGap }};font-size:15.5px;line-height:1.6;color:#C9BBA6">Personlig og profesjonelt gravstell for familier i Østfold.</p>
+          <p style="margin:0 0 {{ heroCtaGap }};font-size:var(--fs-min,15.5px);line-height:1.6;color:#C9BBA6">Personlig og profesjonelt gravstell for familier i Østfold.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px">
             <a href="{{ bestillUrl }}" style="display:inline-flex;align-items:center;justify-content:center;background:#8E3B2F;color:#F3E9D8;padding:16px 28px;border-radius:999px;font-weight:600;font-size:16px;white-space:nowrap;transition:background .15s ease" style-hover="background:#6F2C22;color:#F3E9D8">Bestill gravstell</a>
             <a href="#produkter" style="display:inline-flex;align-items:center;justify-content:center;border:2px solid rgba(243,233,216,0.5);color:#F3E9D8;padding:14px 26px;border-radius:999px;font-weight:600;font-size:16px;white-space:nowrap;transition:border-color .15s ease" style-hover="border-color:#F3E9D8;color:#F3E9D8">Se priser</a>
@@ -98,7 +100,7 @@
     <p style="margin:0 0 18px;text-align:center;color:#8E3B2F;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Vår filosofi</p>
     <div style="border-top:1px solid rgba(36,29,24,0.2);padding-top:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
       <div>
-        <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(32px,3.9vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#123B2E;max-width:16ch;margin-left:auto;margin-right:auto">Omsorg du kan <span style="color:#8E3B2F">stole på</span></h2>
+        <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(28px,3.9vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#123B2E;max-width:16ch;margin-left:auto;margin-right:auto">Omsorg du kan <span style="color:#8E3B2F">stole på</span></h2>
       </div>
       <p style="margin:0;font-size:clamp(17px,1.25vw,19px);line-height:1.65;max-width:50ch;margin-left:auto;margin-right:auto;color:#4A3F38;text-wrap:pretty">Det kan være ulike naturlige årsaker til at gravstell er utfordrende – avstand, tilgjengelighet, tid eller helse. Derfor velger mange oss.</p>
     </div>
@@ -128,40 +130,36 @@
     <p style="margin:0 0 18px;text-align:center;color:#F0D9CC;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Våre tilbud</p>
     <div style="border-top:1px solid rgba(243,233,216,0.3);padding-top:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
       <div>
-        <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(32px,3.9vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#F3E9D8;max-width:16ch;margin-left:auto;margin-right:auto">Velg det stellet som <span style="color:#F0D9CC">passer deg</span></h2>
+        <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(28px,3.9vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#F3E9D8;max-width:16ch;margin-left:auto;margin-right:auto">Velg det stellet som <span style="color:#F0D9CC">passer deg</span></h2>
       </div>
-      <p style="margin:8px auto 0;font-size:clamp(15px,1.2vw,18px);line-height:1.6;max-width:62ch;color:#F3E9D8;text-wrap:pretty;background:rgba(243,233,216,0.1);border:1px solid rgba(243,233,216,0.32);border-radius:clamp(20px,4vw,52px);padding:clamp(10px,2.5vw,14px) clamp(16px,3.5vw,28px)">Vi tilbyr fleksible løsninger – fra enkeltbesøk til helårsavtale. Sett sammen stellet under, så ser du prisen med én gang.</p>
+      <p style="margin:8px auto 0;font-size:clamp(var(--fs-min,15px),1.2vw,18px);line-height:1.6;max-width:62ch;color:#F3E9D8;text-wrap:pretty;background:rgba(243,233,216,0.1);border:1px solid rgba(243,233,216,0.32);border-radius:clamp(20px,4vw,52px);padding:clamp(10px,2.5vw,14px) clamp(16px,3.5vw,28px)">Vi tilbyr fleksible løsninger – fra enkeltbesøk til helårsavtale. Sett sammen stellet under, så ser du prisen med én gang.</p>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,4vw,72px);align-items:start;margin-top:clamp(48px,6vw,88px)">
       <div style="display:flex;flex-direction:column;gap:44px">
         <div>
-          <h3 style="margin:0 0 6px;font-family:'Young Serif',serif;font-weight:400;font-size:26px;line-height:1.1;color:#F3E9D8">1. Velg stell</h3>
-          <p style="margin:0 0 20px;font-size:15px;color:#F0D9CC">Velg et enkeltbesøk, eller en årsavtale for sesongene du ønsker.</p>
+          <h3 style="margin:0 0 6px;font-family:'Young Serif',serif;font-weight:400;font-size:26px;line-height:1.1;color:#F3E9D8">1. Velg sesonger</h3>
+          <p style="margin:0 0 20px;font-size:var(--fs-min,15px);color:#F0D9CC;text-wrap:pretty">Ingen valgt gir enkeltstell per besøk. Sesongene selges som pakker: vår og sommer, sommer og høst, vår til høst – eller hele året.</p>
           <div style="display:flex;flex-direction:column;gap:12px">
-            <sc-for list="{{ packages }}" as="p" hint-placeholder-count="5">
-              <button onClick="{{ p.choose }}" style="text-align:left;padding:16px 18px;border-radius:18px;border:2px solid {{ p.border }};background:{{ p.bg }};color:{{ p.fg }};cursor:pointer;display:flex;align-items:center;gap:14px;transition:background .15s ease,border-color .15s ease">
-                <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
-                  <span style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px"><strong style="font-size:18px;font-weight:600">{{ p.name }}</strong><sc-if value="{{ p.badge }}"><span style="background:#5E2A3A;color:#F3E9D8;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px">{{ p.badge }}</span></sc-if></span>
-                  <span style="font-size:13px;opacity:0.85;line-height:1.4">{{ p.hint }}</span>
-                  <sc-if value="{{ p.renewNote }}"><span style="font-size:13px;opacity:0.85;line-height:1.4">{{ p.renewNote }}</span></sc-if>
-                  <sc-if value="{{ p.ownerNote }}"><span style="font-size:13px;opacity:0.85;line-height:1.4">{{ p.ownerNote }}</span></sc-if>
-                </span>
-                <span style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px"><span style="font-weight:600;font-size:15px;white-space:nowrap">{{ p.priceText }}</span><span style="width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:14px;font-weight:700">{{ p.mark }}</span></span>
+            <sc-for list="{{ seasons }}" as="s" hint-placeholder-count="4">
+              <button onClick="{{ s.toggle }}" style="text-align:left;padding:12px 16px 12px 12px;border-radius:18px;border:2px solid {{ s.border }};background:{{ s.bg }};color:{{ s.fg }};cursor:pointer;display:flex;align-items:center;gap:16px;transition:background .15s ease,border-color .15s ease">
+                <img src="{{ s.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:96px;height:96px;object-fit:cover;border-radius:14px">
+                <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0"><strong style="font-size:18px;font-weight:600">{{ s.name }}</strong><span style="font-size:var(--fs-min,13px);opacity:0.85;line-height:1.4">{{ s.hint }}</span><sc-if value="{{ s.included }}"><span style="font-size:var(--fs-min,13px);font-weight:600;line-height:1.4">Inngår i pakken</span></sc-if></span>
+                <span style="flex:none;width:28px;height:28px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:15px;font-weight:700">{{ s.mark }}</span>
               </button>
             </sc-for>
           </div>
-          <p style="margin:16px 0 0;font-size:15px;line-height:1.55;color:#F3E9D8;background:rgba(243,233,216,0.1);border:1px solid rgba(243,233,216,0.32);border-radius:18px;padding:14px 18px;text-wrap:pretty"><strong style="font-weight:600">Selvvanningskasse</strong> – inkludert i helårsavtalen. Til sesongpakkene kan du leie den for {{ kasseLeie }} kr / år, eller kjøpe den for {{ kasseKjop }} kr hvis du vil eie den selv.</p>
+          <p style="margin:16px 0 0;font-size:var(--fs-min,15px);line-height:1.55;color:#F3E9D8;background:rgba(243,233,216,0.1);border:1px solid rgba(243,233,216,0.32);border-radius:18px;padding:14px 18px;text-wrap:pretty"><strong style="font-weight:600">Selvvanningskasse</strong> – der gravplassen tillater det, etablerer vi en selvvanningskasse ved første bestilling. Den koster {{ kassePrice }} kr én gang ({{ kasseHelaarPrice }} kr ved helårsavtale), er din eiendom og gjenbrukes sesong etter sesong. Beløpet kommer i tillegg på første bestilling, ikke i årsprisen.</p>
         </div>
         <div>
           <h3 style="margin:0 0 6px;font-family:'Young Serif',serif;font-weight:400;font-size:26px;line-height:1.1;color:#F3E9D8">2. Tilleggstjenester</h3>
-          <p style="margin:0 0 20px;font-size:15px;color:#F0D9CC">Valgfritt – legg til det gravstedet trenger.</p>
+          <p style="margin:0 0 20px;font-size:var(--fs-min,15px);color:#F0D9CC">Valgfritt – legg til det gravstedet trenger.</p>
           <div style="display:flex;flex-direction:column;gap:12px">
-            <sc-for list="{{ addons }}" as="a" hint-placeholder-count="6">
-              <button onClick="{{ a.toggle }}" style="text-align:left;padding:12px 16px 12px 12px;border-radius:18px;border:2px solid {{ a.border }};background:{{ a.bg }};color:{{ a.fg }};cursor:pointer;display:flex;align-items:center;gap:14px;transition:background .15s ease,border-color .15s ease">
+            <sc-for list="{{ addons }}" as="a" hint-placeholder-count="5">
+              <button onClick="{{ a.toggle }}" style="text-align:left;padding:12px 16px 12px 12px;border-radius:18px;border:2px solid {{ a.border }};background:{{ a.bg }};color:{{ a.fg }};cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:14px;transition:background .15s ease,border-color .15s ease">
                 <img src="{{ a.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:64px;height:64px;object-fit:cover;object-position:{{ a.pos }};border-radius:12px">
-                <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0"><strong style="font-size:17px;font-weight:600">{{ a.name }}</strong><span style="font-size:13px;opacity:0.85;line-height:1.4">{{ a.desc }}</span></span>
-                <span style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px"><span style="font-weight:600;font-size:15px;white-space:nowrap">{{ a.priceText }}</span><span style="width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:14px;font-weight:700">{{ a.mark }}</span></span>
+                <span style="display:flex;flex-direction:column;gap:2px;flex:1 1 140px;min-width:0"><strong style="font-size:17px;font-weight:600">{{ a.name }}</strong><span style="font-size:var(--fs-min,13px);opacity:0.85;line-height:1.4">{{ a.desc }}</span></span>
+                <span style="flex:none;margin-left:auto;display:flex;flex-direction:var(--side-dir,column);align-items:var(--side-align,flex-end);gap:var(--side-gap,6px)"><span style="font-weight:600;font-size:var(--fs-min,15px);white-space:nowrap">{{ a.priceText }}</span><span style="width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:14px;font-weight:700">{{ a.mark }}</span></span>
               </button>
             </sc-for>
           </div>
@@ -175,22 +173,18 @@
         <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:20px"><span style="font-family:'Young Serif',serif;font-weight:400;font-size:clamp(44px,3.6vw,58px);line-height:1;color:#123B2E">{{ planPrice }}</span><span style="font-size:16px;color:#4A3F38">kr {{ planUnit }}</span></div>
         <ul style="list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:8px">
           <sc-for list="{{ includes }}" as="i" hint-placeholder-count="4">
-            <li style="display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.45;color:#241D18"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#123B2E;color:#F3E9D8;display:grid;place-items:center;font-size:11px;font-weight:700;margin-top:2px">✓</span><span>{{ i.t }}</span></li>
+            <li style="display:flex;gap:10px;align-items:flex-start;font-size:var(--fs-min,15px);line-height:1.45;color:#241D18"><span style="flex:none;width:20px;height:20px;border-radius:50%;background:#123B2E;color:#F3E9D8;display:grid;place-items:center;font-size:11px;font-weight:700;margin-top:2px">✓</span><span>{{ i.t }}</span></li>
           </sc-for>
         </ul>
-        <div style="border-top:1px dashed #D6C7AE;padding-top:16px;display:flex;flex-direction:column;gap:10px;font-size:15px">
-          <sc-if value="{{ canRentKasse }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ toggleKasse }}" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:1.5px solid {{ kasseBorder }};background:transparent;color:#241D18;font-size:15px;cursor:pointer;transition:border-color .15s ease"><span style="flex:none;width:20px;height:20px;border-radius:50%;border:2px solid #123B2E;background:{{ kasseDot }};color:#F3E9D8;display:grid;place-items:center;font-size:11px;font-weight:700">{{ kasseMark }}</span><span style="flex:1;min-width:0;color:#4A3F38">Legg til leie av selvvanningskasse</span><strong style="white-space:nowrap">{{ kasseLeie }} kr / år</strong></button>
-          </sc-if>
-          <sc-if value="{{ isHelaar }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A3F38">Selvvanningskasse</span><strong style="white-space:nowrap">Inkludert</strong></div>
+        <div style="border-top:1px dashed #D6C7AE;padding-top:16px;display:flex;flex-direction:column;gap:10px;font-size:var(--fs-min,15px)">
+          <sc-if value="{{ isRecurring }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A3F38">Selvvanningskasse ved første bestilling<sc-if value="{{ isHelaar }}" hint-placeholder-val="{{ false }}"><span style="color:#8E3B2F;font-weight:600"> · helårspris</span></sc-if></span><strong style="white-space:nowrap">{{ kasseLine }} kr</strong></div>
           </sc-if>
           <sc-for list="{{ chosenAddons }}" as="c" hint-placeholder-count="0">
             <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A3F38">{{ c.name }}</span><strong style="white-space:nowrap">{{ c.costText }}</strong></div>
           </sc-for>
           <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-top:1px solid #123B2E;padding-top:12px;margin-top:4px"><span style="font-weight:600">{{ totalLabel }}</span><strong style="font-family:'Young Serif',serif;font-size:30px;font-weight:400;color:#123B2E;white-space:nowrap">{{ total }} kr</strong></div>
-          <sc-if value="{{ isRecurring }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;color:#6B5E54">{{ recurringNote }}</p></sc-if>
-          <sc-if value="{{ isHelaar }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;color:#6B5E54">Har du allerede selvvanningskasse fra oss, er prisen {{ ownerPrice }} kr / år.</p></sc-if>
+          <sc-if value="{{ isRecurring }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:var(--fs-min,13px);color:#6B5E54">{{ recurringNote }}</p></sc-if>
         </div>
         <a href="{{ bestillUrl }}" style="margin-top:24px;display:flex;align-items:center;justify-content:center;background:#123B2E;color:#F3E9D8;padding:17px 24px;border-radius:999px;font-weight:600;font-size:16px;transition:background .15s ease" style-hover="background:#1B4D3C;color:#F3E9D8">Bestill dette stellet</a>
       </aside>
@@ -220,13 +214,13 @@
      <div style="border-top:1px solid rgba(36,29,24,0.14);padding-top:clamp(20px,2.5vw,32px)">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px">
         <p style="margin:0;color:#8E3B2F;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;white-space:nowrap">Slik gikk vi fram</p>
-        <p style="margin:0;font-size:14px;color:#6B5E54">Et familiegravsted i Østfold – fra gjengrodd til ferdig lagt.</p>
+        <p style="margin:0;font-size:var(--fs-min,14px);color:#6B5E54">Et familiegravsted i Østfold – fra gjengrodd til ferdig lagt.</p>
       </div>
       <div style="display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px">
         <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
           <figure style="margin:0;display:flex;flex-direction:column;gap:10px;scroll-snap-align:start">
             <img src="{{ st.img }}" alt="{{ st.alt }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:{{ st.pos }};border-radius:14px;display:block">
-            <figcaption style="display:flex;gap:10px;align-items:baseline"><span style="font-family:'Young Serif',serif;font-size:15px;color:#8E3B2F;flex:none">{{ st.n }}</span><span style="font-size:14px;line-height:1.4;color:#241D18;font-weight:500">{{ st.label }}</span></figcaption>
+            <figcaption style="display:flex;gap:10px;align-items:baseline"><span style="font-family:'Young Serif',serif;font-size:15px;color:#8E3B2F;flex:none">{{ st.n }}</span><span style="font-size:var(--fs-min,14px);line-height:1.4;color:#241D18;font-weight:500">{{ st.label }}</span></figcaption>
           </figure>
         </sc-for>
       </div>
@@ -235,24 +229,33 @@
   </div>
 </section>
 
-<section id="blomster" data-screen-label="Blomster" style="scroll-margin-top:73px;position:relative;background:#DCC2B0;color:#241D18;padding:clamp(56px,7vw,104px) 28px calc(max(9.72vw,120px) + 48px)">
+<section id="trygghet" data-screen-label="Trygghet" style="scroll-margin-top:73px;position:relative;background:#DCC2B0;color:#241D18;padding:clamp(56px,7vw,104px) 28px calc(max(9.72vw,120px) + 48px)">
   <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t3.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
   <div style="max-width:1280px;margin:0 auto">
-    <p style="margin:0 0 18px;text-align:center;color:#6F2C22;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Blomster vi bruker</p>
+    <p style="margin:0 0 18px;text-align:center;color:#6F2C22;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Trygghet for deg</p>
     <div style="border-top:1px solid rgba(36,29,24,0.22);padding-top:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
       <div>
-        <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(32px,3.9vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#123B2E;max-width:16ch;margin-left:auto;margin-right:auto">Norske gravplanter <span style="color:#6F2C22">gjennom året</span></h2>
+        <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(28px,3.9vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#123B2E;max-width:16ch;margin-left:auto;margin-right:auto">Gravstedet er i <span style="color:#6F2C22">trygge hender</span></h2>
       </div>
-      <p style="margin:0;font-size:clamp(17px,1.25vw,19px);line-height:1.65;max-width:50ch;margin-left:auto;margin-right:auto;color:#3D2E26;text-wrap:pretty">Vi velger planter som tåler norsk klima og gir vakre farger i hver sesong. Her er noen av favorittene våre.</p>
+      <p style="margin:0;font-size:clamp(17px,1.25vw,19px);line-height:1.65;max-width:50ch;margin-left:auto;margin-right:auto;color:#3D2E26;text-wrap:pretty">Når vi har ansvaret for gravstedet, kan du senke skuldrene. Dette kan du alltid regne med fra oss.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:clamp(12px,2vw,28px);margin-top:clamp(48px,6vw,88px)">
-      <sc-for list="{{ seasons }}" as="s" hint-placeholder-count="4">
-        <article style="background:#7A3A2A;border-radius:24px;padding:14px 14px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)">
-          <img src="{{ s.img }}" alt="{{ s.title }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px;display:block">
-          <h3 style="margin:8px 4px 0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(19px,5.4vw,26px);line-height:1.05;color:#F3E9D8">{{ s.title }}</h3>
-          <p style="margin:0 4px;font-size:clamp(13.5px,3.8vw,15px);line-height:1.55;color:#F0D9CC">{{ s.list }}</p>
-        </article>
-      </sc-for>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(12px,2vw,28px);margin-top:clamp(48px,6vw,88px)">
+      <article style="background:#7A3A2A;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)">
+        <h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(22px,1.9vw,25px);line-height:1.1;color:#F3E9D8">Slipp bekymringene</h3>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#F0D9CC;text-wrap:pretty">Vi passer på gravstedet uansett vær og årstid, også når du selv ikke har mulighet til å komme. Etter hvert stell får du et bilde, så du alltid vet at det er tatt godt vare på.</p>
+      </article>
+      <article style="background:#7A3A2A;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)">
+        <h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(22px,1.9vw,25px);line-height:1.1;color:#F3E9D8">Alltid velstelt</h3>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#F0D9CC;text-wrap:pretty">Vi kommer jevnlig gjennom hele sesongen og luker, vanner og steller bedet. Slik holder gravstedet seg pent og verdig fra det ene besøket til det neste.</p>
+      </article>
+      <article style="background:#7A3A2A;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)">
+        <h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(22px,1.9vw,25px);line-height:1.1;color:#F3E9D8">Friske blomster av beste kvalitet</h3>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#F0D9CC;text-wrap:pretty">Vi velger planter av beste kvalitet og bytter dem gjennom sesongen, i takt med årstidene. Da ser gravstedet alltid fint ut – uansett når du kommer på besøk.</p>
+      </article>
+      <article style="background:#7A3A2A;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)">
+        <h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(22px,1.9vw,25px);line-height:1.1;color:#F3E9D8">Selvvanningskasse der gravplassen tillater det</h3>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#F0D9CC;text-wrap:pretty">Der gravplassen tillater det, setter vi en selvvanningskasse i bedet. Den gir plantene vann jevnt og trutt og holder bedet frodig mellom besøkene – også i tørre perioder.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -263,7 +266,7 @@
     <p style="margin:0 0 18px;text-align:center;color:#8E3B2F;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Om oss</p>
     <div style="border-top:1px solid rgba(36,29,24,0.2);padding-top:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
       <div>
-        <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(32px,3.9vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#123B2E;max-width:18ch;margin-left:auto;margin-right:auto">Mor og sønn med <span style="color:#8E3B2F">lidenskap</span> for gravstell</h2>
+        <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(28px,3.9vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#123B2E;max-width:18ch;margin-left:auto;margin-right:auto">Mor og sønn med <span style="color:#8E3B2F">lidenskap</span> for gravstell</h2>
       </div>
       <p style="margin:0;font-size:clamp(17px,1.25vw,19px);line-height:1.65;max-width:50ch;margin-left:auto;margin-right:auto;color:#4A3F38;text-wrap:pretty">Grønn Trøst ble til av et ønske om å ta vare på gravsteder med respekt, omtanke og fagkunnskap.</p>
     </div>
@@ -273,7 +276,7 @@
         <div style="display:flex;flex-direction:column;gap:8px;flex:1 1 220px;min-width:0">
           <h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:32px;line-height:1;color:#123B2E">Lise</h3>
           <p style="margin:0 0 6px;color:#8E3B2F;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;overflow-wrap:anywhere">Gravstellspesialist &amp; medgründer</p>
-          <p style="margin:0;font-size:15.5px;line-height:1.65;color:#4A3F38;text-wrap:pretty">Lise kommer fra en familie med sterke tradisjoner for omsorg og naturglede. Hage og blomster har fulgt henne hele livet, og i 15 år har hun stelt gårdens hageanlegg i Våler med stor omhu. Hun har også hatt sommerjobb som kirkegårdsmedarbeider med ansvar for legatgraver – noe som har gitt henne verdifull innsikt i hvor viktig et velstelt gravsted er for de pårørende.</p>
+          <p style="margin:0;font-size:var(--fs-min,15.5px);line-height:1.65;color:#4A3F38;text-wrap:pretty">Lise kommer fra en familie med sterke tradisjoner for omsorg og naturglede. Hage og blomster har fulgt henne hele livet, og i 15 år har hun stelt gårdens hageanlegg i Våler med stor omhu. Hun har også hatt sommerjobb som kirkegårdsmedarbeider med ansvar for legatgraver – noe som har gitt henne verdifull innsikt i hvor viktig et velstelt gravsted er for de pårørende.</p>
         </div>
       </article>
       <article style="display:flex;flex-wrap:wrap;gap:26px;align-items:center">
@@ -281,7 +284,7 @@
         <div style="display:flex;flex-direction:column;gap:8px;flex:1 1 220px;min-width:0">
           <h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:32px;line-height:1;color:#123B2E">Stian</h3>
           <p style="margin:0 0 6px;color:#8E3B2F;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;overflow-wrap:anywhere">Gravplassmedarbeider &amp; medgründer</p>
-          <p style="margin:0;font-size:15.5px;line-height:1.65;color:#4A3F38;text-wrap:pretty">Stian har erfaring som kirkegårdsmedarbeider og sommervikar, hvor han arbeidet med stor nøyaktighet og respekt med vedlikehold av kirkegårdens grøntområder. Han har en dyp forståelse for hvor mye et velstelt gravsted betyr for familier i sorg. Hans omsorgsfulle tilnærming og øye for detaljer gjør ham til en trygg og dedikert gravstellspesialist i Grønn Trøst.</p>
+          <p style="margin:0;font-size:var(--fs-min,15.5px);line-height:1.65;color:#4A3F38;text-wrap:pretty">Stian har erfaring som kirkegårdsmedarbeider og sommervikar, hvor han arbeidet med stor nøyaktighet og respekt med vedlikehold av kirkegårdens grøntområder. Han har en dyp forståelse for hvor mye et velstelt gravsted betyr for familier i sorg. Hans omsorgsfulle tilnærming og øye for detaljer gjør ham til en trygg og dedikert gravstellspesialist i Grønn Trøst.</p>
         </div>
       </article>
     </div>
@@ -295,7 +298,7 @@
       <div>
         <p style="margin:0 0 18px;color:#D8B4A0;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Kontakt oss</p>
         <div style="border-top:1px solid rgba(243,233,216,0.28);padding-top:20px">
-          <h2 style="margin:0 0 24px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(32px,3.9vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#F3E9D8;max-width:14ch">La oss <span style="color:#D8B4A0">ta vare på minnet</span></h2>
+          <h2 style="margin:0 0 24px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(28px,3.9vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#F3E9D8;max-width:14ch">La oss <span style="color:#D8B4A0">ta vare på minnet</span></h2>
           <p style="margin:0;font-size:clamp(17px,1.25vw,19px);line-height:1.65;max-width:46ch;color:#F3E9D8;text-wrap:pretty">Fyll ut skjemaet, så tar vi kontakt innen én virkedag for en uforpliktende prat.</p>
         </div>
       </div>
@@ -323,19 +326,19 @@
             <select name="tjeneste" value="{{ service }}" onChange="{{ setService }}" style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)">
               <option value="">Velg tjeneste...</option>
               <option>Enkeltstell (990 kr/besøk)</option>
-              <option>Vår og sommer (1 980 kr/år)</option>
-              <option>Sommer og høst (1 980 kr/år)</option>
-              <option>Vår, sommer og høst (2 490 kr/år)</option>
-              <option>Helårsavtale (3 250 kr/år, selvvanningskasse inkludert)</option>
+              <option>Vår og sommer (2 160 kr/år)</option>
+              <option>Sommer og høst (2 160 kr/år)</option>
+              <option>Vår, sommer og høst (2 540 kr/år)</option>
+              <option>Helårsavtale (3 310 kr/år)</option>
               <option>Utvidet stelleavtale (pris etter befaring)</option>
               <option>Tilleggstjeneste</option>
               <option>Usikker – ønsker rådgivning</option>
             </select>
           </label>
           <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#123B2E">Melding (valgfritt)<textarea name="melding" rows="4" placeholder="Fortell oss gjerne litt om gravstedet og hva du ønsker hjelp med..." style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none;resize:vertical" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)"></textarea></label>
-          <label style="display:flex;gap:12px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#4A3F38"><input type="checkbox" required style="margin-top:3px;width:18px;height:18px;accent-color:#123B2E;flex:none"><span>Jeg samtykker til at Grønn Trøst lagrer mine opplysninger for å besvare henvendelsen. Du kan melde deg av når som helst.</span></label>
+          <label style="display:flex;gap:12px;align-items:flex-start;font-size:var(--fs-min,13.5px);line-height:1.5;color:#4A3F38"><input type="checkbox" required style="margin-top:3px;width:18px;height:18px;accent-color:#123B2E;flex:none"><span>Jeg samtykker til at Grønn Trøst lagrer mine opplysninger for å besvare henvendelsen. Du kan melde deg av når som helst.</span></label>
           <button type="submit" disabled="{{ sending }}" style="margin-top:6px;background:#8E3B2F;color:#F3E9D8;border:0;padding:18px 24px;border-radius:999px;font-weight:600;font-size:16px;cursor:pointer;transition:background .15s ease" style-hover="background:#6F2C22">{{ sendLabel }}</button>
-          <sc-if value="{{ sendError }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:14px;color:#8E3B2F">Noe gikk galt ved sending. Prøv igjen, eller ring oss på <a href="tel:+4795734512" style="color:#8E3B2F;font-weight:600">+47 957 34 512</a>.</p></sc-if>
+          <sc-if value="{{ sendError }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:var(--fs-min,14px);color:#8E3B2F">Noe gikk galt ved sending. Prøv igjen, eller ring oss på <a href="tel:+4795734512" style="color:#8E3B2F;font-weight:600">+47 957 34 512</a>.</p></sc-if>
         </form>
       </sc-if>
       <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
@@ -356,20 +359,20 @@
     <img src="assets/logo.svg" alt="Grønn Trøst – Blomster som hedrer minnet" loading="lazy" decoding="async" style="height:64px;width:auto;filter:invert(0.92) sepia(0.35) saturate(0.6) brightness(1.05)">
     <nav style="display:flex;flex-wrap:wrap;gap:24px">
       <a href="#produkter" style="color:#D9CDB8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Produkter</a>
-      <a href="#blomster" style="color:#D9CDB8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Blomster</a>
+      <a href="#trygghet" style="color:#D9CDB8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Trygghet</a>
       <a href="#filosofi" style="color:#D9CDB8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Filosofi</a>
       <a href="#om-oss" style="color:#D9CDB8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Om oss</a>
     </nav>
   </div>
   <div style="max-width:1280px;margin:32px auto 0;padding-top:24px;border-top:1px solid rgba(217,205,184,0.18);display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;font-size:13px;color:#A9B8A6">
     <span>© 2026 Grønn Trøst. Alle rettigheter reservert.</span>
-    <span>Org.nr: 932 762 463 · <a href="mailto:post@gronntrost.no" style="color:#A9B8A6" style-hover="color:#D8B4A0">post@gronntrost.no</a></span>
+    <span>Org.nr: 932 762 463 · <a href="mailto:post@gronntrost.no" style="color:#A9B8A6" style-hover="color:#D8B4A0">post@gronntrost.no</a> · <a href="vilkaar.html" style="color:#A9B8A6" style-hover="color:#D8B4A0">Kjøpsvilkår</a></span>
   </div>
 </footer>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;flowerBands&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Dekor&quot;},&quot;startPlan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;tom&quot;,&quot;options&quot;:[&quot;tom&quot;,&quot;helår&quot;],&quot;tsType&quot;:&quot;'tom' | 'helår'&quot;,&quot;section&quot;:&quot;Priskalkulator&quot;}}">
 class Component extends DCLogic {
-  state = { pkg: 'enkeltstell', kasse: false, addons: { bed: false, vann: false, vask: false, blomster: false, mosekrans: false, barkrans: false }, service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
+  state = { seasons: { var: false, sommer: false, host: false, vinter: false }, addons: { bed: false, vask: false, blomster: false, mosekrans: false, barkrans: false }, service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
   componentDidMount() {
     this._onResize = () => {
       const cw = document.documentElement.clientWidth;
@@ -382,65 +385,70 @@ class Component extends DCLogic {
     this._onScroll = () => { const scrolled = window.scrollY > 24; if (scrolled !== this.state.scrolled) this.setState({ scrolled }); };
     this._onScroll();
     window.addEventListener('scroll', this._onScroll, { passive: true });
-    if ((this.props.startPlan ?? 'tom') === 'helår') this.setState({ pkg: 'helaar' });
+    if ((this.props.startPlan ?? 'tom') === 'helår') this.setState({ seasons: { var: true, sommer: true, host: true, vinter: true } });
   }
   componentWillUnmount() { window.removeEventListener('resize', this._onResize); window.removeEventListener('scroll', this._onScroll); }
+  toggleSeason(k) { this.setState(s => ({ seasons: { ...s.seasons, [k]: !s.seasons[k] } })); }
   toggleAddon(k) { this.setState(s => ({ addons: { ...s.addons, [k]: !s.addons[k] } })); }
   renderVals() {
     const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0');
     const andList = a => a.length > 1 ? a.slice(0, -1).join(', ') + ' og ' + a[a.length - 1] : a.join('');
     const S = this.state, P = this.props;
     const seasonDefs = [
-      { key: 'var', name: 'Vår', img: 'assets/var.jpg', title: 'Vår\u00ADblomster', list: 'Stemorsblomst (Viola), Primula, Påskelilje, Krokus, Bellis' },
-      { key: 'sommer', name: 'Sommer', img: 'assets/sommer.jpg', title: 'Sommer\u00ADblomster', list: 'Lobelia, Petunia, Begonia, Tagetes, Ildtopp, Fuchsia' },
-      { key: 'host', name: 'Høst', img: 'assets/host.jpg', title: 'Høst\u00ADblomster', list: 'Lyng (Calluna), Krysantemum, Røsslyng, Høstasters, Eføy' },
-      { key: 'vinter', name: 'Vinter', img: 'assets/vinter.jpg', title: 'Vinter\u00ADdekor', list: 'Mosekrans, Granbar, Kongler, Lykt med kubbelys, Vintergrønt' },
+      { key: 'var', name: 'Vår', hint: 'Vårblomster, frisk jord og klargjøring av bedet', img: 'assets/var.jpg' },
+      { key: 'sommer', name: 'Sommer', hint: 'Sommerblomster, vanning og stell gjennom sesongen', img: 'assets/sommer.jpg' },
+      { key: 'host', name: 'Høst', hint: 'Høstplanter, opprydding og klargjøring for vinteren', img: 'assets/host.jpg' },
+      { key: 'vinter', name: 'Vinter', hint: 'Vinterdekor med gravlykt, gravlys og granbar', img: 'assets/vinter.jpg' },
     ];
     // Prismodellen. Kontaktskjemaets «Ønsket tjeneste»-liste har de samme navnene og prisene – endre begge steder.
-    const KASSE_LEIE = 390, KASSE_KJOP = 1650;
     const packageDefs = [
-      { key: 'enkeltstell', name: 'Enkeltstell', price: 990, unit: '/ besøk', seasons: [], hint: 'Ett besøk med stell, vanning og luking – uten avtale' },
-      { key: 'vs', name: 'Vår og sommer', price: 1980, unit: '/ år', seasons: ['var', 'sommer'] },
-      { key: 'sh', name: 'Sommer og høst', price: 1980, unit: '/ år', seasons: ['sommer', 'host'] },
-      { key: 'vsh', name: 'Vår, sommer og høst', price: 2490, unit: '/ år', seasons: ['var', 'sommer', 'host'] },
-      { key: 'helaar', name: 'Helårsavtale', price: 3250, ownerPrice: 2950, unit: '/ år', seasons: ['var', 'sommer', 'host', 'vinter'], kasseIncluded: true, badge: 'Mest valgt' },
+      { key: 'enkeltstell', name: 'Enkeltstell', price: 990, unit: '/ besøk', seasons: [] },
+      { key: 'vs', name: 'Vår og sommer', price: 2160, unit: '/ år', seasons: ['var', 'sommer'] },
+      { key: 'sh', name: 'Sommer og høst', price: 2160, unit: '/ år', seasons: ['sommer', 'host'] },
+      { key: 'vsh', name: 'Vår, sommer og høst', price: 2540, unit: '/ år', seasons: ['var', 'sommer', 'host'] },
+      { key: 'helaar', name: 'Helårsavtale', price: 3310, unit: '/ år', seasons: ['var', 'sommer', 'host', 'vinter'] },
     ];
+    // Selvvanningskasse: engangsbeløp ved første bestilling av en årspakke, i tillegg til årsprisen.
+    const KASSE = 1250, KASSE_HELAAR = 899;
     const addonDefs = [
-      { key: 'bed', name: 'Klargjøring av bed', desc: 'Opparbeiding av bed med ny jord, klar for planting', price: 790, unit: 'engangs', img: 'assets/klargjoring.jpg' },
-      { key: 'vann', name: 'Ekstra vanning', desc: 'Ekstra vanningsbesøk i tørre perioder', price: 290, unit: '/ sesong', img: 'assets/vanning.jpg' },
-      { key: 'vask', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, unit: 'engangs', img: 'assets/vasking.jpg' },
-      { key: 'blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, unit: 'engangs', img: 'assets/baerekraft.jpg' },
-      { key: 'mosekrans', name: 'Mosekrans', desc: 'Krans av mose til høst og vinter', price: 529, unit: 'engangs', img: 'assets/trost.jpg', pos: '12% 72%' },
-      { key: 'barkrans', name: 'Barkrans', desc: 'Krans av granbar til høst og vinter', price: 529, unit: 'engangs', img: 'assets/vinter.jpg' },
+      { key: 'bed', name: 'Klargjøring av bed', desc: 'Opparbeiding av bed med ny jord, klar for planting', price: 790, img: 'assets/klargjoring.jpg' },
+      { key: 'vask', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, img: 'assets/vasking.jpg' },
+      { key: 'blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, img: 'assets/baerekraft.jpg' },
+      { key: 'mosekrans', name: 'Mosekrans', desc: 'Krans av mose til høst og vinter', price: 529, img: 'assets/trost.jpg', pos: '12% 72%' },
+      { key: 'barkrans', name: 'Barkrans', desc: 'Krans av granbar til høst og vinter', price: 529, img: 'assets/vinter.jpg' },
     ];
-    const seasonList = keys => andList(keys.map(k => seasonDefs.find(d => d.key === k).name.toLowerCase()));
-    const pkg = packageDefs.find(p => p.key === S.pkg) || packageDefs[0];
-    const isHelaar = pkg.key === 'helaar', isRecurring = pkg.unit === '/ år';
-    const canRentKasse = isRecurring && !pkg.kasseIncluded, kasseOn = canRentKasse && S.kasse;
-    const perSeason = Math.max(pkg.seasons.length, 1);
+    // Valgte sesonger gir den rimeligste pakken som dekker dem. Ingen valgt gir enkeltstell.
+    const chosen = seasonDefs.filter(d => S.seasons[d.key]).map(d => d.key);
+    const pkg = packageDefs.filter(p => chosen.every(k => p.seasons.includes(k))).reduce((a, b) => b.price < a.price ? b : a);
+    const isHelaar = pkg.key === 'helaar', isRecurring = pkg.seasons.length > 0;
+    const kasse = isHelaar ? KASSE_HELAAR : KASSE;
     const onStyle = { bg: '#FBF4EA', fg: '#8E3B2F', border: '#FBF4EA' }, offStyle = { bg: 'rgba(243,233,216,0.08)', fg: '#F3E9D8', border: 'rgba(243,233,216,0.34)' };
-    const packages = packageDefs.map(p => {
-      const on = p.key === pkg.key;
-      return { ...p, on, badge: p.badge || '', priceText: fmt(p.price) + ' kr ' + p.unit,
-        hint: p.hint || (p.seasons.length === 4 ? 'Alle fire sesonger' : 'Sesonger: ' + seasonList(p.seasons)) + (p.kasseIncluded ? ' · selvvanningskasse inkludert' : ''),
-        renewNote: p.unit === '/ år' ? 'Fornyes årlig – avslutt når som helst' : '',
-        ownerNote: p.ownerPrice ? fmt(p.ownerPrice) + ' kr / år hvis du eier kassen fra før' : '',
-        choose: () => this.setState({ pkg: p.key }), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
+    const inPkgStyle = { bg: 'rgba(243,233,216,0.16)', fg: '#F3E9D8', border: '#FBF4EA' };
+    const seasons = seasonDefs.map(d => {
+      const on = !!S.seasons[d.key], included = !on && pkg.seasons.includes(d.key);
+      return { ...d, on, included, toggle: () => this.toggleSeason(d.key), ...(on ? onStyle : included ? inPkgStyle : offStyle), mark: on || included ? '✓' : '' };
     });
     const addons = addonDefs.map(a => {
       const on = !!S.addons[a.key];
-      const cost = a.key === 'vann' ? a.price * perSeason : a.price;
-      return { ...a, pos: a.pos || 'center', on, cost, priceText: fmt(a.price) + ' kr ' + a.unit, costText: fmt(cost) + ' kr', toggle: () => this.toggleAddon(a.key), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
+      return { ...a, pos: a.pos || 'center', on, priceText: fmt(a.price) + ' kr engangs', costText: fmt(a.price) + ' kr', toggle: () => this.toggleAddon(a.key), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
     });
     const chosenAddons = addons.filter(a => a.on);
-    const vanning = addons.find(a => a.key === 'vann');
-    const kasseCost = kasseOn ? KASSE_LEIE : 0;
-    const total = pkg.price + kasseCost + chosenAddons.reduce((t, a) => t + a.cost, 0);
-    const yearly = pkg.price + kasseCost + (vanning.on ? vanning.cost : 0);
-    const renew = 'Fornyes årlig – avslutt når som helst.';
+    const total = pkg.price + (isRecurring ? kasse : 0) + chosenAddons.reduce((t, a) => t + a.price, 0);
+    const seasonNames = andList(pkg.seasons.map(k => seasonDefs.find(d => d.key === k).name.toLowerCase()));
     const includes = !isRecurring
       ? ['Stell og opprydding', 'Vanning og luking', 'Stell utenom sesong', 'Uten sesongavtale']
-      : [isHelaar ? 'Alle 4 sesonger inkludert' : 'Sesonger: ' + seasonList(pkg.seasons), ...(pkg.kasseIncluded ? ['Selvvanningskasse inkludert'] : []), 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord'];
+      : isHelaar
+        ? ['Alle 4 sesonger inkludert', 'Vinterdekor: gravlykt med gravlys, mosekrans og granbar', 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord']
+        : ['Sesonger: ' + seasonNames, 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord'];
+    // «Slik gikk vi fram». Numrene settes automatisk etter rekkefølgen.
+    const steps = [
+      { label: 'Før', img: 'assets/utvidet/02-for-naerbilde.jpg', pos: 'center 55%', alt: 'Gravstein før arbeidet, med gjengrodd bed' },
+      { label: 'Mønsteret prøvelegges', img: 'assets/utvidet/04-underveis-monster.jpg', pos: 'center 62%', alt: 'Mønsteret for hellene markert i bedet' },
+      { label: 'Grunnarbeid', img: 'assets/utvidet/03-underveis-grunnarbeid.jpg', pos: 'center 60%', alt: 'Rammen rettes opp og bedet fylles med pukk' },
+      // TODO: Bilde 4 – Stian legger stein. Legg bildet i assets/utvidet/stian-stein.jpg og fjern // foran linjen under.
+      // { label: 'Hellene legges', img: 'assets/utvidet/stian-stein.jpg', pos: 'center', alt: 'Stian legger heller på gravstedet' },
+      { label: 'Ferdig', img: 'assets/utvidet/07-etter-ferdig.jpg', pos: 'center', alt: 'Ferdig gravsted med heller og nytt blomsterbed' },
+    ].map((s, i) => ({ ...s, n: String(i + 1).padStart(2, '0') }));
     // BESTILL_URL er definert øverst i support.js. Faller tilbake til kontaktskjemaet om den mangler.
     const bestillUrl = typeof BESTILL_URL === 'string' ? BESTILL_URL : '#kontakt';
     return {
@@ -449,20 +457,12 @@ class Component extends DCLogic {
       toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })), closeMenu: () => this.setState({ menuOpen: false }),
       showBands: P.flowerBands ?? true,
       split: S.split, splitPct: S.split + '%', setSplit: e => this.setState({ split: +e.target.value }),
-      steps: [
-        { n: '01', label: 'Før', img: 'assets/utvidet/02-for-naerbilde.jpg', pos: 'center 55%', alt: 'Gravstein før arbeidet, med gjengrodd bed' },
-        { n: '02', label: 'Grunnarbeid', img: 'assets/utvidet/03-underveis-grunnarbeid.jpg', pos: 'center 60%', alt: 'Rammen rettes opp og bedet fylles med pukk' },
-        { n: '03', label: 'Mønsteret prøvelegges', img: 'assets/utvidet/04-underveis-monster.jpg', pos: 'center 62%', alt: 'Mønsteret for hellene markert i bedet' },
-        { n: '04', label: 'Hellene legges', img: 'assets/utvidet/05-etter-heller.jpg', pos: 'center', alt: 'Skiferheller lagt i mønster' },
-        { n: '05', label: 'Ferdig', img: 'assets/utvidet/07-etter-ferdig.jpg', pos: 'center', alt: 'Ferdig gravsted med heller og nytt blomsterbed' },
-      ],
-      seasons: seasonDefs, packages, addons, chosenAddons, includes: includes.map(t => ({ t })),
-      planName: pkg.name, planPrice: fmt(pkg.price), planUnit: pkg.unit, isHelaar, isRecurring, ownerPrice: fmt(pkg.ownerPrice || 0),
-      kasseLeie: fmt(KASSE_LEIE), kasseKjop: fmt(KASSE_KJOP), canRentKasse, toggleKasse: () => this.setState(s => ({ kasse: !s.kasse })),
-      kasseBorder: kasseOn ? '#123B2E' : '#D6C7AE', kasseDot: kasseOn ? '#123B2E' : 'transparent', kasseMark: kasseOn ? '✓' : '',
-      total: fmt(total),
-      totalLabel: !isRecurring ? 'Totalt for besøket' : (total === yearly ? 'Totalt per år' : 'Første år totalt'),
-      recurringNote: total === yearly ? renew : 'Deretter ' + fmt(yearly) + ' kr per år. ' + renew,
+      steps,
+      seasons, addons, chosenAddons, includes: includes.map(t => ({ t })),
+      planName: pkg.name, planPrice: fmt(pkg.price), planUnit: pkg.unit, isHelaar, isRecurring,
+      kassePrice: fmt(KASSE), kasseHelaarPrice: fmt(KASSE_HELAAR), kasseLine: fmt(kasse),
+      total: fmt(total), totalLabel: isRecurring ? 'Første år totalt' : 'Totalt for besøket',
+      recurringNote: 'Deretter ' + fmt(pkg.price) + ' kr per år. Fornyes årlig – avslutt når som helst.',
       bestillUrl,
       service: S.service, setService: e => this.setState({ service: e.target.value }),
       sent: S.sent, notSent: !S.sent, sending: S.sending, sendError: S.sendError, sendLabel: S.sending ? 'Sender…' : 'Send forespørsel',

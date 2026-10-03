@@ -14,9 +14,9 @@ Skjemaet sender til /api/send-contact (samme funksjon som før), så det virker 
 så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 
 ## Priser og bestilling
-- Pakker, tillegg og kassepriser står i `packageDefs`, `addonDefs` og `KASSE_LEIE`/`KASSE_KJOP`
+- Pakker, tillegg og kassepriser står i `packageDefs`, `addonDefs` og `KASSE`/`KASSE_HELAAR`
   i scriptet nederst i index.html. «Ønsket tjeneste»-listen i kontaktskjemaet har de samme
-  navnene og prisene og må endres samtidig.
+  navnene og prisene og må endres samtidig. Kjøpsvilkårene ligger i vilkaar.html.
 - Alle «Bestill»-knapper lenker til `BESTILL_URL` øverst i support.js. Bytt verdien der når
   bestillingssiden får eget domene. support.js er ellers generert kode – ta med linjen hvis
   filen byttes ut. Familiegrav («Ta kontakt») går fortsatt til kontaktskjemaet.
