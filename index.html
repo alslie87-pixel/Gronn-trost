@@ -442,11 +442,10 @@ class Component extends DCLogic {
         : ['Sesonger: ' + seasonNames, 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord'];
     // «Slik gikk vi fram». Numrene settes automatisk etter rekkefølgen.
     const steps = [
-      { label: 'Før', img: 'assets/utvidet/02-for-naerbilde.jpg', pos: 'center 55%', alt: 'Gravstein før arbeidet, med gjengrodd bed' },
-      { label: 'Mønsteret prøvelegges', img: 'assets/utvidet/04-underveis-monster.jpg', pos: 'center 62%', alt: 'Mønsteret for hellene markert i bedet' },
+      { label: 'Før', img: 'assets/utvidet/01-for-oversikt.jpg', pos: '20% center', alt: 'Gravstedet før arbeidet: gjengrodd bed og skjeve steiner' },
       { label: 'Grunnarbeid', img: 'assets/utvidet/03-underveis-grunnarbeid.jpg', pos: 'center 60%', alt: 'Rammen rettes opp og bedet fylles med pukk' },
-      // TODO: Bilde 4 – Stian legger stein. Legg bildet i assets/utvidet/stian-stein.jpg og fjern // foran linjen under.
-      // { label: 'Hellene legges', img: 'assets/utvidet/stian-stein.jpg', pos: 'center', alt: 'Stian legger heller på gravstedet' },
+      { label: 'Mønsteret prøvelegges', img: 'assets/utvidet/04-underveis-monster.jpg', pos: 'center 62%', alt: 'Mønsteret for hellene markert i bedet' },
+      { label: 'Hellene legges – stein for stein', img: 'assets/utvidet/stian-stein.jpg', pos: 'center', alt: 'Stian legger hellene i mønsteret, én og én' },
       { label: 'Ferdig', img: 'assets/utvidet/07-etter-ferdig.jpg', pos: 'center', alt: 'Ferdig gravsted med heller og nytt blomsterbed' },
     ].map((s, i) => ({ ...s, n: String(i + 1).padStart(2, '0') }));
     // BESTILL_URL er definert øverst i support.js. Faller tilbake til kontaktskjemaet om den mangler.
