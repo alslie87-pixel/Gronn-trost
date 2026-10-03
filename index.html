@@ -155,7 +155,7 @@
           <h3 style="margin:0 0 6px;font-family:'Young Serif',serif;font-weight:400;font-size:26px;line-height:1.1;color:#F3E9D8">2. Tilleggstjenester</h3>
           <p style="margin:0 0 20px;font-size:var(--fs-min,15px);color:#F0D9CC">Valgfritt – legg til det gravstedet trenger.</p>
           <div style="display:flex;flex-direction:column;gap:12px">
-            <sc-for list="{{ addons }}" as="a" hint-placeholder-count="5">
+            <sc-for list="{{ addons }}" as="a" hint-placeholder-count="3">
               <button onClick="{{ a.toggle }}" style="text-align:left;padding:12px 16px 12px 12px;border-radius:18px;border:2px solid {{ a.border }};background:{{ a.bg }};color:{{ a.fg }};cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:14px;transition:background .15s ease,border-color .15s ease">
                 <img sc-camel-src="{{ a.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:64px;height:64px;object-fit:cover;object-position:{{ a.pos }};border-radius:12px">
                 <span style="display:flex;flex-direction:column;gap:2px;flex:1 1 140px;min-width:0"><strong style="font-size:17px;font-weight:600">{{ a.name }}</strong><span style="font-size:var(--fs-min,13px);opacity:0.85;line-height:1.4">{{ a.desc }}</span></span>
@@ -183,6 +183,14 @@
           <sc-for list="{{ chosenAddons }}" as="c" hint-placeholder-count="0">
             <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A3F38">{{ c.name }}</span><strong style="white-space:nowrap">{{ c.costText }}</strong></div>
           </sc-for>
+          <sc-if value="{{ kransOffered }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+              <span style="font-weight:600;color:#241D18">Ønsker du en krans til jul?</span>
+              <sc-for list="{{ kranser }}" as="k" hint-placeholder-count="2">
+                <button onClick="{{ k.toggle }}" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:1.5px solid {{ k.border }};background:transparent;color:#241D18;font-size:var(--fs-min,15px);cursor:pointer;transition:border-color .15s ease"><span style="flex:none;width:20px;height:20px;border-radius:50%;border:2px solid #123B2E;background:{{ k.dot }};color:#F3E9D8;display:grid;place-items:center;font-size:11px;font-weight:700">{{ k.mark }}</span><span style="flex:1;min-width:0;color:#4A3F38">{{ k.name }}</span><strong style="white-space:nowrap">{{ k.priceText }}</strong></button>
+              </sc-for>
+            </div>
+          </sc-if>
           <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-top:1px solid #123B2E;padding-top:12px;margin-top:4px"><span style="font-weight:600">{{ totalLabel }}</span><strong style="font-family:'Young Serif',serif;font-size:30px;font-weight:400;color:#123B2E;white-space:nowrap">{{ total }} kr</strong></div>
           <sc-if value="{{ isRecurring }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:var(--fs-min,13px);color:#6B5E54">{{ recurringNote }}</p></sc-if>
         </div>
@@ -371,7 +379,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;flowerBands&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Dekor&quot;},&quot;startPlan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;tom&quot;,&quot;options&quot;:[&quot;tom&quot;,&quot;helår&quot;],&quot;tsType&quot;:&quot;'tom' | 'helår'&quot;,&quot;section&quot;:&quot;Priskalkulator&quot;}}">
 class Component extends DCLogic {
-  state = { seasons: { var: false, sommer: false, host: false, vinter: false }, addons: { bed: false, vask: false, blomster: false, mosekrans: false, barkrans: false }, service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
+  state = { seasons: { var: false, sommer: false, host: false, vinter: false }, addons: { bed: false, vask: false, blomster: false }, krans: '', service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
   componentDidMount() {
     this._onResize = () => {
       const cw = document.documentElement.clientWidth;
@@ -414,8 +422,6 @@ class Component extends DCLogic {
       { key: 'bed', name: 'Klargjøring av bed', desc: 'Opparbeiding av bed med ny jord, klar for planting', price: 790, img: 'assets/klargjoring.jpg' },
       { key: 'vask', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, img: 'assets/vasking.jpg' },
       { key: 'blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, img: 'assets/baerekraft.jpg' },
-      { key: 'mosekrans', name: 'Mosekrans', desc: 'Krans av mose til høst og vinter', price: 529, img: 'assets/trost.jpg', pos: '12% 72%' },
-      { key: 'barkrans', name: 'Barkrans', desc: 'Krans av granbar til høst og vinter', price: 529, img: 'assets/vinter.jpg' },
     ];
     // Valgte sesonger gir den rimeligste pakken som dekker dem. Ingen valgt gir enkeltstell.
     const chosen = seasonDefs.filter(d => S.seasons[d.key]).map(d => d.key);
@@ -433,12 +439,26 @@ class Component extends DCLogic {
       return { ...a, pos: a.pos || 'center', on, priceText: fmt(a.price) + ' kr engangs', costText: fmt(a.price) + ' kr', toggle: () => this.toggleAddon(a.key), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
     });
     const chosenAddons = addons.filter(a => a.on);
-    const total = pkg.price + (isRecurring ? kasse : 0) + chosenAddons.reduce((t, a) => t + a.price, 0);
+    // Krans til jul tilbys når valget mangler vinter: sesongpakkene alltid, enkeltstell bare i høst- og vintermånedene
+    // (september–februar). Aldri på helår – der er krans og gravlys til jul inkludert.
+    const kransDefs = [
+      { key: 'mosekrans', name: 'Mosekrans', price: 529 },
+      { key: 'barkrans', name: 'Barkrans', price: 529 },
+    ];
+    const month = new Date().getMonth() + 1;
+    const kransOffered = !pkg.seasons.includes('vinter') && (isRecurring || month >= 9 || month <= 2);
+    const krans = kransOffered ? kransDefs.find(k => k.key === S.krans) : undefined;
+    const kranser = kransDefs.map(k => {
+      const on = !!krans && krans.key === k.key;
+      return { ...k, on, priceText: fmt(k.price) + ' kr', toggle: () => this.setState(s => ({ krans: s.krans === k.key ? '' : k.key })),
+        border: on ? '#123B2E' : '#D6C7AE', dot: on ? '#123B2E' : 'transparent', mark: on ? '✓' : '' };
+    });
+    const total = pkg.price + (isRecurring ? kasse : 0) + chosenAddons.reduce((t, a) => t + a.price, 0) + (krans ? krans.price : 0);
     const seasonNames = andList(pkg.seasons.map(k => seasonDefs.find(d => d.key === k).name.toLowerCase()));
     const includes = !isRecurring
       ? ['Stell og opprydding', 'Vanning og luking', 'Stell utenom sesong', 'Uten sesongavtale']
       : isHelaar
-        ? ['Alle 4 sesonger inkludert', 'Vinterdekor: gravlykt med gravlys, mosekrans og granbar', 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord']
+        ? ['Alle 4 sesonger inkludert', 'Krans og gravlys til jul inkludert', 'Vinterdekor: gravlykt med gravlys, mosekrans og granbar', 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord']
         : ['Sesonger: ' + seasonNames, 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord'];
     // «Slik gikk vi fram». Numrene settes automatisk etter rekkefølgen.
     const steps = [
@@ -457,7 +477,7 @@ class Component extends DCLogic {
       showBands: P.flowerBands ?? true,
       split: S.split, splitPct: S.split + '%', setSplit: e => this.setState({ split: +e.target.value }),
       steps,
-      seasons, addons, chosenAddons, includes: includes.map(t => ({ t })),
+      seasons, addons, chosenAddons, kransOffered, kranser, includes: includes.map(t => ({ t })),
       planName: pkg.name, planPrice: fmt(pkg.price), planUnit: pkg.unit, isHelaar, isRecurring,
       kassePrice: fmt(KASSE), kasseHelaarPrice: fmt(KASSE_HELAAR), kasseLine: fmt(kasse),
       total: fmt(total), totalLabel: isRecurring ? 'Første år totalt' : 'Totalt for besøket',
