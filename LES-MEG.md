@@ -20,6 +20,9 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 - Alle «Bestill»-knapper lenker til `BESTILL_URL` øverst i support.js. Bytt verdien der når
   bestillingssiden får eget domene. support.js er ellers generert kode – ta med linjen hvis
   filen byttes ut. Familiegrav («Ta kontakt») går fortsatt til kontaktskjemaet.
+- Kalkulatoren: ingenting er valgt fra start. Vask av gravstein eller friske blomster uten pakke
+  gir enkeltstell automatisk. Klargjøring av bed uten pakke er en egen jobb (uten enkeltstell),
+  og med en årsavtale er den et tillegg.
 - «Bestill dette stellet» i kalkulatoren sender valgt pakke videre som `?pakke=` med koden
   enkeltstell, vs, vsh eller helaar. Julekrans og annet mersalg ligger på bestillingssiden.
 
