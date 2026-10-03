@@ -139,16 +139,21 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,4vw,72px);align-items:start;margin-top:clamp(48px,6vw,88px)">
       <div style="display:flex;flex-direction:column;gap:44px">
         <div>
-          <h3 style="margin:0 0 6px;font-family:'Young Serif',serif;font-weight:400;font-size:26px;line-height:1.1;color:#F3E9D8">1. Velg sesonger</h3>
-          <p style="margin:0 0 20px;font-size:var(--fs-min,15px);color:#F0D9CC;text-wrap:pretty">Ingen valgt gir enkeltstell per besøk. Sesongene selges som pakker: sommer og høst, vår til høst – eller hele året.</p>
+          <h3 style="margin:0 0 6px;font-family:'Young Serif',serif;font-weight:400;font-size:26px;line-height:1.1;color:#F3E9D8">1. Velg pakke</h3>
+          <p style="margin:0 0 20px;font-size:var(--fs-min,15px);color:#F0D9CC;text-wrap:pretty">Tre årsavtaler å velge mellom – eller enkeltstell per besøk, uten avtale.</p>
           <div style="display:flex;flex-direction:column;gap:12px">
-            <sc-for list="{{ seasons }}" as="s" hint-placeholder-count="4">
-              <button onClick="{{ s.toggle }}" style="text-align:left;padding:12px 16px 12px 12px;border-radius:18px;border:2px solid {{ s.border }};background:{{ s.bg }};color:{{ s.fg }};cursor:pointer;display:flex;align-items:center;gap:16px;transition:background .15s ease,border-color .15s ease">
-                <img sc-camel-src="{{ s.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:96px;height:96px;object-fit:cover;border-radius:14px">
-                <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0"><strong style="font-size:18px;font-weight:600">{{ s.name }}</strong><span style="font-size:var(--fs-min,13px);opacity:0.85;line-height:1.4">{{ s.hint }}</span><sc-if value="{{ s.included }}"><span style="font-size:var(--fs-min,13px);font-weight:600;line-height:1.4">Inngår i pakken</span></sc-if></span>
-                <span style="flex:none;width:28px;height:28px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:15px;font-weight:700">{{ s.mark }}</span>
+            <sc-for list="{{ packages }}" as="p" hint-placeholder-count="3">
+              <button onClick="{{ p.choose }}" style="text-align:left;padding:12px 16px 12px 12px;border-radius:18px;border:2px solid {{ p.border }};background:{{ p.bg }};color:{{ p.fg }};cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:16px;transition:background .15s ease,border-color .15s ease">
+                <span style="flex:none;width:96px;height:96px;border-radius:14px;overflow:hidden;display:flex;gap:2px"><sc-for list="{{ p.imgs }}" as="im" hint-placeholder-count="2"><img sc-camel-src="{{ im.src }}" alt="" loading="lazy" decoding="async" style="flex:1 1 0%;min-width:0;height:100%;object-fit:cover;display:block"></sc-for></span>
+                <span style="display:flex;flex-direction:column;gap:2px;flex:1 1 140px;min-width:0"><span style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px"><strong style="font-size:18px;font-weight:600">{{ p.name }}</strong><sc-if value="{{ p.badge }}"><span style="background:#5E2A3A;color:#F3E9D8;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px">{{ p.badge }}</span></sc-if></span><span style="font-size:var(--fs-min,13px);opacity:0.85;line-height:1.4">{{ p.hint }}</span></span>
+                <span style="flex:none;margin-left:auto;display:flex;flex-direction:var(--side-dir,column);align-items:var(--side-align,flex-end);gap:var(--side-gap,6px)"><span style="font-weight:600;font-size:var(--fs-min,15px);white-space:nowrap">{{ p.priceText }}</span><span style="width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:14px;font-weight:700">{{ p.mark }}</span></span>
               </button>
             </sc-for>
+            <p style="margin:6px 0 0;font-size:var(--fs-min,15px);color:#F0D9CC">Eller uten avtale:</p>
+            <button onClick="{{ single.choose }}" style="text-align:left;padding:16px;border-radius:18px;border:2px solid {{ single.border }};background:{{ single.bg }};color:{{ single.fg }};cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:16px;transition:background .15s ease,border-color .15s ease">
+              <span style="display:flex;flex-direction:column;gap:2px;flex:1 1 140px;min-width:0"><strong style="font-size:18px;font-weight:600">{{ single.name }}</strong><span style="font-size:var(--fs-min,13px);opacity:0.85;line-height:1.4">{{ single.hint }}</span></span>
+              <span style="flex:none;margin-left:auto;display:flex;flex-direction:var(--side-dir,column);align-items:var(--side-align,flex-end);gap:var(--side-gap,6px)"><span style="font-weight:600;font-size:var(--fs-min,15px);white-space:nowrap">{{ single.priceText }}</span><span style="width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:14px;font-weight:700">{{ single.mark }}</span></span>
+            </button>
           </div>
           <p style="margin:16px 0 0;font-size:var(--fs-min,15px);line-height:1.55;color:#F3E9D8;background:rgba(243,233,216,0.1);border:1px solid rgba(243,233,216,0.32);border-radius:18px;padding:14px 18px;text-wrap:pretty"><strong style="font-weight:600">Selvvanningskasse</strong> – der gravplassen tillater det, etablerer vi en selvvanningskasse ved første bestilling. Den koster {{ kassePrice }} kr én gang ({{ kasseHelaarPrice }} kr ved helårsavtale), er din eiendom og gjenbrukes sesong etter sesong. Beløpet kommer i tillegg på første bestilling, ikke i årsprisen.</p>
         </div>
@@ -340,7 +345,7 @@
             <select name="tjeneste" value="{{ service }}" onChange="{{ setService }}" style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)">
               <option value="">Velg tjeneste...</option>
               <option>Enkeltstell (990 kr/besøk)</option>
-              <option>Sommer og høst (2 160 kr/år)</option>
+              <option>Vår og sommer (2 160 kr/år)</option>
               <option>Vår, sommer og høst (2 540 kr/år)</option>
               <option>Helårsavtale (3 310 kr/år)</option>
               <option>Utvidet stelleavtale (pris etter befaring)</option>
@@ -385,7 +390,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;flowerBands&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Dekor&quot;},&quot;startPlan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;tom&quot;,&quot;options&quot;:[&quot;tom&quot;,&quot;helår&quot;],&quot;tsType&quot;:&quot;'tom' | 'helår'&quot;,&quot;section&quot;:&quot;Priskalkulator&quot;}}">
 class Component extends DCLogic {
-  state = { seasons: { var: false, sommer: false, host: false, vinter: false }, addons: { bed: false, vask: false, blomster: false }, krans: '', service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
+  state = { pkg: 'enkeltstell', addons: { bed: false, vask: false, blomster: false }, krans: '', service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
   componentDidMount() {
     this._onResize = () => {
       const cw = document.documentElement.clientWidth;
@@ -398,29 +403,28 @@ class Component extends DCLogic {
     this._onScroll = () => { const scrolled = window.scrollY > 24; if (scrolled !== this.state.scrolled) this.setState({ scrolled }); };
     this._onScroll();
     window.addEventListener('scroll', this._onScroll, { passive: true });
-    if ((this.props.startPlan ?? 'tom') === 'helår') this.setState({ seasons: { var: true, sommer: true, host: true, vinter: true } });
+    if ((this.props.startPlan ?? 'tom') === 'helår') this.setState({ pkg: 'helaar' });
   }
   componentWillUnmount() { window.removeEventListener('resize', this._onResize); window.removeEventListener('scroll', this._onScroll); }
-  toggleSeason(k) { this.setState(s => ({ seasons: { ...s.seasons, [k]: !s.seasons[k] } })); }
   toggleAddon(k) { this.setState(s => ({ addons: { ...s.addons, [k]: !s.addons[k] } })); }
   renderVals() {
     const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0');
     const andList = a => a.length > 1 ? a.slice(0, -1).join(', ') + ' og ' + a[a.length - 1] : a.join('');
     const S = this.state, P = this.props;
-    // Bilder i lister (sesonger, tillegg, «Slik gikk vi fram») har sc-camel-src i malen: runtime setter src når siden tegnes,
+    // Bilder i lister (pakker, tillegg, «Slik gikk vi fram», fotobåndet) har sc-camel-src i malen: runtime setter src når siden tegnes,
     // så nettleseren ikke ber om selve malteksten først (det ga 404 i loggen).
     const seasonDefs = [
-      { key: 'var', name: 'Vår', hint: 'Vårblomster, frisk jord og klargjøring av bedet', img: 'assets/var.jpg' },
-      { key: 'sommer', name: 'Sommer', hint: 'Sommerblomster, vanning og stell gjennom sesongen', img: 'assets/sommer.jpg' },
-      { key: 'host', name: 'Høst', hint: 'Høstplanter, opprydding og klargjøring for vinteren', img: 'assets/host.jpg' },
-      { key: 'vinter', name: 'Vinter', hint: 'Vinterdekor med gravlykt, gravlys og granbar', img: 'assets/vinter.jpg' },
+      { key: 'var', name: 'Vår', img: 'assets/var.jpg' },
+      { key: 'sommer', name: 'Sommer', img: 'assets/sommer.jpg' },
+      { key: 'host', name: 'Høst', img: 'assets/host.jpg' },
+      { key: 'vinter', name: 'Vinter', img: 'assets/vinter.jpg' },
     ];
-    // Prismodellen. Kontaktskjemaets «Ønsket tjeneste»-liste har de samme navnene og prisene – endre begge steder.
+    // Prismodellen: tre årsavtaler + enkeltstell. Kontaktskjemaets «Ønsket tjeneste»-liste har de samme navnene og prisene – endre begge steder.
     const packageDefs = [
-      { key: 'enkeltstell', name: 'Enkeltstell', price: 990, unit: '/ besøk', seasons: [] },
-      { key: 'sh', name: 'Sommer og høst', price: 2160, unit: '/ år', seasons: ['sommer', 'host'] },
-      { key: 'vsh', name: 'Vår, sommer og høst', price: 2540, unit: '/ år', seasons: ['var', 'sommer', 'host'] },
-      { key: 'helaar', name: 'Helårsavtale', price: 3310, unit: '/ år', seasons: ['var', 'sommer', 'host', 'vinter'] },
+      { key: 'vs', name: 'Vår og sommer', price: 2160, unit: '/ år', seasons: ['var', 'sommer'], hint: 'Vårblomster og sommerblomster, stell og vanning gjennom sesongen' },
+      { key: 'vsh', name: 'Vår, sommer og høst', price: 2540, unit: '/ år', seasons: ['var', 'sommer', 'host'], hint: 'Vår-, sommer- og høstplanter, opprydding og klargjøring for vinteren' },
+      { key: 'helaar', name: 'Helårsavtale', price: 3310, unit: '/ år', seasons: ['var', 'sommer', 'host', 'vinter'], hint: 'Stell hele året – med vinterdekor, gravlykt, gravlys og krans til jul', badge: 'Mest valgt' },
+      { key: 'enkeltstell', name: 'Enkeltstell', price: 990, unit: '/ besøk', seasons: [], hint: 'Ett besøk med stell, vanning og luking – uten avtale' },
     ];
     // Selvvanningskasse: engangsbeløp ved første bestilling av en årspakke, i tillegg til årsprisen.
     const KASSE = 1250, KASSE_HELAAR = 899;
@@ -429,17 +433,18 @@ class Component extends DCLogic {
       { key: 'vask', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, img: 'assets/vasking.jpg' },
       { key: 'blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, img: 'assets/baerekraft.jpg' },
     ];
-    // Valgte sesonger gir den rimeligste pakken som dekker dem. Ingen valgt gir enkeltstell.
-    const chosen = seasonDefs.filter(d => S.seasons[d.key]).map(d => d.key);
-    const pkg = packageDefs.filter(p => chosen.every(k => p.seasons.includes(k))).reduce((a, b) => b.price < a.price ? b : a);
+    // Pakkene er radiovalg. Bildet på kortet er sesongbildene for sesongene som inngår.
+    const pkg = packageDefs.find(p => p.key === S.pkg) || packageDefs[packageDefs.length - 1];
     const isHelaar = pkg.key === 'helaar', isRecurring = pkg.seasons.length > 0;
     const kasse = isHelaar ? KASSE_HELAAR : KASSE;
     const onStyle = { bg: '#FBF4EA', fg: '#8E3B2F', border: '#FBF4EA' }, offStyle = { bg: 'rgba(243,233,216,0.08)', fg: '#F3E9D8', border: 'rgba(243,233,216,0.34)' };
-    const inPkgStyle = { bg: 'rgba(243,233,216,0.16)', fg: '#F3E9D8', border: '#FBF4EA' };
-    const seasons = seasonDefs.map(d => {
-      const on = !!S.seasons[d.key], included = !on && pkg.seasons.includes(d.key);
-      return { ...d, on, included, toggle: () => this.toggleSeason(d.key), ...(on ? onStyle : included ? inPkgStyle : offStyle), mark: on || included ? '✓' : '' };
-    });
+    const card = p => {
+      const on = p.key === pkg.key;
+      return { ...p, on, badge: p.badge || '', priceText: fmt(p.price) + ' kr ' + p.unit, imgs: p.seasons.map(k => ({ src: seasonDefs.find(d => d.key === k).img })),
+        choose: () => this.setState({ pkg: p.key }), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
+    };
+    const packages = packageDefs.filter(p => p.seasons.length).map(card);
+    const single = card(packageDefs.find(p => p.key === 'enkeltstell'));
     const addons = addonDefs.map(a => {
       const on = !!S.addons[a.key];
       return { ...a, pos: a.pos || 'center', on, priceText: fmt(a.price) + ' kr engangs', costText: fmt(a.price) + ' kr', toggle: () => this.toggleAddon(a.key), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
@@ -494,7 +499,7 @@ class Component extends DCLogic {
       showBands: P.flowerBands ?? true,
       split: S.split, splitPct: S.split + '%', setSplit: e => this.setState({ split: +e.target.value }),
       steps, band,
-      seasons, addons, chosenAddons, kransOffered, kranser, includes: includes.map(t => ({ t })),
+      packages, single, addons, chosenAddons, kransOffered, kranser, includes: includes.map(t => ({ t })),
       planName: pkg.name, planPrice: fmt(pkg.price), planUnit: pkg.unit, isHelaar, isRecurring,
       kassePrice: fmt(KASSE), kasseHelaarPrice: fmt(KASSE_HELAAR), kasseLine: fmt(kasse),
       total: fmt(total), totalLabel: isRecurring ? 'Første år totalt' : 'Totalt for besøket',
