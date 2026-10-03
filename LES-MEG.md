@@ -13,6 +13,14 @@ Innholdet i denne mappen er hele nettsiden, klar til å legges rett i roten av G
 Skjemaet sender til /api/send-contact (samme funksjon som før), så det virker uten endringer
 så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 
+## Priser og bestilling
+- Pakker, tillegg og kassepriser står i `packageDefs`, `addonDefs` og `KASSE_LEIE`/`KASSE_KJOP`
+  i scriptet nederst i index.html. «Ønsket tjeneste»-listen i kontaktskjemaet har de samme
+  navnene og prisene og må endres samtidig.
+- Alle «Bestill»-knapper lenker til `BESTILL_URL` øverst i support.js. Bytt verdien der når
+  bestillingssiden får eget domene. support.js er ellers generert kode – ta med linjen hvis
+  filen byttes ut. Familiegrav («Ta kontakt») går fortsatt til kontaktskjemaet.
+
 ## Bilder av Lise og Stian
 Portrettene ligger i assets/lise.jpg og assets/stian.jpg (4:5, 360×450 px).
 Bytt filene med samme navn og format for å oppdatere dem.

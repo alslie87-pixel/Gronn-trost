@@ -1,5 +1,8 @@
 // GENERATED from dc-runtime/src/*.ts — do not edit. Rebuild with `cd dc-runtime && bun run build`.
 "use strict";
+// Grønn Trøst: bestillingssiden. Alle «Bestill»-knapper på gronntrost.no lenker hit.
+// Bytt verdien når bestillingssiden får eget domene. Ikke en del av dc-runtime – ta med linjen ved ny build.
+const BESTILL_URL = "https://gronn-trost-crm.vercel.app/bestill";
 (() => {
   var __defProp = Object.defineProperty;
   var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;

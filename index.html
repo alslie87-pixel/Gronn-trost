@@ -37,7 +37,7 @@
         <a href="#blomster" style="color:#F3E9D8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Blomster</a>
         <a href="#filosofi" style="color:#F3E9D8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Filosofi</a>
         <a href="#om-oss" style="color:#F3E9D8;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500" style-hover="color:#D8B4A0">Om oss</a>
-        <a href="#produkter" style="background:#8E3B2F;color:#F3E9D8;padding:12px 22px;border-radius:999px;font-weight:600;font-size:14px;letter-spacing:0.02em" style-hover="background:#6F2C22;color:#F3E9D8">Bestill gravstell</a>
+        <a href="{{ bestillUrl }}" style="background:#8E3B2F;color:#F3E9D8;padding:12px 22px;border-radius:999px;font-weight:600;font-size:14px;letter-spacing:0.02em" style-hover="background:#6F2C22;color:#F3E9D8">Bestill gravstell</a>
       </nav>
     </sc-if>
     <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
@@ -54,7 +54,7 @@
       <a href="#blomster" onClick="{{ closeMenu }}" style="color:#F3E9D8;font-size:18px;padding:12px 0;border-bottom:1px solid rgba(243,233,216,0.1)">Blomster</a>
       <a href="#filosofi" onClick="{{ closeMenu }}" style="color:#F3E9D8;font-size:18px;padding:12px 0;border-bottom:1px solid rgba(243,233,216,0.1)">Filosofi</a>
       <a href="#om-oss" onClick="{{ closeMenu }}" style="color:#F3E9D8;font-size:18px;padding:12px 0;border-bottom:1px solid rgba(243,233,216,0.1)">Om oss</a>
-      <a href="#produkter" onClick="{{ closeMenu }}" style="margin-top:16px;background:#8E3B2F;color:#F3E9D8;padding:16px 22px;border-radius:999px;font-weight:600;font-size:16px;text-align:center">Bestill gravstell</a>
+      <a href="{{ bestillUrl }}" onClick="{{ closeMenu }}" style="margin-top:16px;background:#8E3B2F;color:#F3E9D8;padding:16px 22px;border-radius:999px;font-weight:600;font-size:16px;text-align:center">Bestill gravstell</a>
     </nav>
   </sc-if>
 </header>
@@ -81,7 +81,7 @@
           <p style="margin:0 0 12px;font-size:clamp(17px,1.3vw,20px);line-height:1.5;max-width:34ch;color:#F3E9D8;text-wrap:pretty">Så du finner ro til heder og ettertanke<br>– og minnet kan blomstre året rundt.</p>
           <p style="margin:0 0 {{ heroCtaGap }};font-size:15.5px;line-height:1.6;color:#C9BBA6">Personlig og profesjonelt gravstell for familier i Østfold.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px">
-            <a href="#kontakt" style="display:inline-flex;align-items:center;justify-content:center;background:#8E3B2F;color:#F3E9D8;padding:16px 28px;border-radius:999px;font-weight:600;font-size:16px;white-space:nowrap;transition:background .15s ease" style-hover="background:#6F2C22;color:#F3E9D8">Bestill gravstell</a>
+            <a href="{{ bestillUrl }}" style="display:inline-flex;align-items:center;justify-content:center;background:#8E3B2F;color:#F3E9D8;padding:16px 28px;border-radius:999px;font-weight:600;font-size:16px;white-space:nowrap;transition:background .15s ease" style-hover="background:#6F2C22;color:#F3E9D8">Bestill gravstell</a>
             <a href="#produkter" style="display:inline-flex;align-items:center;justify-content:center;border:2px solid rgba(243,233,216,0.5);color:#F3E9D8;padding:14px 26px;border-radius:999px;font-weight:600;font-size:16px;white-space:nowrap;transition:border-color .15s ease" style-hover="border-color:#F3E9D8;color:#F3E9D8">Se priser</a>
           </div>
         </div>
@@ -136,24 +136,30 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,4vw,72px);align-items:start;margin-top:clamp(48px,6vw,88px)">
       <div style="display:flex;flex-direction:column;gap:44px">
         <div>
-          <h3 style="margin:0 0 6px;font-family:'Young Serif',serif;font-weight:400;font-size:26px;line-height:1.1;color:#F3E9D8">1. Velg sesonger</h3>
-          <p style="margin:0 0 20px;font-size:15px;color:#F0D9CC">Ingen valgt gir enkeltstell per besøk. Alle fire gir helårsavtale.</p>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px">
-            <sc-for list="{{ seasons }}" as="s" hint-placeholder-count="4">
-              <button onClick="{{ s.toggle }}" style="text-align:left;padding:16px 18px;border-radius:18px;border:2px solid {{ s.border }};background:{{ s.bg }};color:{{ s.fg }};cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:background .15s ease,border-color .15s ease">
-                <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><strong style="font-size:18px;font-weight:600">{{ s.name }}</strong><span style="font-size:13px;opacity:0.85">{{ s.hint }}</span></span>
-                <span style="flex:none;width:28px;height:28px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:15px;font-weight:700">{{ s.mark }}</span>
+          <h3 style="margin:0 0 6px;font-family:'Young Serif',serif;font-weight:400;font-size:26px;line-height:1.1;color:#F3E9D8">1. Velg stell</h3>
+          <p style="margin:0 0 20px;font-size:15px;color:#F0D9CC">Velg et enkeltbesøk, eller en årsavtale for sesongene du ønsker.</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ packages }}" as="p" hint-placeholder-count="5">
+              <button onClick="{{ p.choose }}" style="text-align:left;padding:16px 18px;border-radius:18px;border:2px solid {{ p.border }};background:{{ p.bg }};color:{{ p.fg }};cursor:pointer;display:flex;align-items:center;gap:14px;transition:background .15s ease,border-color .15s ease">
+                <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
+                  <span style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px"><strong style="font-size:18px;font-weight:600">{{ p.name }}</strong><sc-if value="{{ p.badge }}"><span style="background:#5E2A3A;color:#F3E9D8;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px">{{ p.badge }}</span></sc-if></span>
+                  <span style="font-size:13px;opacity:0.85;line-height:1.4">{{ p.hint }}</span>
+                  <sc-if value="{{ p.renewNote }}"><span style="font-size:13px;opacity:0.85;line-height:1.4">{{ p.renewNote }}</span></sc-if>
+                  <sc-if value="{{ p.ownerNote }}"><span style="font-size:13px;opacity:0.85;line-height:1.4">{{ p.ownerNote }}</span></sc-if>
+                </span>
+                <span style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px"><span style="font-weight:600;font-size:15px;white-space:nowrap">{{ p.priceText }}</span><span style="width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:14px;font-weight:700">{{ p.mark }}</span></span>
               </button>
             </sc-for>
           </div>
+          <p style="margin:16px 0 0;font-size:15px;line-height:1.55;color:#F3E9D8;background:rgba(243,233,216,0.1);border:1px solid rgba(243,233,216,0.32);border-radius:18px;padding:14px 18px;text-wrap:pretty"><strong style="font-weight:600">Selvvanningskasse</strong> – inkludert i helårsavtalen. Til sesongpakkene kan du leie den for {{ kasseLeie }} kr / år, eller kjøpe den for {{ kasseKjop }} kr hvis du vil eie den selv.</p>
         </div>
         <div>
           <h3 style="margin:0 0 6px;font-family:'Young Serif',serif;font-weight:400;font-size:26px;line-height:1.1;color:#F3E9D8">2. Tilleggstjenester</h3>
           <p style="margin:0 0 20px;font-size:15px;color:#F0D9CC">Valgfritt – legg til det gravstedet trenger.</p>
           <div style="display:flex;flex-direction:column;gap:12px">
-            <sc-for list="{{ addons }}" as="a" hint-placeholder-count="3">
+            <sc-for list="{{ addons }}" as="a" hint-placeholder-count="6">
               <button onClick="{{ a.toggle }}" style="text-align:left;padding:12px 16px 12px 12px;border-radius:18px;border:2px solid {{ a.border }};background:{{ a.bg }};color:{{ a.fg }};cursor:pointer;display:flex;align-items:center;gap:14px;transition:background .15s ease,border-color .15s ease">
-                <img src="{{ a.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:64px;height:64px;object-fit:cover;border-radius:12px">
+                <img src="{{ a.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:64px;height:64px;object-fit:cover;object-position:{{ a.pos }};border-radius:12px">
                 <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0"><strong style="font-size:17px;font-weight:600">{{ a.name }}</strong><span style="font-size:13px;opacity:0.85;line-height:1.4">{{ a.desc }}</span></span>
                 <span style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px"><span style="font-weight:600;font-size:15px;white-space:nowrap">{{ a.priceText }}</span><span style="width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:14px;font-weight:700">{{ a.mark }}</span></span>
               </button>
@@ -163,7 +169,7 @@
       </div>
 
       <aside style="background:#FBF4EA;color:#241D18;border-radius:28px;padding:clamp(24px,3vw,40px);position:sticky;top:97px;align-self:start;box-shadow:0 24px 60px rgba(60,20,10,0.3)">
-        <sc-if value="{{ isHelaar }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-14px;right:28px;background:#5E2A3A;color:#F3E9D8;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:8px 14px;border-radius:999px">Mest populær</span></sc-if>
+        <sc-if value="{{ isHelaar }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-14px;right:28px;background:#5E2A3A;color:#F3E9D8;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:8px 14px;border-radius:999px">Mest valgt</span></sc-if>
         <p style="margin:0 0 8px;color:#8E3B2F;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Ditt stell</p>
         <h3 style="margin:0 0 12px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(30px,2.6vw,40px);line-height:1.05;color:#123B2E">{{ planName }}</h3>
         <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:20px"><span style="font-family:'Young Serif',serif;font-weight:400;font-size:clamp(44px,3.6vw,58px);line-height:1;color:#123B2E">{{ planPrice }}</span><span style="font-size:16px;color:#4A3F38">kr {{ planUnit }}</span></div>
@@ -173,16 +179,20 @@
           </sc-for>
         </ul>
         <div style="border-top:1px dashed #D6C7AE;padding-top:16px;display:flex;flex-direction:column;gap:10px;font-size:15px">
-          <sc-if value="{{ needsKasse }}" hint-placeholder-val="{{ true }}">
-            <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A3F38">Selvanningskasse ved første kjøp<sc-if value="{{ isHelaar }}" hint-placeholder-val="{{ false }}"><span style="color:#8E3B2F;font-weight:600"> · 25 % rabatt</span></sc-if></span><strong style="white-space:nowrap">{{ kassePrice }} kr</strong></div>
+          <sc-if value="{{ canRentKasse }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ toggleKasse }}" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:1.5px solid {{ kasseBorder }};background:transparent;color:#241D18;font-size:15px;cursor:pointer;transition:border-color .15s ease"><span style="flex:none;width:20px;height:20px;border-radius:50%;border:2px solid #123B2E;background:{{ kasseDot }};color:#F3E9D8;display:grid;place-items:center;font-size:11px;font-weight:700">{{ kasseMark }}</span><span style="flex:1;min-width:0;color:#4A3F38">Legg til leie av selvvanningskasse</span><strong style="white-space:nowrap">{{ kasseLeie }} kr / år</strong></button>
+          </sc-if>
+          <sc-if value="{{ isHelaar }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A3F38">Selvvanningskasse</span><strong style="white-space:nowrap">Inkludert</strong></div>
           </sc-if>
           <sc-for list="{{ chosenAddons }}" as="c" hint-placeholder-count="0">
             <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A3F38">{{ c.name }}</span><strong style="white-space:nowrap">{{ c.costText }}</strong></div>
           </sc-for>
-          <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-top:1px solid #123B2E;padding-top:12px;margin-top:4px"><span style="font-weight:600">{{ totalLabel }}</span><strong style="font-family:'Young Serif',serif;font-size:30px;font-weight:400;color:#123B2E;white-space:nowrap">{{ firstYear }} kr</strong></div>
-          <sc-if value="{{ isRecurring }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;color:#6B5E54">Deretter {{ yearly }} kr per år. Kassen er din eiendom og gjenbrukes sesong etter sesong.</p></sc-if>
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-top:1px solid #123B2E;padding-top:12px;margin-top:4px"><span style="font-weight:600">{{ totalLabel }}</span><strong style="font-family:'Young Serif',serif;font-size:30px;font-weight:400;color:#123B2E;white-space:nowrap">{{ total }} kr</strong></div>
+          <sc-if value="{{ isRecurring }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;color:#6B5E54">{{ recurringNote }}</p></sc-if>
+          <sc-if value="{{ isHelaar }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;color:#6B5E54">Har du allerede selvvanningskasse fra oss, er prisen {{ ownerPrice }} kr / år.</p></sc-if>
         </div>
-        <a href="#kontakt" onClick="{{ chooseService }}" style="margin-top:24px;display:flex;align-items:center;justify-content:center;background:#123B2E;color:#F3E9D8;padding:17px 24px;border-radius:999px;font-weight:600;font-size:16px;transition:background .15s ease" style-hover="background:#1B4D3C;color:#F3E9D8">Bestill dette stellet</a>
+        <a href="{{ bestillUrl }}" style="margin-top:24px;display:flex;align-items:center;justify-content:center;background:#123B2E;color:#F3E9D8;padding:17px 24px;border-radius:999px;font-weight:600;font-size:16px;transition:background .15s ease" style-hover="background:#1B4D3C;color:#F3E9D8">Bestill dette stellet</a>
       </aside>
     </div>
 
@@ -313,10 +323,10 @@
             <select name="tjeneste" value="{{ service }}" onChange="{{ setService }}" style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)">
               <option value="">Velg tjeneste...</option>
               <option>Enkeltstell (990 kr/besøk)</option>
-              <option>1 sesong (890 kr/år)</option>
-              <option>2 sesonger (1 680 kr/år)</option>
-              <option>3 sesonger (2 370 kr/år)</option>
-              <option>Helårsavtale (3 250 kr/år)</option>
+              <option>Vår og sommer (1 980 kr/år)</option>
+              <option>Sommer og høst (1 980 kr/år)</option>
+              <option>Vår, sommer og høst (2 490 kr/år)</option>
+              <option>Helårsavtale (3 250 kr/år, selvvanningskasse inkludert)</option>
               <option>Utvidet stelleavtale (pris etter befaring)</option>
               <option>Tilleggstjeneste</option>
               <option>Usikker – ønsker rådgivning</option>
@@ -359,7 +369,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;flowerBands&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Dekor&quot;},&quot;startPlan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;tom&quot;,&quot;options&quot;:[&quot;tom&quot;,&quot;helår&quot;],&quot;tsType&quot;:&quot;'tom' | 'helår'&quot;,&quot;section&quot;:&quot;Priskalkulator&quot;}}">
 class Component extends DCLogic {
-  state = { seasons: { var: false, sommer: false, host: false, vinter: false }, addons: { bed: false, vann: false, vask: false }, service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
+  state = { pkg: 'enkeltstell', kasse: false, addons: { bed: false, vann: false, vask: false, blomster: false, mosekrans: false, barkrans: false }, service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
   componentDidMount() {
     this._onResize = () => {
       const cw = document.documentElement.clientWidth;
@@ -372,57 +382,67 @@ class Component extends DCLogic {
     this._onScroll = () => { const scrolled = window.scrollY > 24; if (scrolled !== this.state.scrolled) this.setState({ scrolled }); };
     this._onScroll();
     window.addEventListener('scroll', this._onScroll, { passive: true });
-    if ((this.props.startPlan ?? 'tom') === 'helår') this.setState({ seasons: { var: true, sommer: true, host: true, vinter: true } });
+    if ((this.props.startPlan ?? 'tom') === 'helår') this.setState({ pkg: 'helaar' });
   }
   componentWillUnmount() { window.removeEventListener('resize', this._onResize); window.removeEventListener('scroll', this._onScroll); }
-  toggleSeason(k) { this.setState(s => ({ seasons: { ...s.seasons, [k]: !s.seasons[k] } })); }
   toggleAddon(k) { this.setState(s => ({ addons: { ...s.addons, [k]: !s.addons[k] } })); }
   renderVals() {
-    const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0');
+    const andList = a => a.length > 1 ? a.slice(0, -1).join(', ') + ' og ' + a[a.length - 1] : a.join('');
     const S = this.state, P = this.props;
     const seasonDefs = [
-      { key: 'var', name: 'Vår', hint: 'Stemorsblomst, primula, krokus', img: 'assets/var.jpg', title: 'Vår\u00ADblomster', list: 'Stemorsblomst (Viola), Primula, Påskelilje, Krokus, Bellis' },
-      { key: 'sommer', name: 'Sommer', hint: 'Lobelia, petunia, begonia', img: 'assets/sommer.jpg', title: 'Sommer\u00ADblomster', list: 'Lobelia, Petunia, Begonia, Tagetes, Ildtopp, Fuchsia' },
-      { key: 'host', name: 'Høst', hint: 'Lyng, krysantemum, eføy', img: 'assets/host.jpg', title: 'Høst\u00ADblomster', list: 'Lyng (Calluna), Krysantemum, Røsslyng, Høstasters, Eføy' },
-      { key: 'vinter', name: 'Vinter', hint: 'Mosekrans, granbar, kongler', img: 'assets/vinter.jpg', title: 'Vinter\u00ADdekor', list: 'Mosekrans, Granbar, Kongler, Lykt med kubbelys, Vintergrønt' },
+      { key: 'var', name: 'Vår', img: 'assets/var.jpg', title: 'Vår\u00ADblomster', list: 'Stemorsblomst (Viola), Primula, Påskelilje, Krokus, Bellis' },
+      { key: 'sommer', name: 'Sommer', img: 'assets/sommer.jpg', title: 'Sommer\u00ADblomster', list: 'Lobelia, Petunia, Begonia, Tagetes, Ildtopp, Fuchsia' },
+      { key: 'host', name: 'Høst', img: 'assets/host.jpg', title: 'Høst\u00ADblomster', list: 'Lyng (Calluna), Krysantemum, Røsslyng, Høstasters, Eføy' },
+      { key: 'vinter', name: 'Vinter', img: 'assets/vinter.jpg', title: 'Vinter\u00ADdekor', list: 'Mosekrans, Granbar, Kongler, Lykt med kubbelys, Vintergrønt' },
     ];
-    const chosen = seasonDefs.filter(d => S.seasons[d.key]);
-    const count = chosen.length;
-    const plans = [
-      { name: 'Enkeltstell', price: 990, unit: '/ besøk', label: 'Enkeltstell (990 kr/besøk)' },
-      { name: 'Én sesong', price: 890, unit: '/ år', label: '1 sesong (890 kr/år)' },
-      { name: 'To sesonger', price: 1680, unit: '/ år', label: '2 sesonger (1 680 kr/år)' },
-      { name: 'Tre sesonger', price: 2370, unit: '/ år', label: '3 sesonger (2 370 kr/år)' },
-      { name: 'Helårsavtale', price: 3250, unit: '/ år', label: 'Helårsavtale (3 250 kr/år)' },
+    // Prismodellen. Kontaktskjemaets «Ønsket tjeneste»-liste har de samme navnene og prisene – endre begge steder.
+    const KASSE_LEIE = 390, KASSE_KJOP = 1650;
+    const packageDefs = [
+      { key: 'enkeltstell', name: 'Enkeltstell', price: 990, unit: '/ besøk', seasons: [], hint: 'Ett besøk med stell, vanning og luking – uten avtale' },
+      { key: 'vs', name: 'Vår og sommer', price: 1980, unit: '/ år', seasons: ['var', 'sommer'] },
+      { key: 'sh', name: 'Sommer og høst', price: 1980, unit: '/ år', seasons: ['sommer', 'host'] },
+      { key: 'vsh', name: 'Vår, sommer og høst', price: 2490, unit: '/ år', seasons: ['var', 'sommer', 'host'] },
+      { key: 'helaar', name: 'Helårsavtale', price: 3250, ownerPrice: 2950, unit: '/ år', seasons: ['var', 'sommer', 'host', 'vinter'], kasseIncluded: true, badge: 'Mest valgt' },
     ];
-    const plan = plans[count];
-    const isHelaar = count === 4, needsKasse = count > 0;
-    const kasse = isHelaar ? 1238 : 1650;
-    const perSeason = Math.max(count, 1);
     const addonDefs = [
       { key: 'bed', name: 'Klargjøring av bed', desc: 'Opparbeiding av bed med ny jord, klar for planting', price: 790, unit: 'engangs', img: 'assets/klargjoring.jpg' },
       { key: 'vann', name: 'Ekstra vanning', desc: 'Ekstra vanningsbesøk i tørre perioder', price: 290, unit: '/ sesong', img: 'assets/vanning.jpg' },
-      { key: 'vask', name: 'Vasking av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 590, unit: 'engangs', img: 'assets/vasking.jpg' },
+      { key: 'vask', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, unit: 'engangs', img: 'assets/vasking.jpg' },
+      { key: 'blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, unit: 'engangs', img: 'assets/baerekraft.jpg' },
+      { key: 'mosekrans', name: 'Mosekrans', desc: 'Krans av mose til høst og vinter', price: 529, unit: 'engangs', img: 'assets/trost.jpg', pos: '12% 72%' },
+      { key: 'barkrans', name: 'Barkrans', desc: 'Krans av granbar til høst og vinter', price: 529, unit: 'engangs', img: 'assets/vinter.jpg' },
     ];
+    const seasonList = keys => andList(keys.map(k => seasonDefs.find(d => d.key === k).name.toLowerCase()));
+    const pkg = packageDefs.find(p => p.key === S.pkg) || packageDefs[0];
+    const isHelaar = pkg.key === 'helaar', isRecurring = pkg.unit === '/ år';
+    const canRentKasse = isRecurring && !pkg.kasseIncluded, kasseOn = canRentKasse && S.kasse;
+    const perSeason = Math.max(pkg.seasons.length, 1);
     const onStyle = { bg: '#FBF4EA', fg: '#8E3B2F', border: '#FBF4EA' }, offStyle = { bg: 'rgba(243,233,216,0.08)', fg: '#F3E9D8', border: 'rgba(243,233,216,0.34)' };
+    const packages = packageDefs.map(p => {
+      const on = p.key === pkg.key;
+      return { ...p, on, badge: p.badge || '', priceText: fmt(p.price) + ' kr ' + p.unit,
+        hint: p.hint || (p.seasons.length === 4 ? 'Alle fire sesonger' : 'Sesonger: ' + seasonList(p.seasons)) + (p.kasseIncluded ? ' · selvvanningskasse inkludert' : ''),
+        renewNote: p.unit === '/ år' ? 'Fornyes årlig – avslutt når som helst' : '',
+        ownerNote: p.ownerPrice ? fmt(p.ownerPrice) + ' kr / år hvis du eier kassen fra før' : '',
+        choose: () => this.setState({ pkg: p.key }), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
+    });
     const addons = addonDefs.map(a => {
       const on = !!S.addons[a.key];
       const cost = a.key === 'vann' ? a.price * perSeason : a.price;
-      return { ...a, on, cost, priceText: fmt(a.price) + ' kr ' + a.unit, costText: fmt(cost) + ' kr', toggle: () => this.toggleAddon(a.key), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
+      return { ...a, pos: a.pos || 'center', on, cost, priceText: fmt(a.price) + ' kr ' + a.unit, costText: fmt(cost) + ' kr', toggle: () => this.toggleAddon(a.key), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
     });
     const chosenAddons = addons.filter(a => a.on);
-    const addonsTotal = chosenAddons.reduce((t, a) => t + a.cost, 0);
-    const firstYear = plan.price + (needsKasse ? kasse : 0) + addonsTotal;
-    const yearly = plan.price + (S.addons.vann ? 290 * perSeason : 0);
-    const seasonNames = chosen.map(d => d.name).join(', ');
-    const includes = count === 0
+    const vanning = addons.find(a => a.key === 'vann');
+    const kasseCost = kasseOn ? KASSE_LEIE : 0;
+    const total = pkg.price + kasseCost + chosenAddons.reduce((t, a) => t + a.cost, 0);
+    const yearly = pkg.price + kasseCost + (vanning.on ? vanning.cost : 0);
+    const renew = 'Fornyes årlig – avslutt når som helst.';
+    const includes = !isRecurring
       ? ['Stell og opprydding', 'Vanning og luking', 'Stell utenom sesong', 'Uten sesongavtale']
-      : [isHelaar ? 'Alle 4 sesonger inkludert' : (count === 1 ? 'Sesong: ' : 'Sesonger: ') + seasonNames, 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord'];
-    const seasons = seasonDefs.map(d => {
-      const on = !!S.seasons[d.key];
-      return { ...d, on, toggle: () => this.toggleSeason(d.key), ...(on ? onStyle : offStyle), mark: on ? '✓' : '',
-        tileBtn: on ? 'Valgt – fjern fra stellet' : 'Legg til i stellet', tileBg: on ? '#123B2E' : 'transparent', tileFg: on ? '#F3E9D8' : '#123B2E' };
-    });
+      : [isHelaar ? 'Alle 4 sesonger inkludert' : 'Sesonger: ' + seasonList(pkg.seasons), ...(pkg.kasseIncluded ? ['Selvvanningskasse inkludert'] : []), 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord'];
+    // BESTILL_URL er definert øverst i support.js. Faller tilbake til kontaktskjemaet om den mangler.
+    const bestillUrl = typeof BESTILL_URL === 'string' ? BESTILL_URL : '#kontakt';
     return {
       headerBg: (S.scrolled && !S.menuOpen) ? 'rgba(18,59,46,0.62)' : '#123B2E',
       narrow: S.narrow, wide: !S.narrow, menuOpen: S.menuOpen && S.narrow, heroTwoCol: S.heroTwoCol, heroIndent: S.heroIndent, heroStacked: !S.heroTwoCol, heroPhotoPos: S.heroTwoCol ? '70% 58%' : '72% 62%', heroImgH: S.heroTwoCol ? '100%' : '54vh', heroImgTop: '0', heroImgBottom: 'auto', heroRule: S.heroTwoCol ? 'rgba(243,233,216,0.28)' : 'transparent', heroJustify: S.heroTwoCol ? 'center' : 'flex-start', heroSubGap: S.heroTwoCol ? '8px' : '10px', heroCtaGap: S.heroTwoCol ? '32px' : '28px', heroTopPad: S.heroTwoCol ? '22px' : '24px', heroBandGap: S.heroTwoCol ? 'calc(max(15.28vw,200px) - 64px)' : '118px',
@@ -436,11 +456,14 @@ class Component extends DCLogic {
         { n: '04', label: 'Hellene legges', img: 'assets/utvidet/05-etter-heller.jpg', pos: 'center', alt: 'Skiferheller lagt i mønster' },
         { n: '05', label: 'Ferdig', img: 'assets/utvidet/07-etter-ferdig.jpg', pos: 'center', alt: 'Ferdig gravsted med heller og nytt blomsterbed' },
       ],
-      seasons, addons, chosenAddons, includes: includes.map(t => ({ t })),
-      planName: plan.name, planPrice: fmt(plan.price), planUnit: plan.unit, isHelaar, needsKasse, kassePrice: fmt(kasse),
-      firstYear: fmt(firstYear), yearly: fmt(yearly), isRecurring: count > 0,
-      totalLabel: count === 0 ? 'Totalt for besøket' : 'Første år totalt',
-      chooseService: () => this.setState({ service: plan.label }),
+      seasons: seasonDefs, packages, addons, chosenAddons, includes: includes.map(t => ({ t })),
+      planName: pkg.name, planPrice: fmt(pkg.price), planUnit: pkg.unit, isHelaar, isRecurring, ownerPrice: fmt(pkg.ownerPrice || 0),
+      kasseLeie: fmt(KASSE_LEIE), kasseKjop: fmt(KASSE_KJOP), canRentKasse, toggleKasse: () => this.setState(s => ({ kasse: !s.kasse })),
+      kasseBorder: kasseOn ? '#123B2E' : '#D6C7AE', kasseDot: kasseOn ? '#123B2E' : 'transparent', kasseMark: kasseOn ? '✓' : '',
+      total: fmt(total),
+      totalLabel: !isRecurring ? 'Totalt for besøket' : (total === yearly ? 'Totalt per år' : 'Første år totalt'),
+      recurringNote: total === yearly ? renew : 'Deretter ' + fmt(yearly) + ' kr per år. ' + renew,
+      bestillUrl,
       service: S.service, setService: e => this.setState({ service: e.target.value }),
       sent: S.sent, notSent: !S.sent, sending: S.sending, sendError: S.sendError, sendLabel: S.sending ? 'Sender…' : 'Send forespørsel',
       submit: e => {
