@@ -14,12 +14,14 @@ Skjemaet sender til /api/send-contact (samme funksjon som før), så det virker 
 så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 
 ## Priser og bestilling
-- Pakker, tillegg, julekranser og kassepriser står i `packageDefs`, `addonDefs`, `kransDefs` og
-  `KASSE`/`KASSE_HELAAR` i scriptet nederst i index.html. «Ønsket tjeneste»-listen i kontaktskjemaet har de samme
+- Pakker, tillegg og kassepriser står i `packageDefs`, `addonDefs` og `KASSE`/`KASSE_HELAAR`
+  i scriptet nederst i index.html. «Ønsket tjeneste»-listen i kontaktskjemaet har de samme
   navnene og prisene og må endres samtidig. Kjøpsvilkårene ligger i vilkaar.html.
 - Alle «Bestill»-knapper lenker til `BESTILL_URL` øverst i support.js. Bytt verdien der når
   bestillingssiden får eget domene. support.js er ellers generert kode – ta med linjen hvis
   filen byttes ut. Familiegrav («Ta kontakt») går fortsatt til kontaktskjemaet.
+- «Bestill dette stellet» i kalkulatoren sender valgt pakke videre som `?pakke=` med koden
+  enkeltstell, vs, vsh eller helaar. Julekrans og annet mersalg ligger på bestillingssiden.
 
 ## Trygghetsseksjonen
 Kortenes tekster står i lista `trygghet` og bildene i lista `band` i scriptet (filene ligger i

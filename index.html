@@ -190,18 +190,10 @@
           <sc-for list="{{ chosenAddons }}" as="c" hint-placeholder-count="0">
             <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A3F38">{{ c.name }}</span><strong style="white-space:nowrap">{{ c.costText }}</strong></div>
           </sc-for>
-          <sc-if value="{{ kransOffered }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
-              <span style="font-weight:600;color:#241D18">Ønsker du en krans til jul?</span>
-              <sc-for list="{{ kranser }}" as="k" hint-placeholder-count="2">
-                <button onClick="{{ k.toggle }}" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:1.5px solid {{ k.border }};background:transparent;color:#241D18;font-size:var(--fs-min,15px);cursor:pointer;transition:border-color .15s ease"><span style="flex:none;width:20px;height:20px;border-radius:50%;border:2px solid #123B2E;background:{{ k.dot }};color:#F3E9D8;display:grid;place-items:center;font-size:11px;font-weight:700">{{ k.mark }}</span><span style="flex:1;min-width:0;color:#4A3F38">{{ k.name }}</span><strong style="white-space:nowrap">{{ k.priceText }}</strong></button>
-              </sc-for>
-            </div>
-          </sc-if>
           <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-top:1px solid #123B2E;padding-top:12px;margin-top:4px"><span style="font-weight:600">{{ totalLabel }}</span><strong style="font-family:'Young Serif',serif;font-size:30px;font-weight:400;color:#123B2E;white-space:nowrap">{{ total }} kr</strong></div>
           <sc-if value="{{ isRecurring }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:var(--fs-min,13px);color:#6B5E54">{{ recurringNote }}</p></sc-if>
         </div>
-        <a href="{{ bestillUrl }}" style="margin-top:24px;display:flex;align-items:center;justify-content:center;background:#123B2E;color:#F3E9D8;padding:17px 24px;border-radius:999px;font-weight:600;font-size:16px;transition:background .15s ease" style-hover="background:#1B4D3C;color:#F3E9D8">Bestill dette stellet</a>
+        <a href="{{ bestillPakkeUrl }}" style="margin-top:24px;display:flex;align-items:center;justify-content:center;background:#123B2E;color:#F3E9D8;padding:17px 24px;border-radius:999px;font-weight:600;font-size:16px;transition:background .15s ease" style-hover="background:#1B4D3C;color:#F3E9D8">Bestill dette stellet</a>
       </aside>
     </div>
 
@@ -393,7 +385,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;flowerBands&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Dekor&quot;},&quot;startPlan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;tom&quot;,&quot;options&quot;:[&quot;tom&quot;,&quot;helår&quot;],&quot;tsType&quot;:&quot;'tom' | 'helår'&quot;,&quot;section&quot;:&quot;Priskalkulator&quot;}}">
 class Component extends DCLogic {
-  state = { pkg: 'enkeltstell', addons: { bed: false, vask: false, blomster: false }, krans: '', service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
+  state = { pkg: 'enkeltstell', addons: { bed: false, vask: false, blomster: false }, service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
   componentDidMount() {
     this._onResize = () => {
       const cw = document.documentElement.clientWidth;
@@ -453,21 +445,7 @@ class Component extends DCLogic {
       return { ...a, pos: a.pos || 'center', on, priceText: fmt(a.price) + ' kr engangs', costText: fmt(a.price) + ' kr', toggle: () => this.toggleAddon(a.key), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
     });
     const chosenAddons = addons.filter(a => a.on);
-    // Krans til jul tilbys når valget mangler vinter: sesongpakkene alltid, enkeltstell bare i høst- og vintermånedene
-    // (september–februar). Aldri på helår – der er krans og gravlys til jul inkludert.
-    const kransDefs = [
-      { key: 'mosekrans', name: 'Mosekrans', price: 529 },
-      { key: 'barkrans', name: 'Barkrans', price: 529 },
-    ];
-    const month = new Date().getMonth() + 1;
-    const kransOffered = !pkg.seasons.includes('vinter') && (isRecurring || month >= 9 || month <= 2);
-    const krans = kransOffered ? kransDefs.find(k => k.key === S.krans) : undefined;
-    const kranser = kransDefs.map(k => {
-      const on = !!krans && krans.key === k.key;
-      return { ...k, on, priceText: fmt(k.price) + ' kr', toggle: () => this.setState(s => ({ krans: s.krans === k.key ? '' : k.key })),
-        border: on ? '#123B2E' : '#D6C7AE', dot: on ? '#123B2E' : 'transparent', mark: on ? '✓' : '' };
-    });
-    const total = pkg.price + (isRecurring ? kasse : 0) + chosenAddons.reduce((t, a) => t + a.price, 0) + (krans ? krans.price : 0);
+    const total = pkg.price + (isRecurring ? kasse : 0) + chosenAddons.reduce((t, a) => t + a.price, 0);
     const seasonNames = andList(pkg.seasons.map(k => seasonDefs.find(d => d.key === k).name.toLowerCase()));
     const includes = !isRecurring
       ? ['Stell og opprydding', 'Vanning og luking', 'Stell utenom sesong', 'Uten sesongavtale']
@@ -509,6 +487,8 @@ class Component extends DCLogic {
     ]);
     // BESTILL_URL er definert øverst i support.js. Faller tilbake til kontaktskjemaet om den mangler.
     const bestillUrl = typeof BESTILL_URL === 'string' ? BESTILL_URL : '#kontakt';
+    // «Bestill dette stellet» sender valgt pakke videre: ?pakke=enkeltstell | vs | vsh | helaar
+    const bestillPakkeUrl = typeof BESTILL_URL === 'string' ? BESTILL_URL + (BESTILL_URL.includes('?') ? '&' : '?') + 'pakke=' + pkg.key : '#kontakt';
     return {
       headerBg: (S.scrolled && !S.menuOpen) ? 'rgba(18,59,46,0.62)' : '#123B2E',
       narrow: S.narrow, wide: !S.narrow, menuOpen: S.menuOpen && S.narrow, heroTwoCol: S.heroTwoCol, heroIndent: S.heroIndent, heroStacked: !S.heroTwoCol, heroPhotoPos: S.heroTwoCol ? '70% 58%' : '72% 62%', heroImgH: S.heroTwoCol ? '100%' : '54vh', heroImgTop: '0', heroImgBottom: 'auto', heroRule: S.heroTwoCol ? 'rgba(243,233,216,0.28)' : 'transparent', heroJustify: S.heroTwoCol ? 'center' : 'flex-start', heroSubGap: S.heroTwoCol ? '8px' : '10px', heroCtaGap: S.heroTwoCol ? '32px' : '28px', heroTopPad: S.heroTwoCol ? '22px' : '24px', heroBandGap: S.heroTwoCol ? 'calc(max(15.28vw,200px) - 64px)' : '118px',
@@ -516,12 +496,12 @@ class Component extends DCLogic {
       showBands: P.flowerBands ?? true,
       split: S.split, splitPct: S.split + '%', setSplit: e => this.setState({ split: +e.target.value }),
       steps, band, trygghetTop, trygghetBottom, trygghetMob,
-      packages, single, addons, chosenAddons, kransOffered, kranser, includes: includes.map(t => ({ t })),
+      packages, single, addons, chosenAddons, includes: includes.map(t => ({ t })),
       planName: pkg.name, planPrice: fmt(pkg.price), planUnit: pkg.unit, isHelaar, isRecurring,
       kassePrice: fmt(KASSE), kasseHelaarPrice: fmt(KASSE_HELAAR), kasseLine: fmt(kasse),
       total: fmt(total), totalLabel: isRecurring ? 'Første år totalt' : 'Totalt for besøket',
       recurringNote: 'Deretter ' + fmt(pkg.price) + ' kr per år. Fornyes årlig – avslutt når som helst.',
-      bestillUrl,
+      bestillUrl, bestillPakkeUrl,
       service: S.service, setService: e => this.setState({ service: e.target.value }),
       sent: S.sent, notSent: !S.sent, sending: S.sending, sendError: S.sendError, sendLabel: S.sending ? 'Sender…' : 'Send forespørsel',
       submit: e => {
