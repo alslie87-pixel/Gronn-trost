@@ -143,7 +143,7 @@
           <div style="display:flex;flex-direction:column;gap:12px">
             <sc-for list="{{ seasons }}" as="s" hint-placeholder-count="4">
               <button onClick="{{ s.toggle }}" style="text-align:left;padding:12px 16px 12px 12px;border-radius:18px;border:2px solid {{ s.border }};background:{{ s.bg }};color:{{ s.fg }};cursor:pointer;display:flex;align-items:center;gap:16px;transition:background .15s ease,border-color .15s ease">
-                <img src="{{ s.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:96px;height:96px;object-fit:cover;border-radius:14px">
+                <img sc-camel-src="{{ s.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:96px;height:96px;object-fit:cover;border-radius:14px">
                 <span style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0"><strong style="font-size:18px;font-weight:600">{{ s.name }}</strong><span style="font-size:var(--fs-min,13px);opacity:0.85;line-height:1.4">{{ s.hint }}</span><sc-if value="{{ s.included }}"><span style="font-size:var(--fs-min,13px);font-weight:600;line-height:1.4">Inngår i pakken</span></sc-if></span>
                 <span style="flex:none;width:28px;height:28px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:15px;font-weight:700">{{ s.mark }}</span>
               </button>
@@ -157,7 +157,7 @@
           <div style="display:flex;flex-direction:column;gap:12px">
             <sc-for list="{{ addons }}" as="a" hint-placeholder-count="5">
               <button onClick="{{ a.toggle }}" style="text-align:left;padding:12px 16px 12px 12px;border-radius:18px;border:2px solid {{ a.border }};background:{{ a.bg }};color:{{ a.fg }};cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:14px;transition:background .15s ease,border-color .15s ease">
-                <img src="{{ a.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:64px;height:64px;object-fit:cover;object-position:{{ a.pos }};border-radius:12px">
+                <img sc-camel-src="{{ a.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:64px;height:64px;object-fit:cover;object-position:{{ a.pos }};border-radius:12px">
                 <span style="display:flex;flex-direction:column;gap:2px;flex:1 1 140px;min-width:0"><strong style="font-size:17px;font-weight:600">{{ a.name }}</strong><span style="font-size:var(--fs-min,13px);opacity:0.85;line-height:1.4">{{ a.desc }}</span></span>
                 <span style="flex:none;margin-left:auto;display:flex;flex-direction:var(--side-dir,column);align-items:var(--side-align,flex-end);gap:var(--side-gap,6px)"><span style="font-weight:600;font-size:var(--fs-min,15px);white-space:nowrap">{{ a.priceText }}</span><span style="width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:14px;font-weight:700">{{ a.mark }}</span></span>
               </button>
@@ -219,7 +219,7 @@
       <div style="display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px">
         <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
           <figure style="margin:0;display:flex;flex-direction:column;gap:10px;scroll-snap-align:start">
-            <img src="{{ st.img }}" alt="{{ st.alt }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:{{ st.pos }};border-radius:14px;display:block">
+            <img sc-camel-src="{{ st.img }}" alt="{{ st.alt }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:{{ st.pos }};border-radius:14px;display:block">
             <figcaption style="display:flex;gap:10px;align-items:baseline"><span style="font-family:'Young Serif',serif;font-size:15px;color:#8E3B2F;flex:none">{{ st.n }}</span><span style="font-size:var(--fs-min,14px);line-height:1.4;color:#241D18;font-weight:500">{{ st.label }}</span></figcaption>
           </figure>
         </sc-for>
@@ -393,6 +393,8 @@ class Component extends DCLogic {
     const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0');
     const andList = a => a.length > 1 ? a.slice(0, -1).join(', ') + ' og ' + a[a.length - 1] : a.join('');
     const S = this.state, P = this.props;
+    // Bilder i lister (sesonger, tillegg, «Slik gikk vi fram») har sc-camel-src i malen: runtime setter src når siden tegnes,
+    // så nettleseren ikke ber om selve malteksten først (det ga 404 i loggen).
     const seasonDefs = [
       { key: 'var', name: 'Vår', hint: 'Vårblomster, frisk jord og klargjøring av bedet', img: 'assets/var.jpg' },
       { key: 'sommer', name: 'Sommer', hint: 'Sommerblomster, vanning og stell gjennom sesongen', img: 'assets/sommer.jpg' },
