@@ -25,7 +25,8 @@
     a:hover{color:#123B2E}
     img{max-width:100%}
     button{font-family:inherit}
-    @media (max-width:640px){:root{--fs-min:16px}}
+    @media (max-width:1024px){:root{--band-flex:none;--band-h:180px}}
+    @media (max-width:640px){:root{--fs-min:16px;--band-h:160px;--band-gap:8px}}
     @media (max-width:480px){:root{--side-dir:row;--side-align:center;--side-gap:10px}}
   </style>
 </helmet>
@@ -266,6 +267,11 @@
       </article>
     </div>
   </div>
+  <div style="display:flex;gap:var(--band-gap,10px);margin:clamp(40px,5vw,64px) -28px 0;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain">
+    <sc-for list="{{ band }}" as="b" hint-placeholder-count="7">
+      <img sc-camel-src="{{ b.img }}" alt="{{ b.alt }}" loading="lazy" decoding="async" style="flex:var(--band-flex,{{ b.grow }} 1 0%);min-width:0;height:var(--band-h,220px);aspect-ratio:{{ b.grow }};object-fit:cover;border-radius:12px;scroll-snap-align:start;display:block">
+    </sc-for>
+  </div>
 </section>
 
 <section id="om-oss" data-screen-label="Om oss" style="scroll-margin-top:73px;position:relative;background:#E8D9BF;color:#241D18;padding:clamp(56px,7vw,104px) 28px calc(max(9.72vw,120px) + 48px)">
@@ -468,6 +474,17 @@ class Component extends DCLogic {
       { label: 'Hellene legges – stein for stein', img: 'assets/utvidet/stian-stein.jpg', pos: 'center', alt: 'Stian legger hellene i mønsteret, én og én' },
       { label: 'Ferdig', img: 'assets/utvidet/07-etter-ferdig.jpg', pos: 'center', alt: 'Ferdig gravsted med heller og nytt blomsterbed' },
     ].map((s, i) => ({ ...s, n: String(i + 1).padStart(2, '0') }));
+    // Fotobånd under kortene i trygghetsseksjonen. ratio = bredde/høyde: på desktop deler bildene bredden i forhold
+    // til formatet (lik høyde), på nettbrett og mobil blir raden sveipbar.
+    const band = [
+      { img: 'assets/ekstra/sommer-oransje.jpg', ratio: 4 / 3, alt: 'Oransje sommerblomster som vokser frodig ved en gravstein' },
+      { img: 'assets/ekstra/host-bed-gravlykt.jpg', ratio: 3 / 4, alt: 'Høstbed med lyng og flerfargede bladplanter, med en gravlykt i bakgrunnen' },
+      { img: 'assets/ekstra/lyng-efoy-stein.jpg', ratio: 3 / 4, alt: 'Lyng og eføy plantet tett inntil en gravstein' },
+      { img: 'assets/ekstra/host-bed-bredt.jpg', ratio: 4 / 3, alt: 'Bredt høstbed med alpefiol, lyng og en hvit gravlykt foran steinen' },
+      { img: 'assets/ekstra/host-lyng-heuchera.jpg', ratio: 3 / 4, alt: 'Lyng og heuchera i et høstbed på kirkegården' },
+      { img: 'assets/ekstra/gravlys-host-naerbilde.jpg', ratio: 3 / 4, alt: 'Et tent gravlys blant lyng og eføy en høstdag' },
+      { img: 'assets/ekstra/host-lyng-gravlykt.jpg', ratio: 4 / 3, alt: 'Høstbeplantning med lyng og alpefiol ved en hvit gravlykt' },
+    ].map(b => ({ ...b, grow: b.ratio.toFixed(3) }));
     // BESTILL_URL er definert øverst i support.js. Faller tilbake til kontaktskjemaet om den mangler.
     const bestillUrl = typeof BESTILL_URL === 'string' ? BESTILL_URL : '#kontakt';
     return {
@@ -476,7 +493,7 @@ class Component extends DCLogic {
       toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })), closeMenu: () => this.setState({ menuOpen: false }),
       showBands: P.flowerBands ?? true,
       split: S.split, splitPct: S.split + '%', setSplit: e => this.setState({ split: +e.target.value }),
-      steps,
+      steps, band,
       seasons, addons, chosenAddons, kransOffered, kranser, includes: includes.map(t => ({ t })),
       planName: pkg.name, planPrice: fmt(pkg.price), planUnit: pkg.unit, isHelaar, isRecurring,
       kassePrice: fmt(KASSE), kasseHelaarPrice: fmt(KASSE_HELAAR), kasseLine: fmt(kasse),
