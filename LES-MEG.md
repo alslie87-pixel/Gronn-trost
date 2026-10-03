@@ -29,7 +29,9 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 ## Trygghetsseksjonen
 Kortenes tekster står i lista `trygghet` og bildene i lista `band` i scriptet (filene ligger i
 assets/ekstra/). På desktop går bildene som et bånd gjennom seksjonen med kortene vekselvis
-over og under; på mobil og nettbrett kommer kort og bildegrupper annenhver gang nedover.
+over og under (uten å dekke bildene); på mobil og nettbrett kommer kort og bildegrupper
+annenhver gang nedover. Ved hvert kort står et linjeikon i kortfargen (assets/ikoner/:
+kamera, vannkanne, blomst, vann).
 Rekkefølgen i lista er rekkefølgen på siden; hvert bilde trenger en beskrivende alt-tekst og
 riktig format (`ratio`, bredde/høyde).
 

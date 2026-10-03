@@ -251,9 +251,10 @@
     </div>
   </div>
   <div class="gt-compo-desk" style="margin:clamp(64px,8vw,120px) -28px 0">
-    <div style="max-width:1280px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:clamp(20px,2.6vw,40px);position:relative;z-index:2;align-items:end">
+    <div style="max-width:1280px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:clamp(20px,2.6vw,40px);position:relative;z-index:2;align-items:end;margin-bottom:clamp(20px,2.4vw,32px)">
       <sc-for list="{{ trygghetTop }}" as="t" hint-placeholder-count="2">
-        <article style="grid-column:{{ t.col }};margin-bottom:-56px;background:#7A3A2A;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(22px,1.9vw,25px);line-height:1.1;color:#F3E9D8">{{ t.title }}</h3><p style="margin:0;font-size:16px;line-height:1.6;color:#F0D9CC;text-wrap:pretty">{{ t.text }}</p></article>
+        <article style="grid-column:{{ t.col }};grid-row:1;background:#7A3A2A;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(22px,1.9vw,25px);line-height:1.1;color:#F3E9D8">{{ t.title }}</h3><p style="margin:0;font-size:16px;line-height:1.6;color:#F0D9CC;text-wrap:pretty">{{ t.text }}</p></article>
+        <span style="grid-column:{{ t.iconCol }};grid-row:1;align-self:stretch;display:flex;align-items:center;justify-content:center"><img sc-camel-src="{{ t.icon }}" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width:clamp(64px,6vw,92px);height:auto;display:block"></span>
       </sc-for>
     </div>
     <div style="display:flex;gap:10px;position:relative;z-index:1">
@@ -261,17 +262,18 @@
         <img sc-camel-src="{{ b.img }}" alt="{{ b.alt }}" loading="lazy" decoding="async" style="flex:{{ b.grow }} 1 0%;min-width:0;height:220px;object-fit:cover;border-radius:12px;display:block">
       </sc-for>
     </div>
-    <div style="max-width:1280px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:clamp(20px,2.6vw,40px);position:relative;z-index:2;align-items:start">
+    <div style="max-width:1280px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:clamp(20px,2.6vw,40px);position:relative;z-index:2;align-items:start;margin-top:clamp(20px,2.4vw,32px)">
       <sc-for list="{{ trygghetBottom }}" as="t" hint-placeholder-count="2">
-        <article style="grid-column:{{ t.col }};margin-top:-56px;background:#7A3A2A;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(22px,1.9vw,25px);line-height:1.1;color:#F3E9D8">{{ t.title }}</h3><p style="margin:0;font-size:16px;line-height:1.6;color:#F0D9CC;text-wrap:pretty">{{ t.text }}</p></article>
+        <article style="grid-column:{{ t.col }};grid-row:1;background:#7A3A2A;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(22px,1.9vw,25px);line-height:1.1;color:#F3E9D8">{{ t.title }}</h3><p style="margin:0;font-size:16px;line-height:1.6;color:#F0D9CC;text-wrap:pretty">{{ t.text }}</p></article>
+        <span style="grid-column:{{ t.iconCol }};grid-row:1;align-self:stretch;display:flex;align-items:center;justify-content:center"><img sc-camel-src="{{ t.icon }}" alt="" aria-hidden="true" loading="lazy" decoding="async" style="width:clamp(64px,6vw,92px);height:auto;display:block"></span>
       </sc-for>
     </div>
   </div>
   <div class="gt-compo-mob" style="margin:clamp(48px,10vw,72px) -28px 0">
-    <div style="max-width:640px;margin:0 auto;display:flex;flex-direction:column">
+    <div style="max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:20px">
       <sc-for list="{{ trygghetMob }}" as="m" hint-placeholder-count="8">
-        <sc-if value="{{ m.card }}"><article style="position:relative;z-index:2;margin:0 {{ m.mr }} 0 {{ m.ml }};background:#7A3A2A;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(22px,1.9vw,25px);line-height:1.1;color:#F3E9D8">{{ m.title }}</h3><p style="margin:0;font-size:16px;line-height:1.6;color:#F0D9CC;text-wrap:pretty">{{ m.text }}</p></article></sc-if>
-        <sc-if value="{{ m.imgs }}"><div style="position:relative;z-index:1;display:flex;gap:8px;margin:{{ m.mt }} 0 {{ m.mb }};aspect-ratio:{{ m.ar }};max-height:260px"><sc-for list="{{ m.imgs }}" as="b"><img sc-camel-src="{{ b.img }}" alt="{{ b.alt }}" loading="lazy" decoding="async" style="flex:{{ b.grow }} 1 0%;min-width:0;height:100%;object-fit:cover;border-radius:12px;display:block"></sc-for></div></sc-if>
+        <sc-if value="{{ m.card }}"><div style="display:flex;align-items:center;gap:14px;flex-direction:{{ m.dir }};margin:0 28px"><article style="flex:1;min-width:0;background:#7A3A2A;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;gap:12px;box-shadow:0 16px 40px rgba(106,42,33,0.22)"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(22px,1.9vw,25px);line-height:1.1;color:#F3E9D8">{{ m.title }}</h3><p style="margin:0;font-size:16px;line-height:1.6;color:#F0D9CC;text-wrap:pretty">{{ m.text }}</p></article><img sc-camel-src="{{ m.icon }}" alt="" aria-hidden="true" loading="lazy" decoding="async" style="flex:none;width:52px;height:auto;display:block"></div></sc-if>
+        <sc-if value="{{ m.imgs }}"><div style="display:flex;gap:8px;aspect-ratio:{{ m.ar }};max-height:260px"><sc-for list="{{ m.imgs }}" as="b"><img sc-camel-src="{{ b.img }}" alt="{{ b.alt }}" loading="lazy" decoding="async" style="flex:{{ b.grow }} 1 0%;min-width:0;height:100%;object-fit:cover;border-radius:12px;display:block"></sc-for></div></sc-if>
       </sc-for>
     </div>
   </div>
@@ -494,12 +496,15 @@ class Component extends DCLogic {
       { title: 'Friske blomster av beste kvalitet', text: 'Vi velger planter av beste kvalitet og bytter dem gjennom sesongen, i takt med årstidene. Da ser gravstedet alltid fint ut – uansett når du kommer på besøk.' },
       { title: 'Selvvanningskasse der gravplassen tillater det', text: 'Der gravplassen tillater det, setter vi en selvvanningskasse i bedet. Den gir plantene vann jevnt og trutt og holder bedet frodig mellom besøkene – også i tørre perioder.' },
     ];
-    const trygghetTop = [0, 2].map(i => ({ ...trygghet[i], col: String(i + 1) }));
-    const trygghetBottom = [1, 3].map(i => ({ ...trygghet[i], col: String(i + 1) }));
+    // Ikonene står ved siden av kortene, i samme farge som kortene (#7A3A2A). Desktop: kort 1 og 3 over båndet med
+    // ikonet til høyre, kort 2 og 4 under med ikonet til venstre. Kortene ligger ikke over bildene.
+    const ikoner = ['kamera', 'vannkanne', 'blomst', 'vann'].map(n => 'assets/ikoner/' + n + '.svg');
+    const trygghetTop = [0, 2].map(i => ({ ...trygghet[i], icon: ikoner[i], col: String(i + 1), iconCol: String(i + 2) }));
+    const trygghetBottom = [1, 3].map(i => ({ ...trygghet[i], icon: ikoner[i], col: String(i + 1), iconCol: String(i) }));
     const bildegrupper = [[0, 1], [2, 3], [4, 5], [6]].map(ix => ix.map(i => band[i]));
     const trygghetMob = trygghet.flatMap((c, i) => [
-      { ...c, card: true, imgs: false, ml: i % 2 ? '44px' : '28px', mr: i % 2 ? '28px' : '44px' },
-      { card: false, imgs: bildegrupper[i], ar: bildegrupper[i].reduce((t, b) => t + b.ratio, 0).toFixed(3), mt: '-24px', mb: i < trygghet.length - 1 ? '-24px' : '0px' },
+      { ...c, icon: ikoner[i], card: true, imgs: false, dir: i % 2 ? 'row-reverse' : 'row' },
+      { card: false, imgs: bildegrupper[i], ar: bildegrupper[i].reduce((t, b) => t + b.ratio, 0).toFixed(3) },
     ]);
     // BESTILL_URL er definert øverst i support.js. Faller tilbake til kontaktskjemaet om den mangler.
     const bestillUrl = typeof BESTILL_URL === 'string' ? BESTILL_URL : '#kontakt';
