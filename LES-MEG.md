@@ -21,10 +21,12 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
   bestillingssiden får eget domene. support.js er ellers generert kode – ta med linjen hvis
   filen byttes ut. Familiegrav («Ta kontakt») går fortsatt til kontaktskjemaet.
 
-## Fotobåndet
-Fotobåndet under kortene i trygghetsseksjonen viser bildene i lista `band` i scriptet
-(filene ligger i assets/ekstra/). Rekkefølgen i lista er rekkefølgen på siden; hvert bilde
-trenger en beskrivende alt-tekst og riktig format (`ratio`, bredde/høyde).
+## Trygghetsseksjonen
+Kortenes tekster står i lista `trygghet` og bildene i lista `band` i scriptet (filene ligger i
+assets/ekstra/). På desktop går bildene som et bånd gjennom seksjonen med kortene vekselvis
+over og under; på mobil og nettbrett kommer kort og bildegrupper annenhver gang nedover.
+Rekkefølgen i lista er rekkefølgen på siden; hvert bilde trenger en beskrivende alt-tekst og
+riktig format (`ratio`, bredde/høyde).
 
 ## Bilder av Lise og Stian
 Portrettene ligger i assets/lise.jpg og assets/stian.jpg (4:5, 360×450 px).
