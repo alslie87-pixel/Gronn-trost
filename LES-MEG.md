@@ -22,15 +22,17 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
   avsenderen.
 - Prisene her er bare visning. Bestillingssiden (gronn-trost-crm) leser prisene fra databasen,
   så en prisendring må gjøres begge steder: Innstillinger i CRM-et og listene over.
-- Selvvanningskassen (1 250 kr, 899 kr med helårsavtale) vises i «Ditt stell» for alle pakker
-  og for enkeltstell, ikke for klargjøring alene. «Jeg har selvvanningskasse fra før» krysses
+- Selvvanningskassen (1 250 kr, 899 kr med helårsavtale) vises i «Ditt stell» bare for årsavtalene
+  (ikke for enkeltstell eller klargjøring alene). «Jeg har selvvanningskasse fra før» krysses
   av på bestillingssiden.
 - Alle «Bestill»-knapper lenker til `BESTILL_URL` øverst i support.js. Bytt verdien der når
   bestillingssiden får eget domene. support.js er ellers generert kode – ta med linjen hvis
   filen byttes ut. Familiegrav («Ta kontakt») går fortsatt til kontaktskjemaet.
-- Kalkulatoren: ingenting er valgt fra start. Vask av gravstein eller friske blomster uten pakke
-  gir enkeltstell automatisk. Klargjøring av bed uten pakke er en egen jobb (uten enkeltstell),
-  og med en årsavtale er den et tillegg.
+- Kalkulatoren: enkeltstell er valgt fra start. Det byttes bare ut når kunden velger en av de
+  tre årsavtalene eller Klargjøring av bed (uten pakke en egen jobb, uten enkeltstell; med en
+  årsavtale et tillegg). Vask av gravstein og friske blomster legges til det som er valgt.
+- Enkeltstell er «til ønsket dato»: på bestillingssiden kan kunden velge dagen graven skal være
+  klar til (merkedag, bursdag, høytid).
 - «Bestill dette stellet» i kalkulatoren sender valgt pakke videre som `?pakke=` med koden
   vs, vsh, helaar, enkeltstell eller klargjoring. Julekrans og annet mersalg («Ønsker du
   også?») ligger på bestillingssiden.
