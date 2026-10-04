@@ -15,8 +15,11 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 
 ## Priser og bestilling
 - Pakker, tillegg og kassepriser står i `packageDefs`, `addonDefs` og `KASSE`/`KASSE_HELAAR`
-  i scriptet nederst i index.html. «Ønsket tjeneste»-listen i kontaktskjemaet har de samme
-  navnene og prisene og må endres samtidig. Kjøpsvilkårene ligger i vilkaar.html.
+  i scriptet nederst i index.html. Kjøpsvilkårene ligger i vilkaar.html.
+- Kontaktskjemaet er for meldinger, ikke bestilling: «Emne» har faste valg (spørsmål om
+  gravstell, familiegrav/befaring, bestilling/avtale, tilbakemelding, annet) og meldingen er
+  påkrevd. E-posten til post@gronntrost.no har emnet i tittelen, og «Svar» går rett til
+  avsenderen.
 - Prisene her er bare visning. Bestillingssiden (gronn-trost-crm) leser prisene fra databasen,
   så en prisendring må gjøres begge steder: Innstillinger i CRM-et og listene over.
 - Selvvanningskassen (1 250 kr, 899 kr med helårsavtale) vises i «Ditt stell» for alle pakker
