@@ -186,7 +186,7 @@
           </sc-for>
         </ul>
         <div style="border-top:1px dashed #D6C7AE;padding-top:16px;display:flex;flex-direction:column;gap:10px;font-size:var(--fs-min,15px)">
-          <sc-if value="{{ isRecurring }}" hint-placeholder-val="{{ false }}">
+          <sc-if value="{{ hasKasse }}" hint-placeholder-val="{{ false }}">
             <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A3F38">Selvvanningskasse ved første bestilling<sc-if value="{{ isHelaar }}" hint-placeholder-val="{{ false }}"><span style="color:#8E3B2F;font-weight:600"> · helårspris</span></sc-if></span><strong style="white-space:nowrap">{{ kasseLine }} kr</strong></div>
           </sc-if>
           <sc-for list="{{ chosenAddons }}" as="c" hint-placeholder-count="0">
@@ -429,7 +429,8 @@ class Component extends DCLogic {
       { key: 'helaar', name: 'Helårsavtale', price: 3310, unit: '/ år', seasons: ['var', 'sommer', 'host', 'vinter'], images: ['vinter'], hint: 'Stell hele året – med vinterdekor, gravlykt, gravlys og krans til jul', badge: 'Mest valgt' },
       { key: 'enkeltstell', name: 'Enkeltstell', price: 990, unit: '/ besøk', seasons: [], hint: 'Ett besøk med stell, vanning og luking – uten avtale' },
     ];
-    // Selvvanningskasse: engangsbeløp ved første bestilling av en årspakke, i tillegg til årsprisen.
+    // Selvvanningskasse: engangsbeløp ved første bestilling av en årspakke eller et enkeltstell (899 med helår).
+    // Kunden som har kasse fra før, krysser av for det på bestillingssiden.
     const KASSE = 1250, KASSE_HELAAR = 899;
     const addonDefs = [
       { key: 'bed', name: 'Klargjøring av bed', desc: 'Opparbeiding av bed med ny jord, klar for planting', price: 790, img: 'assets/klargjoring.jpg' },
@@ -446,6 +447,7 @@ class Component extends DCLogic {
         : S.pkg === 'enkeltstell' || S.addons.vask || S.addons.blomster ? packageDefs.find(p => p.key === 'enkeltstell')
         : null);
     const isHelaar = !!pkg && pkg.key === 'helaar', isRecurring = !!pkg && pkg.seasons.length > 0;
+    const hasKasse = isRecurring || (!!pkg && pkg.key === 'enkeltstell');
     const kasse = isHelaar ? KASSE_HELAAR : KASSE;
     const onStyle = { bg: '#FBF4EA', fg: '#8E3B2F', border: '#FBF4EA' }, offStyle = { bg: 'rgba(243,233,216,0.08)', fg: '#F3E9D8', border: 'rgba(243,233,216,0.34)' };
     const card = p => {
@@ -461,7 +463,7 @@ class Component extends DCLogic {
       return { ...a, pos: a.pos || 'center', on, priceText: fmt(a.price) + ' kr engangs', costText: fmt(a.price) + ' kr', toggle: () => this.toggleAddon(a.key), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
     });
     const chosenAddons = addons.filter(a => a.on && !(pkg === klargjoring && a.key === 'bed'));
-    const total = (pkg ? pkg.price : 0) + (isRecurring ? kasse : 0) + chosenAddons.reduce((t, a) => t + a.price, 0);
+    const total = (pkg ? pkg.price : 0) + (hasKasse ? kasse : 0) + chosenAddons.reduce((t, a) => t + a.price, 0);
     const seasonNames = !pkg ? '' : andList(pkg.seasons.map(k => seasonDefs.find(d => d.key === k).name.toLowerCase()));
     const includes = !pkg ? []
       : pkg === klargjoring ? ['Opparbeiding av bed med ny jord', 'Bedet gjøres klart for planting', 'Uten sesongavtale']
@@ -508,9 +510,9 @@ class Component extends DCLogic {
     ]);
     // BESTILL_URL er definert øverst i support.js. Faller tilbake til kontaktskjemaet om den mangler.
     const bestillUrl = typeof BESTILL_URL === 'string' ? BESTILL_URL : '#kontakt';
-    // «Bestill dette stellet» sender valgt pakke videre: ?pakke=enkeltstell | vs | vsh | helaar (Klargjøring alene og
-    // ingenting valgt går til bestillingssiden uten pakke).
-    const pakkeKode = pkg && packageDefs.some(p => p.key === pkg.key) ? pkg.key : '';
+    // «Bestill dette stellet» sender valgt pakke videre: ?pakke=enkeltstell | vs | vsh | helaar | klargjoring
+    // (ingenting valgt går til bestillingssiden uten pakke, der pakkevalget er første steg).
+    const pakkeKode = pkg ? pkg.key : '';
     const bestillPakkeUrl = typeof BESTILL_URL !== 'string' ? '#kontakt'
       : pakkeKode ? BESTILL_URL + (BESTILL_URL.includes('?') ? '&' : '?') + 'pakke=' + pakkeKode : BESTILL_URL;
     return {
@@ -521,10 +523,10 @@ class Component extends DCLogic {
       split: S.split, splitPct: S.split + '%', setSplit: e => this.setState({ split: +e.target.value }),
       steps, band, trygghetTop, trygghetBottom, trygghetMob,
       packages, single, addons, chosenAddons, includes: includes.map(t => ({ t })),
-      planName: pkg ? pkg.name : 'Velg pakke eller tjeneste', planPrice: pkg ? fmt(pkg.price) : '', planUnit: pkg ? pkg.unit : '', isHelaar, isRecurring,
+      planName: pkg ? pkg.name : 'Velg pakke eller tjeneste', planPrice: pkg ? fmt(pkg.price) : '', planUnit: pkg ? pkg.unit : '', isHelaar, isRecurring, hasKasse,
       hasChoice: !!pkg, noChoice: !pkg, ctaLabel: pkg ? 'Bestill dette stellet' : 'Gå til bestilling',
       kassePrice: fmt(KASSE), kasseHelaarPrice: fmt(KASSE_HELAAR), kasseLine: fmt(kasse),
-      total: fmt(total), totalLabel: isRecurring ? 'Første år totalt' : 'Totalt for besøket',
+      total: fmt(total), totalLabel: isRecurring ? 'Første år totalt' : pkg === klargjoring ? 'Totalt' : 'Totalt for besøket',
       recurringNote: 'Deretter ' + fmt(pkg ? pkg.price : 0) + ' kr per år. Fornyes årlig – avslutt når som helst.',
       bestillUrl, bestillPakkeUrl,
       service: S.service, setService: e => this.setState({ service: e.target.value }),

@@ -17,6 +17,11 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 - Pakker, tillegg og kassepriser står i `packageDefs`, `addonDefs` og `KASSE`/`KASSE_HELAAR`
   i scriptet nederst i index.html. «Ønsket tjeneste»-listen i kontaktskjemaet har de samme
   navnene og prisene og må endres samtidig. Kjøpsvilkårene ligger i vilkaar.html.
+- Prisene her er bare visning. Bestillingssiden (gronn-trost-crm) leser prisene fra databasen,
+  så en prisendring må gjøres begge steder: Innstillinger i CRM-et og listene over.
+- Selvvanningskassen (1 250 kr, 899 kr med helårsavtale) vises i «Ditt stell» for alle pakker
+  og for enkeltstell, ikke for klargjøring alene. «Jeg har selvvanningskasse fra før» krysses
+  av på bestillingssiden.
 - Alle «Bestill»-knapper lenker til `BESTILL_URL` øverst i support.js. Bytt verdien der når
   bestillingssiden får eget domene. support.js er ellers generert kode – ta med linjen hvis
   filen byttes ut. Familiegrav («Ta kontakt») går fortsatt til kontaktskjemaet.
@@ -24,7 +29,8 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
   gir enkeltstell automatisk. Klargjøring av bed uten pakke er en egen jobb (uten enkeltstell),
   og med en årsavtale er den et tillegg.
 - «Bestill dette stellet» i kalkulatoren sender valgt pakke videre som `?pakke=` med koden
-  enkeltstell, vs, vsh eller helaar. Julekrans og annet mersalg ligger på bestillingssiden.
+  vs, vsh, helaar, enkeltstell eller klargjoring. Julekrans og annet mersalg («Ønsker du
+  også?») ligger på bestillingssiden.
 
 ## Trygghetsseksjonen
 Kortenes tekster står i lista `trygghet` og bildene i lista `band` i scriptet (filene ligger i
