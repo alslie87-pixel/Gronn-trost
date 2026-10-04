@@ -36,13 +36,14 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
   også?») ligger på bestillingssiden.
 
 ## Trygghetsseksjonen
-Kortenes tekster står i lista `trygghet` og bildene i lista `band` i scriptet (filene ligger i
-assets/ekstra/). På desktop går bildene som et bånd gjennom seksjonen med kortene vekselvis
-over og under (uten å dekke bildene); på mobil og nettbrett kommer kort og bildegrupper
-annenhver gang nedover. Ved hvert kort står et linjeikon i kortfargen (assets/ikoner/:
-kamera, vannkanne, blomst, vann).
-Rekkefølgen i lista er rekkefølgen på siden; hvert bilde trenger en beskrivende alt-tekst og
-riktig format (`ratio`, bredde/høyde).
+Bygget etter designet «Trygghet 1a + 2a» (Design-mappen). De fire løftene står i lista
+`trygghet` i scriptet: tittel, tekst, ikon (assets/ikoner/: hjerte, vannkanne, blomst, vann) og
+bildet som brukes på mobil (`img`, format `ar` og utsnitt `pos`).
+- Desktop (bredere enn 1024 px): fotomur til venstre fra lista `fotomur` – et rutenett på 3 × 3,
+  der `area` er rad / kolonne / rad-slutt / kolonne-slutt – og løftene som liste med ikon til høyre.
+- Mobil og nettbrett: ett bilde per løfte, med ikonet i en rund merkelapp på bildekanten.
+Alle bildene ligger i assets/ekstra/ og trenger en beskrivende alt-tekst. host-lyng-gravlykt.jpg
+brukes ikke lenger, men ligger der fortsatt.
 
 ## Bilder av Lise og Stian
 Portrettene ligger i assets/lise.jpg og assets/stian.jpg (4:5, 360×450 px).
