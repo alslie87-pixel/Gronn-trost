@@ -153,7 +153,8 @@
             <p style="margin:4px 0 0;font-size:var(--fs-min,15px);line-height:1.55;color:#F3E9D8;background:rgba(243,233,216,0.1);border:1px solid rgba(243,233,216,0.32);border-radius:18px;padding:14px 18px;text-wrap:pretty"><strong style="font-weight:600">Selvvanningskasse</strong> – ved første bestilling av en årsavtale. Den koster {{ kassePrice }} kr én gang ({{ kasseHelaarPrice }} kr ved helårsavtale), er din eiendom og gjenbrukes sesong etter sesong. Beløpet kommer i tillegg på første bestilling, ikke i årsprisen.</p>
             <p style="margin:6px 0 0;font-size:var(--fs-min,15px);color:#F0D9CC">Eller uten avtale:</p>
             <sc-for list="{{ singles }}" as="u" hint-placeholder-count="2">
-              <button onClick="{{ u.choose }}" style="text-align:left;padding:16px;border-radius:18px;border:2px solid {{ u.border }};background:{{ u.bg }};color:{{ u.fg }};cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:16px;transition:background .15s ease,border-color .15s ease">
+              <button onClick="{{ u.choose }}" style="text-align:left;padding:{{ u.pad }};border-radius:18px;border:2px solid {{ u.border }};background:{{ u.bg }};color:{{ u.fg }};cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:16px;transition:background .15s ease,border-color .15s ease">
+                <sc-if value="{{ u.img }}"><img sc-camel-src="{{ u.img }}" alt="" loading="lazy" decoding="async" style="flex:none;width:96px;height:96px;object-fit:cover;border-radius:14px;display:block"></sc-if>
                 <span style="display:flex;flex-direction:column;gap:2px;flex:1 1 140px;min-width:0"><strong style="font-size:18px;font-weight:600">{{ u.name }}</strong><span style="font-size:var(--fs-min,13px);opacity:0.85;line-height:1.4">{{ u.hint }}</span></span>
                 <span style="flex:none;margin-left:auto;display:flex;flex-direction:var(--side-dir,column);align-items:var(--side-align,flex-end);gap:var(--side-gap,6px)"><span style="font-weight:600;font-size:var(--fs-min,15px);white-space:nowrap">{{ u.priceText }}</span><span style="width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:14px;font-weight:700">{{ u.mark }}</span></span>
               </button>
@@ -428,7 +429,7 @@ class Component extends DCLogic {
       { key: 'helaar', name: 'Helårsavtale', price: 3310, unit: '/ år', seasons: ['var', 'sommer', 'host', 'vinter'], images: ['vinter'], hint: 'Sesongblomster til alle årstider. Gravlys og vinterdekor når dagene blir mørke.', badge: 'Mest valgt' },
       { key: 'enkeltstell', name: 'Enkeltstell', price: 1290, unit: '/ besøk', seasons: [], hint: 'Ett besøk med stell, vanning og luking – til ønsket dato' },
       // Klargjøring selges bare som egen tjeneste, aldri som tillegg til en årsavtale eller et enkeltstell.
-      { key: 'klargjoring', name: 'Klargjøring av bed', price: 790, unit: 'engangs', seasons: [], hint: 'Opparbeiding av bed med ny jord, klar for planting' },
+      { key: 'klargjoring', name: 'Klargjøring av bed', price: 790, unit: 'engangs', seasons: [], hint: 'Opparbeiding av bed med ny jord, klar for planting', img: 'assets/klargjoring.jpg' },
     ];
     // Selvvanningskasse: engangsbeløp ved første bestilling av en årsavtale (899 med helår). Enkeltstell er uten kasse.
     // Kunden som har kasse fra før, krysser av for det på bestillingssiden.
@@ -447,6 +448,8 @@ class Component extends DCLogic {
     const card = p => {
       const on = p.key === pkg.key;
       return { ...p, on, badge: p.badge || '', priceText: fmt(p.price) + ' kr ' + p.unit, imgs: (p.images || p.seasons).map(k => ({ src: seasonDefs.find(d => d.key === k).img })),
+        // Valg uten avtale: eget bilde i `img` (klargjøring) gir samme innrykk som pakkekortene.
+        img: p.img || '', pad: p.img ? '12px 16px 12px 12px' : '16px',
         choose: () => this.setState({ pkg: p.key }), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
     };
     const packages = packageDefs.filter(p => p.seasons.length).map(card);
