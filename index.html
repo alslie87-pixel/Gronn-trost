@@ -660,8 +660,10 @@
           </label>
           <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#123B2E">Melding<textarea name="melding" rows="5" required placeholder="Skriv meldingen din her …" style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none;resize:vertical" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)"></textarea></label>
           <label style="display:flex;gap:12px;align-items:flex-start;font-size:var(--fs-min,13.5px);line-height:1.5;color:#4A3F38"><input type="checkbox" required style="margin-top:3px;width:18px;height:18px;accent-color:#123B2E;flex:none"><span>Jeg samtykker til at Grønn Trøst lagrer mine opplysninger for å besvare henvendelsen. Du kan melde deg av når som helst.</span></label>
+          <!-- Honningfelt mot roboter: usynlig for folk, roboter fyller det ut og avvises stille -->
+          <div style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" aria-hidden="true"><label>Nettside<input type="text" name="nettside" tabindex="-1" autocomplete="off"></label></div>
           <button type="submit" disabled="{{ sending }}" style="margin-top:6px;background:#8E3B2F;color:#F3E9D8;border:0;padding:18px 24px;border-radius:999px;font-weight:600;font-size:16px;cursor:pointer;transition:background .15s ease" style-hover="background:#6F2C22">{{ sendLabel }}</button>
-          <sc-if value="{{ sendError }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:var(--fs-min,14px);color:#8E3B2F">Noe gikk galt ved sending. Prøv igjen, eller ring oss på <a href="tel:+4795734512" style="color:#8E3B2F;font-weight:600">+47 957 34 512</a>.</p></sc-if>
+          <sc-if value="{{ sendError }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:var(--fs-min,14px);color:#8E3B2F">{{ sendErrorText }} Har det hast, ring oss på <a href="tel:+4795734512" style="color:#8E3B2F;font-weight:600">+47 957 34 512</a>.</p></sc-if>
         </form>
       </sc-if>
       <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
@@ -737,9 +739,11 @@ class Component extends DCLogic {
     // Selvvanningskasse: engangsbeløp ved første bestilling av en årsavtale (899 med helår). Enkeltstell er uten kasse.
     // Kunden som har kasse fra før, krysser av for det på bestillingssiden.
     const KASSE = 1250, KASSE_HELAAR = 899;
+    // `code` er tilleggets kode i CRM-katalogen (/api/catalog) — den følger med
+    // Bestill-lenken som &tillegg=..., så kassen forhåndshuker samme valg.
     const addonDefs = [
-      { key: 'vask', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, img: 'assets/vasking.jpg' },
-      { key: 'blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, img: 'assets/baerekraft.jpg' },
+      { key: 'vask', code: 'vasking', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, img: 'assets/vasking.jpg' },
+      { key: 'blomster', code: 'friske_blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, img: 'assets/baerekraft.jpg' },
     ];
     // Pakkene er radiovalg. Kortbildet er sesongbildene i `images`, ellers bildene for sesongene som inngår.
     // Enkeltstell er standardvalget. Vask av gravstein og friske blomster legges til det som er valgt.
@@ -805,7 +809,10 @@ class Component extends DCLogic {
     // her, så en Bestill-knapp aldri havner i kontaktskjemaet.
     const bestillUrl = typeof BESTILL_URL === 'string' ? BESTILL_URL : 'https://gronn-trost-crm.vercel.app/bestill';
     // «Bestill dette stellet» sender valgt pakke rett til kassen: ?pakke=vs | vsh | helaar | enkeltstell | klargjoring.
-    const bestillPakkeUrl = bestillUrl + (bestillUrl.includes('?') ? '&' : '?') + 'pakke=' + pkg.key;
+    // Avkryssede tillegg følger med som &tillegg=vasking,friske_blomster (utelates uten valg);
+    // kassen forhåndshuker bare det upsellreglene faktisk tilbyr, og beløpene regnes server-side.
+    const tilleggParam = chosenAddons.length ? '&tillegg=' + chosenAddons.map(a => a.code).join(',') : '';
+    const bestillPakkeUrl = bestillUrl + (bestillUrl.includes('?') ? '&' : '?') + 'pakke=' + pkg.key + tilleggParam;
     return {
       headerBg: (S.scrolled && !S.menuOpen) ? 'rgba(18,59,46,0.62)' : '#123B2E',
       narrow: S.narrow, wide: !S.narrow, menuOpen: S.menuOpen && S.narrow, heroTwoCol: S.heroTwoCol, heroIndent: S.heroIndent, heroStacked: !S.heroTwoCol, heroPhotoPos: S.heroTwoCol ? '70% 58%' : '72% 62%', heroImgH: S.heroTwoCol ? '100%' : '54vh', heroImgTop: '0', heroImgBottom: 'auto', heroRule: S.heroTwoCol ? 'rgba(243,233,216,0.28)' : 'transparent', heroJustify: S.heroTwoCol ? 'center' : 'flex-start', heroSubGap: S.heroTwoCol ? '8px' : '10px', heroCtaGap: S.heroTwoCol ? '32px' : '28px', heroTopPad: S.heroTwoCol ? '22px' : '24px', heroBandGap: S.heroTwoCol ? 'calc(max(15.28vw,200px) - 64px)' : '118px',
@@ -822,16 +829,21 @@ class Component extends DCLogic {
       bestillPakkeUrl,
       service: S.service, setService: e => this.setState({ service: e.target.value }),
       sent: S.sent, notSent: !S.sent, sending: S.sending, sendError: S.sendError, sendLabel: S.sending ? 'Sender…' : 'Send melding',
+      sendErrorText: S.sendErrorText || 'Noe gikk galt ved sending. Prøv igjen.',
       submit: e => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
         const body = {};
-        for (const k of ['fornavn', 'etternavn', 'epost', 'telefon', 'kirkegard', 'emne', 'melding']) body[k] = fd.get(k) || '';
+        for (const k of ['fornavn', 'etternavn', 'epost', 'telefon', 'kirkegard', 'emne', 'melding', 'nettside']) body[k] = fd.get(k) || '';
         this.setState({ sending: true, sendError: false });
+        // API-et svarer med en presis norsk feilmelding i `error`; den vises i skjemaet.
         fetch('/api/send-contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
-          .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
-          .then(j => { if (j && j.success) this.setState({ sent: true, sending: false }); else throw new Error('failed'); })
-          .catch(() => this.setState({ sending: false, sendError: true }));
+          .then(r => r.json().catch(() => ({})).then(j => ({ ok: r.ok, j })))
+          .then(({ ok, j }) => {
+            if (ok && j && j.success) return this.setState({ sent: true, sending: false });
+            this.setState({ sending: false, sendError: true, sendErrorText: (j && j.error) || 'Noe gikk galt ved sending. Prøv igjen.' });
+          })
+          .catch(() => this.setState({ sending: false, sendError: true, sendErrorText: 'Noe gikk galt ved sending. Prøv igjen.' }));
       }, reset: () => this.setState({ sent: false }),
     };
   }
