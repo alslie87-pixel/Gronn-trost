@@ -21,7 +21,8 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
   påkrevd. E-posten til post@gronntrost.no har emnet i tittelen, og «Svar» går rett til
   avsenderen.
 - Prisene her er bare visning. Bestillingssiden (gronn-trost-crm) leser prisene fra databasen,
-  så en prisendring må gjøres begge steder: Innstillinger i CRM-et og listene over.
+  så en prisendring må gjøres i Innstillinger i CRM-et OG på nettsiden: listene over, teksten i
+  «Spørsmål og svar» og JSON-LD-en i `<head>` (se Søk og deling under).
 - Selvvanningskassen (1 250 kr, 899 kr med helårsavtale) vises i «Ditt stell» bare for årsavtalene
   (ikke for enkeltstell eller klargjøring alene). «Jeg har selvvanningskasse fra før» krysses
   av på bestillingssiden.
@@ -41,6 +42,22 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 - «Bestill dette stellet» i kalkulatoren sender valgt pakke videre som `?pakke=` med koden
   vs, vsh, helaar, enkeltstell eller klargjoring. Julekrans og annet mersalg («Ønsker du
   også?») ligger på bestillingssiden.
+
+## Søk og deling (SEO)
+- Tittel, beskrivelse, canonical-adresse og Open Graph (bildet ved deling på Facebook o.l.)
+  står øverst i `<head>` i index.html og vilkaar.html. Hovedadressen er https://gronntrost.no/
+  (uten www).
+- Strukturerte data for Google og AI-søk ligger i `<script type="application/ld+json">` i
+  `<head>` på index.html: bedriften (LocalBusiness med telefon, e-post, org.nr og de 12
+  kommunene), de fire pakkene med pris (Service) og spørsmålene (FAQPage).
+- «Spørsmål og svar» (#faq, mellom Om oss og Kontakt) står som vanlig tekst i malen, ikke i en
+  liste i scriptet, så søkemotorer og AI-søk som ikke kjører JavaScript også ser den. Teksten må
+  være helt lik i seksjonen og i FAQPage – endrer du ett svar, endre det begge steder.
+- Favikonet (favicon.ico med 16/32/48 px, favicon-96.png, apple-touch-icon.png) er buen med
+  blomsten fra logo.svg i krem på grønt, uten ordmerket. Linjene i blomsten er gjort litt
+  tykkere så den leses i liten størrelse.
+- sitemap.xml lister forsiden og vilkaar.html. Oppdater `lastmod` når innholdet endres mye, og
+  legg til nye sider der. robots.txt slipper inn alle søkemotorer og AI-søk og peker på sitemapen.
 
 ## Trygghetsseksjonen
 Bygget etter designet «Trygghet 1a + 2a» (Design-mappen). De fire løftene står i lista

@@ -1,0 +1,6 @@
+# Alle søkemotorer og AI-søk (Googlebot, Bingbot, GPTBot, ClaudeBot, PerplexityBot …) er velkomne.
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://gronntrost.no/sitemap.xml
