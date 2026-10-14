@@ -327,20 +327,20 @@
 </header>
 <div style="height:73px;background:#123B2E"></div>
 
-<section id="hero" data-screen-label="Hero" style="scroll-margin-top:73px;position:relative;overflow:hidden;background:#123B2E;color:#F3E9D8;min-height:min(calc(100svh - 73px),880px);display:flex;flex-direction:column">
+<section id="hero" data-screen-label="Hero" style="scroll-margin-top:73px;position:relative;overflow:hidden;background:#123B2E;color:#F3E9D8;min-height:calc(100svh - 73px);display:flex;flex-direction:column">
   <img src="assets/hero.jpg" alt="Gravsted med gule blomster i solnedgang" fetchpriority="high" style="position:absolute;left:0;width:100%;top:{{ heroImgTop }};bottom:{{ heroImgBottom }};height:{{ heroImgH }};object-fit:cover;object-position:{{ heroPhotoPos }};display:block">
   <sc-if value="{{ heroTwoCol }}" hint-placeholder-val="{{ true }}">
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,59,46,0.96) 0%,rgba(18,59,46,0.9) 22%,rgba(18,59,46,0.72) 38%,rgba(18,59,46,0.42) 52%,rgba(18,59,46,0.1) 70%,rgba(18,59,46,0) 100%)"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,59,46,0.3) 0%,rgba(18,59,46,0) 28%,rgba(18,59,46,0) 60%,rgba(18,59,46,0.35) 100%)"></div>
   </sc-if>
   <sc-if value="{{ heroStacked }}" hint-placeholder-val="{{ false }}">
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,59,46,0.72) 0,rgba(18,59,46,0.6) 12vh,rgba(18,59,46,0.5) 24vh,rgba(18,59,46,0.72) 36vh,rgba(18,59,46,0.94) 48vh,#123B2E 54vh,#123B2E 100%)"></div>
+    <div style="position:absolute;left:0;right:0;top:0;height:{{ heroImgH }};background:linear-gradient(180deg,rgba(18,59,46,0.72) 0,rgba(18,59,46,0.6) 22.2%,rgba(18,59,46,0.5) 44.4%,rgba(18,59,46,0.72) 66.7%,rgba(18,59,46,0.94) 88.9%,#123B2E 100%)"></div>
   </sc-if>
   <div style="flex:1;position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));align-items:stretch">
     <div style="position:relative;display:flex;flex-direction:column;justify-content:center;padding:clamp(40px,7vh,88px) clamp(24px,4vw,64px) clamp(40px,7vh,88px) 28px;text-shadow:0 2px 6px rgba(8,30,22,0.55),0 2px 28px rgba(8,30,22,0.5)">
       <div style="height:{{ heroBandGap }};flex:none;order:2"></div>
       <p style="margin:0 0 18px;max-width:560px;margin-left:{{ heroIndent }};color:#F3E9D8;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;text-shadow:0 1px 4px rgba(8,30,22,0.7),0 1px 14px rgba(8,30,22,0.6)">Blomster som hedrer minnet</p>
-      <div style="border-top:1px solid {{ heroRule }};padding-top:{{ heroTopPad }};max-width:560px;margin-left:{{ heroIndent }};flex:1;display:flex;flex-direction:column;justify-content:{{ heroJustify }}">
+      <div style="border-top:1px solid {{ heroRule }};padding-top:{{ heroTopPad }};max-width:560px;margin-left:{{ heroIndent }};flex:{{ heroGroupFlex }};display:flex;flex-direction:column;justify-content:{{ heroJustify }}">
         <div>
         <h1 style="margin:0 0 28px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(30px,3.6vw,56px);line-height:1.06;letter-spacing:-0.01em;text-wrap:pretty;color:#FBF4EA">Med vårt personlige gravstell skaper vi <span style="color:#E8C9B8">levende, vakre gravsteder</span></h1>
         </div>
@@ -697,13 +697,14 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;flowerBands&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Dekor&quot;},&quot;startPlan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;tom&quot;,&quot;options&quot;:[&quot;tom&quot;,&quot;helår&quot;],&quot;tsType&quot;:&quot;'tom' | 'helår'&quot;,&quot;section&quot;:&quot;Priskalkulator&quot;}}">
 class Component extends DCLogic {
-  state = { pkg: '', addons: { vask: false, blomster: false }, service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroIndent: '0px', scrolled: false };
+  state = { pkg: '', addons: { vask: false, blomster: false }, service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroTablet: false, heroIndent: '0px', scrolled: false };
   componentDidMount() {
     this._onResize = () => {
       const cw = document.documentElement.clientWidth;
-      const narrow = window.innerWidth < 900, heroTwoCol = cw >= 920;
+      // heroTablet: én kolonne, men så bredt (nettbrett på høykant) at bildet bør gå helt ned til blomsterbåndet.
+      const narrow = window.innerWidth < 900, heroTwoCol = cw >= 920, heroTablet = !heroTwoCol && cw >= 600;
       const heroIndent = heroTwoCol ? Math.max(0, (cw - 1280) / 2) + 'px' : '0px';
-      if (narrow !== this.state.narrow || heroTwoCol !== this.state.heroTwoCol || heroIndent !== this.state.heroIndent) this.setState({ narrow, heroTwoCol, heroIndent, menuOpen: narrow === this.state.narrow ? this.state.menuOpen : false });
+      if (narrow !== this.state.narrow || heroTwoCol !== this.state.heroTwoCol || heroTablet !== this.state.heroTablet || heroIndent !== this.state.heroIndent) this.setState({ narrow, heroTwoCol, heroTablet, heroIndent, menuOpen: narrow === this.state.narrow ? this.state.menuOpen : false });
     };
     this._onResize();
     window.addEventListener('resize', this._onResize);
@@ -815,7 +816,7 @@ class Component extends DCLogic {
     const bestillPakkeUrl = bestillUrl + (bestillUrl.includes('?') ? '&' : '?') + 'pakke=' + pkg.key + tilleggParam;
     return {
       headerBg: (S.scrolled && !S.menuOpen) ? 'rgba(18,59,46,0.62)' : '#123B2E',
-      narrow: S.narrow, wide: !S.narrow, menuOpen: S.menuOpen && S.narrow, heroTwoCol: S.heroTwoCol, heroIndent: S.heroIndent, heroStacked: !S.heroTwoCol, heroPhotoPos: S.heroTwoCol ? '70% 58%' : '72% 62%', heroImgH: S.heroTwoCol ? '100%' : '54vh', heroImgTop: '0', heroImgBottom: 'auto', heroRule: S.heroTwoCol ? 'rgba(243,233,216,0.28)' : 'transparent', heroJustify: S.heroTwoCol ? 'center' : 'flex-start', heroSubGap: S.heroTwoCol ? '8px' : '10px', heroCtaGap: S.heroTwoCol ? '32px' : '28px', heroTopPad: S.heroTwoCol ? '22px' : '24px', heroBandGap: S.heroTwoCol ? 'calc(max(15.28vw,200px) - 64px)' : '118px',
+      narrow: S.narrow, wide: !S.narrow, menuOpen: S.menuOpen && S.narrow, heroTwoCol: S.heroTwoCol, heroIndent: S.heroIndent, heroStacked: !S.heroTwoCol, heroPhotoPos: S.heroTwoCol ? '70% 58%' : '72% 62%', heroImgH: S.heroTwoCol ? '100%' : S.heroTablet ? 'calc(100% - 160px)' : '54vh', heroGroupFlex: S.heroTwoCol ? '0 0 auto' : '1', heroImgTop: '0', heroImgBottom: 'auto', heroRule: S.heroTwoCol ? 'rgba(243,233,216,0.28)' : 'transparent', heroJustify: S.heroTwoCol ? 'center' : 'flex-start', heroSubGap: S.heroTwoCol ? '8px' : '10px', heroCtaGap: S.heroTwoCol ? '32px' : '28px', heroTopPad: S.heroTwoCol ? '22px' : '24px', heroBandGap: S.heroTwoCol ? 'calc(max(15.28vw,200px) - 64px)' : '118px',
       toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })), closeMenu: () => this.setState({ menuOpen: false }),
       showBands: P.flowerBands ?? true,
       split: S.split, splitPct: S.split + '%', setSplit: e => this.setState({ split: +e.target.value }),
