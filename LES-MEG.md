@@ -56,6 +56,8 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 - Favikonet (favicon.ico med 16/32/48 px, favicon-96.png, apple-touch-icon.png) er buen med
   blomsten fra logo.svg i krem på grønt, uten ordmerket. Linjene i blomsten er gjort litt
   tykkere så den leses i liten størrelse.
+- google3254591baec68643.html i roten bekrefter eierskapet i Google Search Console. Google
+  sjekker den jevnlig – den må aldri slettes eller endres.
 - sitemap.xml lister forsiden og vilkaar.html. Oppdater `lastmod` når innholdet endres mye, og
   legg til nye sider der. robots.txt slipper inn alle søkemotorer og AI-søk og peker på sitemapen.
 
