@@ -37,7 +37,7 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
   uten avtale: Enkeltstell eller Klargjøring av bed. Klargjøring selges bare som egen tjeneste,
   ikke som tillegg til en årsavtale eller et enkeltstell. Vask av gravstein og friske blomster
   legges til det som er valgt.
-- Grankrans til jul (529 kr, bilde assets/grankrans.jpg) tilbys med vår og sommer og vår,
+- Gravkrans til jul (529 kr, bilde assets/gravkrans.jpg) tilbys med vår og sommer og vår,
   sommer og høst hele året, og med enkeltstell eller klargjøring om høsten og vinteren
   (september–februar). Helårsavtalen har krans inkludert og får ikke tilbudet. Regelen står i
   `when` i `addonDefs` og må stemme med cart_rules i CRM-databasen (migrasjon 017 i

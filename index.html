@@ -167,7 +167,7 @@
       "@id": "https://gronntrost.no/#helaar",
       "name": "Helårsavtale",
       "serviceType": "Gravstell",
-      "description": "Sesongblomster til alle årstider, gravlys og vinterdekor når dagene blir mørke – med grankrans og gravlys til jul.",
+      "description": "Sesongblomster til alle årstider, gravlys og vinterdekor når dagene blir mørke – med gravkrans og gravlys til jul.",
       "provider": {
         "@id": "https://gronntrost.no/#bedrift"
       },
@@ -255,7 +255,7 @@
           "name": "Hva skjer med blomstene om vinteren?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Når blomstersesongen er over, får gravstedet vinterdekor. I helårsavtalen er vinterdekor inkludert: grankrans og gravlys til jul. Har du avtale for vår og sommer eller vår, sommer og høst, kan du legge til en grankrans til jul for 529 kr når du bestiller – og til et enkeltstell om høsten og vinteren."
+            "text": "Når blomstersesongen er over, får gravstedet vinterdekor. I helårsavtalen er vinterdekor inkludert: gravkrans og gravlys til jul. Har du avtale for vår og sommer eller vår, sommer og høst, kan du legge til en gravkrans til jul for 529 kr når du bestiller – og til et enkeltstell om høsten og vinteren."
           }
         },
         {
@@ -606,7 +606,7 @@
       </div>
       <div style="padding:clamp(20px,2.2vw,28px) 0;border-top:1px solid rgba(36,29,24,0.18)">
         <h3 style="margin:0 0 8px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(21px,1.9vw,24px);line-height:1.2;color:#123B2E;text-wrap:balance">Hva skjer med blomstene om vinteren?</h3>
-        <p style="margin:0;font-size:var(--fs-min,16px);line-height:1.65;color:#4A3F38;text-wrap:pretty">Når blomstersesongen er over, får gravstedet vinterdekor. I helårsavtalen er vinterdekor inkludert: grankrans og gravlys til jul. Har du avtale for vår og sommer eller vår, sommer og høst, kan du legge til en grankrans til jul for 529 kr når du bestiller – og til et enkeltstell om høsten og vinteren.</p>
+        <p style="margin:0;font-size:var(--fs-min,16px);line-height:1.65;color:#4A3F38;text-wrap:pretty">Når blomstersesongen er over, får gravstedet vinterdekor. I helårsavtalen er vinterdekor inkludert: gravkrans og gravlys til jul. Har du avtale for vår og sommer eller vår, sommer og høst, kan du legge til en gravkrans til jul for 529 kr når du bestiller – og til et enkeltstell om høsten og vinteren.</p>
       </div>
       <div style="padding:clamp(20px,2.2vw,28px) 0;border-top:1px solid rgba(36,29,24,0.18)">
         <h3 style="margin:0 0 8px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(21px,1.9vw,24px);line-height:1.2;color:#123B2E;text-wrap:balance">Hva er en selvvanningskasse?</h3>
@@ -743,14 +743,14 @@ class Component extends DCLogic {
     // `code` er tilleggets kode i CRM-katalogen (/api/catalog) — den følger med
     // Bestill-lenken som &tillegg=..., så kassen forhåndshuker samme valg.
     // `when` (valgfritt) avgjør hvilke pakker tillegget tilbys med – må stemme med cart_rules i CRM-et.
-    // Grankrans til jul: med vår og sommer / vår, sommer og høst hele året (helår har krans inkludert),
+    // Gravkrans til jul: med vår og sommer / vår, sommer og høst hele året (helår har krans inkludert),
     // og med enkeltstell eller klargjøring om høsten og vinteren (sep–feb, norsk tid), som i kassen.
     const month = Number(new Intl.DateTimeFormat('en', { timeZone: 'Europe/Oslo', month: 'numeric' }).format(new Date()));
     const hostVinter = month >= 9 || month <= 2;
     const addonDefs = [
       { key: 'vask', code: 'vasking', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, img: 'assets/vasking.jpg' },
       { key: 'blomster', code: 'friske_blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, img: 'assets/baerekraft.jpg' },
-      { key: 'krans', code: 'grankrans', name: 'Grankrans til jul', desc: 'Pyntet grankrans med kongler og røde bær, lagt på graven før jul', price: 529, img: 'assets/grankrans.jpg',
+      { key: 'krans', code: 'gravkrans', name: 'Gravkrans til jul', desc: 'Pyntet gravkrans med kongler og røde bær, lagt på graven før jul', price: 529, img: 'assets/gravkrans.jpg',
         when: p => p.key === 'vs' || p.key === 'vsh' || (hostVinter && !p.seasons.length) },
     ];
     // Pakkene er radiovalg. Kortbildet er sesongbildene i `images`, ellers bildene for sesongene som inngår.
@@ -782,7 +782,7 @@ class Component extends DCLogic {
       : !isRecurring
       ? ['Stell og opprydding', 'Vanning og luking', 'Velg dato for spesielle anledninger', 'Uten sesongavtale']
       : isHelaar
-        ? ['Alle 4 sesonger inkludert', 'Vinterdekor: grankrans og gravlys til jul', 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord']
+        ? ['Alle 4 sesonger inkludert', 'Vinterdekor: gravkrans og gravlys til jul', 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord']
         : ['Sesonger: ' + seasonNames, 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord'];
     // «Slik gikk vi fram». Numrene settes automatisk etter rekkefølgen.
     const steps = [
