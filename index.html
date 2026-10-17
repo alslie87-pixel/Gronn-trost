@@ -167,7 +167,7 @@
       "@id": "https://gronntrost.no/#helaar",
       "name": "Helårsavtale",
       "serviceType": "Gravstell",
-      "description": "Sesongblomster til alle årstider, gravlys og vinterdekor når dagene blir mørke – med krans og gravlys til jul.",
+      "description": "Sesongblomster til alle årstider, gravlys og vinterdekor når dagene blir mørke – med gravkrans og gravlys til jul.",
       "provider": {
         "@id": "https://gronntrost.no/#bedrift"
       },
@@ -255,7 +255,7 @@
           "name": "Hva skjer med blomstene om vinteren?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Når blomstersesongen er over, får gravstedet vinterdekor. I helårsavtalen er gravlykt med gravlys, mosekrans og granbar inkludert, og krans og gravlys til jul. Har du avtale for vår og sommer eller vår, sommer og høst, kan du legge til en mosekrans eller barkrans til jul for 529 kr når du bestiller."
+            "text": "Når blomstersesongen er over, får gravstedet vinterdekor. I helårsavtalen er vinterdekor, gravkrans og gravlys til jul inkludert. Har du avtale for vår og sommer eller vår, sommer og høst, kan du legge til en gravkrans til vinteren for 529 kr når du bestiller – og til et enkeltstell om høsten og vinteren."
           }
         },
         {
@@ -606,7 +606,7 @@
       </div>
       <div style="padding:clamp(20px,2.2vw,28px) 0;border-top:1px solid rgba(36,29,24,0.18)">
         <h3 style="margin:0 0 8px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(21px,1.9vw,24px);line-height:1.2;color:#123B2E;text-wrap:balance">Hva skjer med blomstene om vinteren?</h3>
-        <p style="margin:0;font-size:var(--fs-min,16px);line-height:1.65;color:#4A3F38;text-wrap:pretty">Når blomstersesongen er over, får gravstedet vinterdekor. I helårsavtalen er gravlykt med gravlys, mosekrans og granbar inkludert, og krans og gravlys til jul. Har du avtale for vår og sommer eller vår, sommer og høst, kan du legge til en mosekrans eller barkrans til jul for 529 kr når du bestiller.</p>
+        <p style="margin:0;font-size:var(--fs-min,16px);line-height:1.65;color:#4A3F38;text-wrap:pretty">Når blomstersesongen er over, får gravstedet vinterdekor. I helårsavtalen er vinterdekor, gravkrans og gravlys til jul inkludert. Har du avtale for vår og sommer eller vår, sommer og høst, kan du legge til en gravkrans til vinteren for 529 kr når du bestiller – og til et enkeltstell om høsten og vinteren.</p>
       </div>
       <div style="padding:clamp(20px,2.2vw,28px) 0;border-top:1px solid rgba(36,29,24,0.18)">
         <h3 style="margin:0 0 8px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(21px,1.9vw,24px);line-height:1.2;color:#123B2E;text-wrap:balance">Hva er en selvvanningskasse?</h3>
@@ -697,7 +697,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;flowerBands&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Dekor&quot;},&quot;startPlan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;tom&quot;,&quot;options&quot;:[&quot;tom&quot;,&quot;helår&quot;],&quot;tsType&quot;:&quot;'tom' | 'helår'&quot;,&quot;section&quot;:&quot;Priskalkulator&quot;}}">
 class Component extends DCLogic {
-  state = { pkg: '', addons: { vask: false, blomster: false }, service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroTablet: false, heroIndent: '0px', scrolled: false };
+  state = { pkg: '', addons: { vask: false, blomster: false, krans: false }, service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroTablet: false, heroIndent: '0px', scrolled: false };
   componentDidMount() {
     this._onResize = () => {
       const cw = document.documentElement.clientWidth;
@@ -742,12 +742,19 @@ class Component extends DCLogic {
     const KASSE = 1250, KASSE_HELAAR = 899;
     // `code` er tilleggets kode i CRM-katalogen (/api/catalog) — den følger med
     // Bestill-lenken som &tillegg=..., så kassen forhåndshuker samme valg.
+    // `when` (valgfritt) avgjør hvilke pakker tillegget tilbys med – må stemme med cart_rules i CRM-et.
+    // Gravkrans til vinteren: med vår og sommer / vår, sommer og høst hele året (helår har krans inkludert),
+    // og med enkeltstell eller klargjøring om høsten og vinteren (sep–feb, norsk tid), som i kassen.
+    const month = Number(new Intl.DateTimeFormat('en', { timeZone: 'Europe/Oslo', month: 'numeric' }).format(new Date()));
+    const hostVinter = month >= 9 || month <= 2;
     const addonDefs = [
       { key: 'vask', code: 'vasking', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, img: 'assets/vasking.jpg' },
       { key: 'blomster', code: 'friske_blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, img: 'assets/baerekraft.jpg' },
+      { key: 'krans', code: 'gravkrans', name: 'Gravkrans til vinteren', desc: 'Pyntet gravkrans med kongler og røde bær, lagt på graven før jul', price: 529, img: 'assets/gravkrans.jpg',
+        when: p => p.key === 'vs' || p.key === 'vsh' || (hostVinter && !p.seasons.length) },
     ];
     // Pakkene er radiovalg. Kortbildet er sesongbildene i `images`, ellers bildene for sesongene som inngår.
-    // Enkeltstell er standardvalget. Vask av gravstein og friske blomster legges til det som er valgt.
+    // Enkeltstell er standardvalget. Tilleggene legges til det som er valgt.
     const pkg = packageDefs.find(p => p.key === S.pkg) || packageDefs.find(p => p.key === 'enkeltstell');
     const isHelaar = pkg.key === 'helaar', isRecurring = pkg.seasons.length > 0, isKlargjoring = pkg.key === 'klargjoring';
     const hasKasse = isRecurring;
@@ -762,7 +769,7 @@ class Component extends DCLogic {
     };
     const packages = packageDefs.filter(p => p.seasons.length).map(card);
     const singles = packageDefs.filter(p => !p.seasons.length).map(card);
-    const addons = addonDefs.map(a => {
+    const addons = addonDefs.filter(a => !a.when || a.when(pkg)).map(a => {
       const on = !!S.addons[a.key];
       return { ...a, pos: a.pos || 'center', on, priceText: fmt(a.price) + ' kr engangs', costText: fmt(a.price) + ' kr', toggle: () => this.toggleAddon(a.key), ...(on ? onStyle : offStyle), mark: on ? '✓' : '' };
     });
@@ -775,7 +782,7 @@ class Component extends DCLogic {
       : !isRecurring
       ? ['Stell og opprydding', 'Vanning og luking', 'Velg dato for spesielle anledninger', 'Uten sesongavtale']
       : isHelaar
-        ? ['Alle 4 sesonger inkludert', 'Krans og gravlys til jul inkludert', 'Vinterdekor: gravlykt med gravlys, mosekrans og granbar', 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord']
+        ? ['Alle 4 sesonger inkludert', 'Vinterdekor, gravkrans og gravlys til jul inkludert', 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord']
         : ['Sesonger: ' + seasonNames, 'Sesongplanting og stell', 'Vanning og luking', 'Oppfriskning av jord'];
     // «Slik gikk vi fram». Numrene settes automatisk etter rekkefølgen.
     const steps = [
