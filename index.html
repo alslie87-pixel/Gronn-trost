@@ -750,7 +750,7 @@ class Component extends DCLogic {
     const addonDefs = [
       { key: 'vask', code: 'vasking', name: 'Vask av gravstein', desc: 'Grundig vask og rens av gravsteinen', price: 745, img: 'assets/vasking.jpg' },
       { key: 'blomster', code: 'friske_blomster', name: 'Friske blomster på graven', desc: 'Friske blomster satt på graven, for eksempel til en merkedag', price: 579, img: 'assets/baerekraft.jpg' },
-      { key: 'krans', code: 'gravkrans', name: 'Gravkrans til jul', desc: 'Pyntet gravkrans med kongler og røde bær, lagt på graven før jul', price: 529, img: 'assets/gravkrans.jpg',
+      { key: 'krans', code: 'gravkrans', name: 'Gravkrans til jul', desc: 'Pyntet gravkrans, lagt på graven før jul', price: 529, img: 'assets/gravkrans.jpg',
         when: p => p.key === 'vs' || p.key === 'vsh' || (hostVinter && !p.seasons.length) },
     ];
     // Pakkene er radiovalg. Kortbildet er sesongbildene i `images`, ellers bildene for sesongene som inngår.
