@@ -27,9 +27,10 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
   (ikke for enkeltstell eller klargjøring alene). «Jeg har selvvanningskasse fra før» krysses
   av på bestillingssiden.
 - «Bestill dette stellet» lenker til `BESTILL_URL` øverst i support.js, med valgt pakke i
-  `?pakke=`, så kunden lander rett i kassen uten bestillingssidens pakkevalg. Bytt verdien der når
-  bestillingssiden får eget domene. support.js er ellers generert kode – ta med linjen hvis
-  filen byttes ut (mangler den, bruker siden gronn-trost-crm.vercel.app/bestill).
+  `?pakke=`, så kunden lander rett i kassen uten bestillingssidens pakkevalg. Bestillingssiden
+  har eget domene (2026-10-25): https://bestill.gronntrost.no — samme adresse står i
+  index.html sine JSON-LD-lenker. support.js er ellers generert kode – ta med linjen hvis
+  filen byttes ut (mangler den, bruker siden bestill.gronntrost.no/bestill).
 - «Bestill gravstell» i menyen og på forsiden har ingen pakke ennå, og går derfor til pakkevalget
   under Våre tilbud (#produkter). Kontaktskjemaet brukes bare til familiegrav («Ta kontakt») og
   vanlige meldinger.

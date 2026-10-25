@@ -132,7 +132,7 @@
           "priceCurrency": "NOK",
           "unitText": "per år"
         },
-        "url": "https://gronn-trost-crm.vercel.app/bestill?pakke=vs"
+        "url": "https://bestill.gronntrost.no/bestill?pakke=vs"
       }
     },
     {
@@ -158,7 +158,7 @@
           "priceCurrency": "NOK",
           "unitText": "per år"
         },
-        "url": "https://gronn-trost-crm.vercel.app/bestill?pakke=vsh"
+        "url": "https://bestill.gronntrost.no/bestill?pakke=vsh"
       }
     },
     {
@@ -184,7 +184,7 @@
           "priceCurrency": "NOK",
           "unitText": "per år"
         },
-        "url": "https://gronn-trost-crm.vercel.app/bestill?pakke=helaar"
+        "url": "https://bestill.gronntrost.no/bestill?pakke=helaar"
       }
     },
     {
@@ -210,7 +210,7 @@
           "priceCurrency": "NOK",
           "unitText": "per besøk"
         },
-        "url": "https://gronn-trost-crm.vercel.app/bestill?pakke=enkeltstell"
+        "url": "https://bestill.gronntrost.no/bestill?pakke=enkeltstell"
       }
     },
     {
@@ -814,7 +814,7 @@ class Component extends DCLogic {
     ];
     // BESTILL_URL er definert øverst i support.js. Mangler linjen (f.eks. etter ny build av support.js), brukes samme adresse
     // her, så en Bestill-knapp aldri havner i kontaktskjemaet.
-    const bestillUrl = typeof BESTILL_URL === 'string' ? BESTILL_URL : 'https://gronn-trost-crm.vercel.app/bestill';
+    const bestillUrl = typeof BESTILL_URL === 'string' ? BESTILL_URL : 'https://bestill.gronntrost.no/bestill';
     // «Bestill dette stellet» sender valgt pakke rett til kassen: ?pakke=vs | vsh | helaar | enkeltstell | klargjoring.
     // Avkryssede tillegg følger med som &tillegg=vasking,friske_blomster (utelates uten valg);
     // kassen forhåndshuker bare det upsellreglene faktisk tilbyr, og beløpene regnes server-side.
