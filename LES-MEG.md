@@ -13,12 +13,18 @@ Innholdet i denne mappen er hele nettsiden, klar til å legges rett i roten av G
 Skjemaet sender til /api/send-contact (samme funksjon som før), så det virker uten endringer
 så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 
-Kontaktdelen har bildet assets/kontakt-bred.jpg over hele bredden, med tekstboksen og skjemaet
-oppå. Utseendet står i klassene `.gt-kontakt…` i `<style>` øverst i index.html: to kolonner fra
-920 px, stablet under, og fra 700 px og ned ligger bildet høyere (center 20 %) med loddrett
-gradient. Bølgen øverst er patterns/c-t5b.svg: samme form og blomster som c-t5, men med
-Spørsmål og svar-fargen over bølgen og gjennomsiktig under, og den ligger INNE i kontaktdelen
-så bildet synes rett under. Footeren (c-t6) er uendret. assets/kontakt.jpg brukes ikke lenger.
+Kontaktdelen har et bilde over hele bredden, med tekstboksen og skjemaet oppå. Utseendet står i
+klassene `.gt-kontakt…` i `<style>` øverst i index.html:
+- Bildet: assets/kontakt-bred.jpg (1600 px, ≤ 450 kB) på PC og assets/kontakt-mobil.jpg (900 px,
+  ≤ 180 kB) under 700 px, der det også ligger høyere (center 20 %) med loddrett gradient. Begge er
+  laget fra originalen i Gronn-trost-bilder-original/kontakt.jpg. Nettleseren henter bare det ene.
+- To kolonner fra 1100 px, stablet under. Skjemaet er 640 px bredt med to felt i bredden og lav
+  meldingsboks på PC, så hele kortet (ca. 570 px) får plass på en laptopskjerm fra 1366×768.
+- Bølgen øverst er patterns/c-t5b.svg: samme form og blomster som c-t5, med Spørsmål og
+  svar-fargen over bølgen, et lysere grønt lag (#2F5A40) under den som steinene og bladene ligger
+  mot, og gjennomsiktig under det, så bildet synes. Den ligger INNE i kontaktdelen.
+- Bølgen ned mot footeren er patterns/c-t6b.svg, bygd som bølgen under toppbildet (c-t1): toning
+  til mørk grønn, et mørkt og et lysere grønt lag, og footerbølgen med blomstene fra c-t6.
 
 ## Priser og bestilling
 - Pakker og kassepriser står i `packageDefs` og `KASSE`/`KASSE_HELAAR` i scriptet nederst i

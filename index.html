@@ -291,15 +291,19 @@
     @media (max-width:1024px){.gt-compo-desk{display:none}.gt-compo-mob{display:block}}
     @media (max-width:640px){:root{--fs-min:16px;--tg-lead:32ch}}
     @media (max-width:480px){:root{--side-dir:row;--side-align:center;--side-gap:10px}}
-    /* Kontaktdelen: bildet over hele bredden med tekstboks og skjema oppå. To kolonner fra 920 px (smalere blir
-       tekstboksen for trang ved siden av et 460 px skjema), stablet under. Under 700 px: bildet høyere opp og
-       gradienten loddrett. Luft: ca. 120 px mellom boksene og bølgene over og under. */
-    .gt-kontakt{background-color:#123B2E;background-image:linear-gradient(90deg,rgba(11,33,25,.55) 0%,rgba(11,33,25,.15) 45%,rgba(11,33,25,.05) 100%),url(assets/kontakt-bred.jpg);background-size:cover;background-position:center 82%;background-repeat:no-repeat;padding:calc(max(9.72vw,120px) + 72px) 28px calc(max(9.72vw,120px) + 48px)}
-    .gt-kontakt-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 460px;gap:48px;align-items:start}
+    /* Kontaktdelen: bildet over hele bredden med tekstboks og skjema oppå. To kolonner fra 1100 px (smalere blir
+       tekstboksen for trang ved siden av et 640 px skjema), stablet under. På PC har skjemaet to felt i bredden og en
+       lavere meldingsboks, så hele kortet får plass på en laptopskjerm (1366×768 og større). Under 700 px: bildet høyere opp og
+       gradienten loddrett. Luft: ca. 120 px mellom boksene og bølgene over og under. Bølgen ned mot footeren er
+       patterns/c-t6b.svg (bygd som bølgen under toppbildet, derfor like høy: max(15.28vw,200px)). */
+    .gt-kontakt{background-color:#123B2E;background-image:linear-gradient(90deg,rgba(11,33,25,.55) 0%,rgba(11,33,25,.15) 45%,rgba(11,33,25,.05) 100%),url(assets/kontakt-bred.jpg);background-size:cover;background-position:center 82%;background-repeat:no-repeat;padding:calc(max(9.72vw,120px) + 96px) 28px calc(max(15.28vw,200px) + 48px)}
+    .gt-kontakt-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 640px;gap:48px;align-items:start}
     .gt-kontakt-tekst{background:rgba(18,59,46,.92);border-radius:22px;padding:40px;max-width:500px}
-    .gt-kontakt-skjema{background:#FBF4EA;color:#241D18;border-radius:22px;padding:clamp(24px,3vw,40px);box-shadow:0 24px 60px rgba(0,0,0,.28);width:460px}
-    @media (max-width:919px){.gt-kontakt-grid{grid-template-columns:minmax(0,1fr);max-width:560px}.gt-kontakt-tekst{max-width:none}.gt-kontakt-skjema{width:auto}}
-    @media (max-width:699px){.gt-kontakt{background-image:linear-gradient(180deg,rgba(11,33,25,0) 0%,rgba(11,33,25,.45) 100%),url(assets/kontakt-bred.jpg);background-position:center 20%;padding-left:16px;padding-right:16px}.gt-kontakt-tekst{padding:28px 24px}}
+    .gt-kontakt-skjema{background:#FBF4EA;color:#241D18;border-radius:22px;padding:clamp(24px,3vw,28px);box-shadow:0 24px 60px rgba(0,0,0,.28);width:640px}
+    .gt-kontakt-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}
+    @media (min-width:1100px){.gt-kontakt-skjema textarea{height:96px}}
+    @media (max-width:1099px){.gt-kontakt-grid{grid-template-columns:minmax(0,1fr);max-width:560px}.gt-kontakt-tekst{max-width:none}.gt-kontakt-skjema{width:auto}}
+    @media (max-width:699px){.gt-kontakt{background-image:linear-gradient(180deg,rgba(11,33,25,0) 0%,rgba(11,33,25,.45) 100%),url(assets/kontakt-mobil.jpg);background-position:center 20%;padding-left:16px;padding-right:16px}.gt-kontakt-tekst{padding:28px 24px}}
   </style>
 </helmet>
 
@@ -639,13 +643,13 @@
 
     <div class="gt-kontakt-skjema">
       <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-        <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:16px">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px">
+        <form onSubmit="{{ submit }}" class="gt-kontakt-form">
+          <div style="display:contents">
             <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#123B2E">Fornavn<input type="text" name="fornavn" placeholder="Ola" required style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)"></label>
             <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#123B2E">Etternavn<input type="text" name="etternavn" placeholder="Nordmann" required style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)"></label>
           </div>
           <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#123B2E">E-postadresse<input type="email" name="epost" placeholder="ola@eksempel.no" required style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)"></label>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px">
+          <div style="display:contents">
             <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#123B2E">Telefon (valgfritt)<input type="tel" name="telefon" placeholder="+47" style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)"></label>
             <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#123B2E">Kirkegård / sted<input type="text" name="kirkegard" placeholder="f.eks. Våler kirkegård" style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)"></label>
           </div>
@@ -659,12 +663,12 @@
               <option>Annet</option>
             </select>
           </label>
-          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#123B2E">Melding<textarea name="melding" rows="5" required placeholder="Skriv meldingen din her …" style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none;resize:vertical" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)"></textarea></label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#123B2E">Melding<textarea name="melding" rows="5" required placeholder="Skriv meldingen din her …" style="width:100%;padding:14px 16px;border:1.5px solid #D6C7AE;border-radius:12px;background:#FFFFFF;font:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:#241D18;outline:none;resize:vertical" style-focus="border-color:#123B2E;box-shadow:0 0 0 3px rgba(18,59,46,0.15)"></textarea></label>
           <label style="display:flex;gap:12px;align-items:flex-start;font-size:var(--fs-min,13.5px);line-height:1.5;color:#4A3F38"><input type="checkbox" required style="margin-top:3px;width:18px;height:18px;accent-color:#123B2E;flex:none"><span>Jeg samtykker til at Grønn Trøst lagrer mine opplysninger for å besvare henvendelsen. Du kan melde deg av når som helst.</span></label>
           <!-- Honningfelt mot roboter: usynlig for folk, roboter fyller det ut og avvises stille -->
           <div style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" aria-hidden="true"><label>Nettside<input type="text" name="nettside" tabindex="-1" autocomplete="off"></label></div>
-          <button type="submit" disabled="{{ sending }}" style="margin-top:6px;background:#8E3B2F;color:#F3E9D8;border:0;padding:18px 24px;border-radius:999px;font-weight:600;font-size:16px;cursor:pointer;transition:background .15s ease" style-hover="background:#6F2C22">{{ sendLabel }}</button>
-          <sc-if value="{{ sendError }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:var(--fs-min,14px);color:#8E3B2F">{{ sendErrorText }} Har det hast, ring oss på <a href="tel:+4795734512" style="color:#8E3B2F;font-weight:600">+47 957 34 512</a>.</p></sc-if>
+          <button type="submit" disabled="{{ sending }}" style="align-self:center;margin-top:6px;background:#8E3B2F;color:#F3E9D8;border:0;padding:18px 24px;border-radius:999px;font-weight:600;font-size:16px;cursor:pointer;transition:background .15s ease" style-hover="background:#6F2C22">{{ sendLabel }}</button>
+          <sc-if value="{{ sendError }}" hint-placeholder-val="{{ false }}"><p style="grid-column:1/-1;margin:0;font-size:var(--fs-min,14px);color:#8E3B2F">{{ sendErrorText }} Har det hast, ring oss på <a href="tel:+4795734512" style="color:#8E3B2F;font-weight:600">+47 957 34 512</a>.</p></sc-if>
         </form>
       </sc-if>
       <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
@@ -680,7 +684,7 @@
 </section>
 
 <footer data-screen-label="Footer" style="position:relative;background:#0B2119;color:#D9CDB8;padding:clamp(40px,5vw,64px) 28px 40px">
-  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t6.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(9.72vw,120px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
+  <sc-if value="{{ showBands }}" hint-placeholder-val="{{ true }}"><img src="patterns/c-t6b.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;left:0;right:0;bottom:100%;width:100%;height:max(15.28vw,200px);margin-bottom:-1px;display:block;pointer-events:none;z-index:2"></sc-if>
   <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between">
     <img src="assets/logo.svg" alt="Grønn Trøst – Blomster som hedrer minnet" loading="lazy" decoding="async" style="height:64px;width:auto;filter:invert(0.92) sepia(0.35) saturate(0.6) brightness(1.05)">
     <nav style="display:flex;flex-wrap:wrap;gap:24px">
