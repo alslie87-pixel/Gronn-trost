@@ -13,6 +13,13 @@ Innholdet i denne mappen er hele nettsiden, klar til å legges rett i roten av G
 Skjemaet sender til /api/send-contact (samme funksjon som før), så det virker uten endringer
 så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 
+Kontaktdelen har bildet assets/kontakt-bred.jpg over hele bredden, med tekstboksen og skjemaet
+oppå. Utseendet står i klassene `.gt-kontakt…` i `<style>` øverst i index.html: to kolonner fra
+920 px, stablet under, og fra 700 px og ned ligger bildet høyere (center 20 %) med loddrett
+gradient. Bølgen øverst er patterns/c-t5b.svg: samme form og blomster som c-t5, men med
+Spørsmål og svar-fargen over bølgen og gjennomsiktig under, og den ligger INNE i kontaktdelen
+så bildet synes rett under. Footeren (c-t6) er uendret. assets/kontakt.jpg brukes ikke lenger.
+
 ## Priser og bestilling
 - Pakker og kassepriser står i `packageDefs` og `KASSE`/`KASSE_HELAAR` i scriptet nederst i
   index.html. Tilleggene (vask av gravstein, friske blomster, gravkrans til jul) selges bare i
