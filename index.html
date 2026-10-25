@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="nb">
 <head>
 <meta charset="utf-8">
 <title>Gravstell i Østfold – Moss, Fredrikstad, Sarpsborg | Grønn Trøst</title>
@@ -304,6 +304,14 @@
     @media (min-width:1100px){.gt-kontakt-skjema textarea{height:96px}}
     @media (max-width:1099px){.gt-kontakt-grid{grid-template-columns:minmax(0,1fr);max-width:560px}.gt-kontakt-tekst{max-width:none}.gt-kontakt-skjema{width:auto}}
     @media (max-width:699px){.gt-kontakt{background-image:linear-gradient(180deg,rgba(11,33,25,0) 0%,rgba(11,33,25,.45) 100%),url(assets/kontakt-mobil.jpg);background-position:center 20%;padding-left:16px;padding-right:16px}.gt-kontakt-tekst{padding:28px 24px}}
+    /* Fast prislinje nederst på mobil i «Våre tilbud» (kalkulatoren i én kolonne), samme uttrykk som totallinjen i
+       kassen. Vises bare mens pakkelisten er på skjermen og «Ditt stell» ikke er det (IntersectionObserver i scriptet). */
+    .gt-prisbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#123B2E;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+    .gt-prisbar-tekst{display:flex;flex-direction:column;min-width:0}
+    .gt-prisbar-navn{font:600 14px Figtree,system-ui,sans-serif;line-height:1.3;color:#F3E9D8}
+    .gt-prisbar-belop{font-family:'Young Serif',serif;font-weight:400;font-size:20px;line-height:1.2;color:#F3E9D8;white-space:nowrap}
+    .gt-prisbar-knapp{flex:none;background:#F3E9D8;color:#123B2E;border-radius:8px;padding:12px 18px;font:700 15px Figtree,system-ui,sans-serif;white-space:nowrap}
+    .gt-prisbar-knapp:hover{background:#FBF4EA;color:#123B2E}
   </style>
 </helmet>
 
@@ -467,7 +475,7 @@
       <div aria-hidden="true"></div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,4vw,72px);align-items:start">
-      <div style="display:flex;flex-direction:column;gap:44px">
+      <div id="pakkeliste" style="display:flex;flex-direction:column;gap:44px;padding-bottom:{{ listeLuft }}">
         <div>
           <div style="display:flex;flex-direction:column;gap:12px">
             <sc-for list="{{ packages }}" as="p" hint-placeholder-count="3">
@@ -490,7 +498,7 @@
         </div>
       </div>
 
-      <aside style="background:#FBF4EA;color:#241D18;border-radius:28px;padding:clamp(24px,3vw,40px);position:sticky;top:97px;align-self:start;box-shadow:0 24px 60px rgba(60,20,10,0.3)">
+      <aside id="ditt-stell" style="background:#FBF4EA;color:#241D18;border-radius:28px;padding:clamp(24px,3vw,40px);position:sticky;top:97px;align-self:start;box-shadow:0 24px 60px rgba(60,20,10,0.3)">
         <sc-if value="{{ isHelaar }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-14px;right:28px;background:#123B2E;color:#F3E9D8;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:8px 14px;border-radius:999px">Mest valgt</span></sc-if>
         <p style="margin:0 0 8px;color:#8E3B2F;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600">Ditt stell</p>
         <h3 style="margin:0 0 12px;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(30px,2.6vw,40px);line-height:1.05;color:#123B2E">{{ planName }}</h3>
@@ -510,6 +518,12 @@
         <a href="{{ bestillPakkeUrl }}" style="margin-top:24px;display:flex;align-items:center;justify-content:center;background:#123B2E;color:#F3E9D8;padding:17px 24px;border-radius:999px;font-weight:600;font-size:16px;transition:background .15s ease" style-hover="background:#1B4D3C;color:#F3E9D8">{{ ctaLabel }}</a>
         <p style="margin:12px 0 0;font-size:var(--fs-min,13px);line-height:1.5;color:#6B5E54;text-align:center;text-wrap:pretty">Vask av gravstein, friske blomster og gravkrans til jul kan du legge til i neste steg.</p>
       </aside>
+      <sc-if value="{{ visPrisbar }}" hint-placeholder-val="{{ false }}">
+        <div class="gt-prisbar" role="region" aria-label="Valgt stell">
+          <div class="gt-prisbar-tekst"><span class="gt-prisbar-navn">{{ prisbarNavn }}</span><strong class="gt-prisbar-belop">{{ prisbarBelop }}</strong></div>
+          <a class="gt-prisbar-knapp" href="{{ bestillPakkeUrl }}">Bestill</a>
+        </div>
+      </sc-if>
     </div>
 
     <div style="margin-top:clamp(48px,6vw,88px);background:#FBF4EA;color:#241D18;border-radius:28px;overflow:hidden;padding:clamp(18px,2.4vw,36px);display:flex;flex-direction:column;gap:clamp(28px,3.5vw,48px)">
@@ -703,7 +717,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;flowerBands&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Dekor&quot;},&quot;startPlan&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;helår&quot;,&quot;options&quot;:[&quot;tom&quot;,&quot;helår&quot;],&quot;tsType&quot;:&quot;'tom' | 'helår'&quot;,&quot;section&quot;:&quot;Priskalkulator&quot;}}">
 class Component extends DCLogic {
-  state = { pkg: '', service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroTablet: false, heroIndent: '0px', scrolled: false };
+  state = { pkg: '', service: '', menuOpen: false, narrow: false, sent: false, sending: false, sendError: false, split: 50, heroTwoCol: true, heroTablet: false, heroIndent: '0px', scrolled: false, enKolonne: false, listeSynlig: false, boksSynlig: false };
   componentDidMount() {
     this._onResize = () => {
       const cw = document.documentElement.clientWidth;
@@ -718,8 +732,33 @@ class Component extends DCLogic {
     this._onScroll();
     window.addEventListener('scroll', this._onScroll, { passive: true });
     if ((this.props.startPlan ?? 'tom') === 'helår') this.setState({ pkg: 'helaar' });
+    // Fast prislinje på mobil. Én kolonne = «Ditt stell» ligger under pakkelisten (ikke ved siden av). IntersectionObserver
+    // følger med på om pakkelisten og «Ditt stell» er på skjermen; linjen vises bare når lista er det og boksen ikke er det.
+    this._kolonner = () => {
+      const liste = document.getElementById('pakkeliste'), boks = document.getElementById('ditt-stell');
+      if (!liste || !boks) return;
+      const enKolonne = boks.getBoundingClientRect().left < liste.getBoundingClientRect().right;
+      if (enKolonne !== this.state.enKolonne) this.setState({ enKolonne });
+    };
+    this._startPrisbar = (forsok) => {
+      const liste = document.getElementById('pakkeliste'), boks = document.getElementById('ditt-stell');
+      if (!liste || !boks) { if (forsok > 0) this._prisbarTimer = setTimeout(() => this._startPrisbar(forsok - 1), 100); return; }
+      this._kolonner();
+      if (!('IntersectionObserver' in window)) return;
+      this._io = new IntersectionObserver((entries) => {
+        const endring = {};
+        for (const e of entries) { if (e.target === liste) endring.listeSynlig = e.isIntersecting; else if (e.target === boks) endring.boksSynlig = e.isIntersecting; }
+        this.setState(endring);
+      });
+      this._io.observe(liste); this._io.observe(boks);
+    };
+    this._startPrisbar(50);
+    window.addEventListener('resize', this._kolonner);
   }
-  componentWillUnmount() { window.removeEventListener('resize', this._onResize); window.removeEventListener('scroll', this._onScroll); }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize); window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._kolonner); clearTimeout(this._prisbarTimer); if (this._io) this._io.disconnect();
+  }
   renderVals() {
     const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0');
     const andList = a => a.length > 1 ? a.slice(0, -1).join(', ') + ' og ' + a[a.length - 1] : a.join('');
@@ -819,6 +858,10 @@ class Component extends DCLogic {
       total: fmt(total), totalRule: hasLines ? '1px solid #123B2E' : '0', totalPad: hasLines ? '12px' : '0px', totalLabel: isRecurring ? 'Første år totalt' : 'Totalt for besøket',
       recurringNote: 'Deretter ' + fmt(pkg.price) + ' kr per år. Fornyes årlig – avslutt når som helst.',
       bestillPakkeUrl,
+      // Fast prislinje (mobil): samme beregning og lenke som «Ditt stell». Luft under lista så linjen aldri dekker siste kort.
+      visPrisbar: S.enKolonne && S.listeSynlig && !S.boksSynlig,
+      prisbarNavn: pkg.name + (isRecurring ? ' · Første år' : ''), prisbarBelop: fmt(total) + ' kr',
+      listeLuft: S.enKolonne ? 'calc(76px + env(safe-area-inset-bottom, 0px))' : '0px',
       service: S.service, setService: e => this.setState({ service: e.target.value }),
       sent: S.sent, notSent: !S.sent, sending: S.sending, sendError: S.sendError, sendLabel: S.sending ? 'Sender…' : 'Send melding',
       sendErrorText: S.sendErrorText || 'Noe gikk galt ved sending. Prøv igjen.',
