@@ -9,6 +9,17 @@ Innholdet i denne mappen er hele nettsiden, klar til å legges rett i roten av G
 3. Skriv en commit-melding, f.eks. «Ny design», og trykk «Commit changes».
 4. Vercel bygger og publiserer automatisk på gronntrost.no.
 
+## Toppbildet
+- Høyden står i klassen `.gt-hero` i `<style>` øverst i index.html: skjermhøyden (svh, med vh
+  som reserve for eldre nettlesere) minus menyen. Under 700 px går seksjonen 60 px lenger ned, så
+  blomsterbåndet ligger ca. 66 px over bunnen av skjermen og neste seksjon så vidt synes.
+- Resten står som `hero…`-verdier i scriptet nederst: tre oppsett, PC fra 920 px (bildet til
+  høyre), nettbrett 700–919 px og mobil under 700 px (`heroMobil`). På mobil dekker bildet hele
+  seksjonen med en lettere toning i midten (`heroStackGrad`), og luften mellom tekstene er
+  32 / 28 / 24 / 40 px.
+- Bølgen under (c-t1) har en mørk toning øverst og ligger over toppbildet. På mobil står
+  knappene inne i den, så tekstkolonnen ligger over bølgen der (`heroColZ`).
+
 ## Kontaktskjemaet
 Skjemaet sender til /api/send-contact (samme funksjon som før), så det virker uten endringer
 så lenge RESEND_API_KEY fortsatt ligger i Vercel.
