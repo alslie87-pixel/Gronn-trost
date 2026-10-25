@@ -14,8 +14,10 @@ Skjemaet sender til /api/send-contact (samme funksjon som før), så det virker 
 så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 
 ## Priser og bestilling
-- Pakker, tillegg og kassepriser står i `packageDefs`, `addonDefs` og `KASSE`/`KASSE_HELAAR`
-  i scriptet nederst i index.html. Kjøpsvilkårene ligger i vilkaar.html.
+- Pakker og kassepriser står i `packageDefs` og `KASSE`/`KASSE_HELAAR` i scriptet nederst i
+  index.html. Tilleggene (vask av gravstein, friske blomster, gravkrans til jul) selges bare i
+  kassen på bestillingssiden, ikke på nettsiden (beslutning oktober 2026). Kjøpsvilkårene
+  ligger i vilkaar.html.
 - Kontaktskjemaet er for meldinger, ikke bestilling: «Emne» har faste valg (spørsmål om
   gravstell, familiegrav/befaring, bestilling/avtale, tilbakemelding, annet) og meldingen er
   påkrevd. E-posten til post@gronntrost.no har emnet i tittelen, og «Svar» går rett til
@@ -24,8 +26,7 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
   så en prisendring må gjøres i Innstillinger i CRM-et OG på nettsiden: listene over, teksten i
   «Spørsmål og svar» og JSON-LD-en i `<head>` (se Søk og deling under).
 - Selvvanningskassen (1 250 kr, 899 kr med helårsavtale) vises i «Ditt stell» bare for årsavtalene
-  (ikke for enkeltstell eller klargjøring alene). «Jeg har selvvanningskasse fra før» krysses
-  av på bestillingssiden.
+  (ikke for enkeltstell). «Jeg har selvvanningskasse fra før» krysses av på bestillingssiden.
 - «Bestill dette stellet» lenker til `BESTILL_URL` øverst i support.js, med valgt pakke i
   `?pakke=`, så kunden lander rett i kassen uten bestillingssidens pakkevalg. Bestillingssiden
   har eget domene (2026-10-25): https://bestill.gronntrost.no — samme adresse står i
@@ -34,20 +35,21 @@ så lenge RESEND_API_KEY fortsatt ligger i Vercel.
 - «Bestill gravstell» i menyen og på forsiden har ingen pakke ennå, og går derfor til pakkevalget
   under Våre tilbud (#produkter). Kontaktskjemaet brukes bare til familiegrav («Ta kontakt») og
   vanlige meldinger.
-- Kalkulatoren: enkeltstell er valgt fra start. Kunden velger én av de tre årsavtalene, eller
-  uten avtale: Enkeltstell eller Klargjøring av bed. Klargjøring selges bare som egen tjeneste,
-  ikke som tillegg til en årsavtale eller et enkeltstell. Vask av gravstein og friske blomster
-  legges til det som er valgt.
-- Gravkrans til jul (529 kr, bilde assets/gravkrans.jpg) tilbys med vår og sommer og vår,
-  sommer og høst hele året, og med enkeltstell eller klargjøring om høsten og vinteren
-  (september–februar). Helårsavtalen har krans inkludert og får ikke tilbudet. Regelen står i
-  `when` i `addonDefs` og må stemme med cart_rules i CRM-databasen (migrasjon 017 i
-  gronn-trost-crm) – ellers forsvinner kransen når kunden kommer til kassen.
+- Kalkulatoren: helårsavtalen er valgt fra start (innstillingen `startPlan` = 'helår' i
+  `data-props` på scriptet; 'tom' gir enkeltstell). Kunden velger én av de tre årsavtalene,
+  eller enkeltstell uten avtale. Klargjøring av bed og vask av gravstein selges ikke lenger
+  alene (oktober 2026); vask er bare et tillegg i kassen. Under «Bestill dette stellet» står
+  linjen om at vask, friske blomster og gravkrans til jul kan legges til i neste steg.
+- Gravkrans til jul (529 kr) tilbys i kassen med vår og sommer og vår, sommer og høst hele
+  året, og med enkeltstell om høsten og vinteren (september–februar). Helårsavtalen har krans
+  inkludert og får ikke tilbudet. Reglene står i cart_rules i CRM-databasen (migrasjon 017 og
+  019 i gronn-trost-crm). Bildene av tilleggene (assets/vasking.jpg, assets/baerekraft.jpg,
+  assets/gravkrans.jpg) brukes også i kassen – kopiene ligger i gronn-trost-crm/assets/produkter/.
 - Enkeltstell er «til ønsket dato»: på bestillingssiden kan kunden velge dagen graven skal være
   klar til (merkedag, bursdag, høytid).
 - «Bestill dette stellet» i kalkulatoren sender valgt pakke videre som `?pakke=` med koden
-  vs, vsh, helaar, enkeltstell eller klargjoring. Julekrans og annet mersalg («Ønsker du
-  også?») ligger på bestillingssiden.
+  vs, vsh, helaar eller enkeltstell. Tilleggene («Vil du legge til noe?») ligger på
+  bestillingssiden.
 
 ## Søk og deling (SEO)
 - Tittel, beskrivelse, canonical-adresse og Open Graph (bildet ved deling på Facebook o.l.)
@@ -83,6 +85,8 @@ Bytt filene med samme navn og format for å oppdatere dem.
 
 ## Gamle bilder
 Ubrukte filer (kontakt.jpg og gronntrost_footer.svg i roten, assets/utvidet.jpg) er slettet.
+assets/klargjoring.jpg brukes ikke lenger etter at klargjøring av bed gikk ut av kalkulatoren
+(oktober 2026), men ligger der fortsatt.
 Bildene i assets/ er komprimert for nettbruk (oktober 2026). Originalene i full oppløsning
 ligger utenfor repoet i C:\Users\Alsli\Projects\Gronn-trost-bilder-original\. De to største
 bildene i fotobåndet er skalert ned til 640 px; originalene ligger i
